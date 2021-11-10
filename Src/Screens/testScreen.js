@@ -14,7 +14,7 @@ const screen = () => {
   return (
     <View>
       <ActiveButton active={true} />
-      <Button />
+      <Button text={"Press me"}/>
     </View>
   );
 };
