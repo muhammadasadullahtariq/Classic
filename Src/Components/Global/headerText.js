@@ -16,7 +16,7 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {},
   componentContainer: {
-    fontFamily: 'Riche',
+    //fontFamily: 'Riche',
     fontSize: 30,
     color: 'black',
     padding: 5,

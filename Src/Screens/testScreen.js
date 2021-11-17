@@ -7,14 +7,29 @@ import ActiveButton from '../Components/Global/activeButton';
 import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
 import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlertComponent';
+import InputComponent from '../Components/Global/inputComponentWithIcon';
 
 const screen = () => {
   useEffect(() => {}, []);
 
   return (
-    <View>
-      <ActiveButton active={true} />
-      <Button text={"Press me"}/>
+    <View
+      style={{backgroundColor: '#cfcfcf', flex: 1, justifyContent: 'center'}}>
+      <View
+        style={{
+          width: 150,
+          height: 200,
+          backgroundColor: 'white',
+          borderRadius: 10,
+          alignSelf: 'center',
+          shadowOffset: {
+            width: 89,
+            height: 89,
+          },
+          shadowOpacity: 0.25,
+          shadowColor: 'black',
+          elevation: 10,
+        }}></View>
     </View>
   );
 };

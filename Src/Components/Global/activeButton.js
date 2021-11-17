@@ -18,7 +18,7 @@ const screen = props => {
         ]}>
         <Text
           text={props.text}
-          componentStyle={{color: 'white', alignSelf: 'center'}}
+          componentStyle={{color: 'white', alignSelf: 'center', fontSize: 22}}
         />
       </View>
     </TouchableOpacity>
@@ -28,7 +28,7 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {width: '100%'},
   componentContainer: {
-    width: '80%',
+    width: '50%',
     height: 50,
     backgroundColor: '#1692ff',
     borderRadius: 30,

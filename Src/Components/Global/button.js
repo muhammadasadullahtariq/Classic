@@ -7,15 +7,10 @@ const screen = props => {
 
   return (
     <TouchableOpacity
-      activeOpacity={ 0.7 }
+      activeOpacity={0.7}
       style={[styles.mainContainer, props.viewStyle]}
       onPress={props.Onpress}>
-      <View
-        style={[
-          styles.componentContainer,
-          props.componentStyle,
-          
-        ]}>
+      <View style={[styles.componentContainer, props.componentStyle]}>
         <Text
           text={props.text}
           componentStyle={{color: 'white', alignSelf: 'center'}}
@@ -28,7 +23,7 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {width: '100%'},
   componentContainer: {
-    width: '80%',
+    width: '60%',
     height: 50,
     backgroundColor: '#1692ff',
     borderRadius: 30,
