@@ -3,7 +3,7 @@ import {View, StyleSheet, TextInput, Keyboard, Platform} from 'react-native';
 
 export const component = props => {
   return (
-    <View style={[style.mainView, props.viewSstyle, style.shadow]}>
+    <View style={[style.mainView, props.viewStyle, style.shadow]}>
       <TextInput
         autoCorrect={false}
         placeholder={props.placeHolder}

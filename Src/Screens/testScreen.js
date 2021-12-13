@@ -8,6 +8,7 @@ import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
 import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlertComponent';
 import InputComponent from '../Components/Global/inputComponentWithIcon';
+import Rating from '../Components/Rating/userRating';
 
 const screen = () => {
   useEffect(() => {}, []);
@@ -15,7 +16,8 @@ const screen = () => {
   return (
     <View
       style={{backgroundColor: '#cfcfcf', flex: 1, justifyContent: 'center'}}>
-      <View
+      {/* Shadow view Container
+       <View
         style={{
           width: 150,
           height: 200,
@@ -29,7 +31,8 @@ const screen = () => {
           shadowOpacity: 0.25,
           shadowColor: 'black',
           elevation: 10,
-        }}></View>
+        }}></View> */}
+      <Rating />
     </View>
   );
 };

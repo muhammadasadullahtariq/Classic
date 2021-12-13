@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TestScreen from '../Screens/testScreen';
 import UserLogin from '../Screens/Login';
-import ItemList from '../Screens/itemsList';
+import DashBoard from '../Screens/dashBord';
 import DetailScreen from '../Screens/detailscreen';
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +32,7 @@ function Navigation() {
         {/* TEST SCREEN TO TEST THE COMPONENTS */}
         <Stack.Screen name="Test" component={TestScreen} />
         <Stack.Screen name="Login" component={UserLogin} />
-        <Stack.Screen name="ItemList" component={ItemList} />
+        <Stack.Screen name="DashBoard" component={DashBoard} />
         <Stack.Screen name="DetailScreen" component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
