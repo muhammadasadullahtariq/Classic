@@ -29,7 +29,6 @@ const style = StyleSheet.create({
   },
   textCointaner: {
     width: '100%',
-    borderWidth: 3,
     //borderLeftColor: 'white',
     borderColor: '#1692ff',
     padding: 5,
@@ -40,7 +39,7 @@ const style = StyleSheet.create({
       android: {},
     }),
     color: '#092058',
-    borderRadius: 30,
+    borderRadius: 11,
     backgroundColor: '#ffffff',
     height: '100%',
     fontSize: 15,

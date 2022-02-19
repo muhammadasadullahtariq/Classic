@@ -1,0 +1,1 @@
+export default primary = '#FF007F';

@@ -9,6 +9,7 @@ import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlertComponent';
 import InputComponent from '../Components/Global/inputComponentWithIcon';
 import Rating from '../Components/Rating/userRating';
+import TitleName from '../Components/DashBoard/titleName';
 
 const screen = () => {
   useEffect(() => {}, []);
@@ -16,29 +17,9 @@ const screen = () => {
   return (
     <View
       style={{backgroundColor: '#cfcfcf', flex: 1, justifyContent: 'center'}}>
-      {/* Shadow view Container
-       <View
-        style={{
-          width: 150,
-          height: 200,
-          backgroundColor: 'white',
-          borderRadius: 10,
-          alignSelf: 'center',
-          shadowOffset: {
-            width: 89,
-            height: 89,
-          },
-          shadowOpacity: 0.25,
-          shadowColor: 'black',
-          elevation: 10,
-        }}></View> */}
-      <Rating />
+      <TitleName name={'Hellow World'} />
     </View>
   );
 };
-
-// const styles = StyleSheet({
-//   mainContainer: {},
-// });
 
 export default screen;

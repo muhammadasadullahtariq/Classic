@@ -1,17 +1,22 @@
 export default [
   {
-    name: 'Add to cart',
-    icon: 'cart',
-    id: '0',
-  },
-  {
-    name: 'Location',
-    icon: 'location-sharp',
+    name: 'Share',
+    icon: 'share-social',
     id: '1',
   },
   {
-    name: 'Book Trip',
-    icon: 'car',
+    name: 'Review',
+    icon: 'reader-outline',
     id: '2',
+  },
+  {
+    name: 'Add to favourite',
+    icon: 'heart',
+    id: '2',
+  },
+  {
+    name: 'Add to cart',
+    icon: 'cart',
+    id: '0',
   },
 ];

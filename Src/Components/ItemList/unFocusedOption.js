@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Text from '../Global/normalText';
 import Icon from 'react-native-vector-icons/Ionicons';
+import primary from '../Global/Colors';
 //import arr from '../../Asserts/Strings/detailScreenOptions';
 
 const screen = props => {
@@ -13,7 +14,7 @@ const screen = props => {
       onPress={() => console.log('i pressed')}>
       <View style={styles.mainContainer}>
         <View style={styles.childViewContainer}>
-          <Icon name={props.iconName} color={'#F7941F'} size={30} />
+          <Icon name={props.iconName} color={primary} size={30} />
         </View>
       </View>
     </TouchableOpacity>

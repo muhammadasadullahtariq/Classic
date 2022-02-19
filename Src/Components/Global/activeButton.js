@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import Text from './headerText';
+import Text from './normalText';
+import primary from './Colors';
 
 const screen = props => {
   useEffect(() => {}, []);
@@ -18,7 +19,7 @@ const screen = props => {
         ]}>
         <Text
           text={props.text}
-          componentStyle={{color: 'white', alignSelf: 'center', fontSize: 22}}
+          style={{color: 'white', alignSelf: 'center', fontSize: 22}}
         />
       </View>
     </TouchableOpacity>
@@ -30,9 +31,10 @@ const styles = StyleSheet.create({
   componentContainer: {
     width: '50%',
     height: 50,
-    backgroundColor: '#1692ff',
+    backgroundColor: primary,
     borderRadius: 30,
     alignSelf: 'center',
+    justifyContent: 'center',
   },
 });
 

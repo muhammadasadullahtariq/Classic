@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 import logo from '../Asserts/Images/logo.png';
 import dhol from '../Asserts/Images/dhol.png';
 import YouTube from 'react-native-youtube';
@@ -15,24 +15,37 @@ import Text from '../Components/Global/normalText';
 import Options from '../Components/ItemList/unFocusedOption';
 import optionsArr from '../Asserts/Strings/detailScreenOptions';
 import HeadingText from '../Components/Global/headerText';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Feather';
 import FlatListItem from '../Components/DetailScreen/flatListItem';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import primary from '../Components/Global/Colors';
+import FantText from '../Components/DetailScreen/deatailFant';
+import SizeView from '../Components/DetailScreen/sizeView';
+import Button from '../Components/Global/button';
 
-const screen = props => {
+const PrimaryColor = primary;
+const white = 'white';
+
+const screen = ({route, navigation}) => {
   const c = useRef();
   const o = useRef();
+  const {item} = route.params;
   const [favourtFlag, setFavourtFlag] = useState(false);
   const [playing, setPlaying] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [colors, setColors] = useState(['black', 'red']);
   const [windowWidth, setWindowWidth] = useState(
     Dimensions.get('window').width,
   );
   const [windowHeight, setWindowHeight] = useState(
     Dimensions.get('window').height,
   );
-  const [imageArr, setImageArr] = useState([logo, dhol]);
+  const [count, setCount] = useState(0);
+  const [imageArr, setImageArr] = useState([logo, dhol, dhol]);
   const [focusedItemIndex, setFocusedItemIndex] = useState(1);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(item);
+  }, []);
 
   function renderData(item) {
     return (
@@ -42,14 +55,41 @@ const screen = props => {
     );
   }
 
+  // function pagination() {
+  //   return (
+  //     <View style={{marginTop: -50}}>
+  //       <Pagination
+  //         dotsLength={imageArr.length}
+  //         activeDotIndex={activeIndex}
+  //         containerStyle={{
+  //           backgroundColor: '#00000000',
+  //         }}
+  //         dotStyle={{
+  //           width: 10,
+  //           height: 10,
+  //           borderRadius: 5,
+  //           marginHorizontal: 8,
+  //           backgroundColor: primary,
+  //         }}
+  //         inactiveDotStyle={{
+  //           backgroundColor: 'black',
+  //         }}
+  //         inactiveDotOpacity={0.4}
+  //         inactiveDotScale={0.6}
+  //       />
+  //     </View>
+  //   );
+  // }
+
   function optionFunction(items) {
     return <Options name={items.item.name} iconName={items.item.icon} />;
   }
 
   return (
     <View style={styles.mainContainer}>
-      <ScrollView>
-        <Carousel
+      <ScrollView contentContainerStyle={{flex: 1}}>
+        <Image source={item.image} style={styles.carouselContainer} />
+        {/* <Carousel
           ref={c}
           data={imageArr}
           renderItem={renderData}
@@ -59,57 +99,93 @@ const screen = props => {
           scrollEnabled={true}
           //layout={"tinder"}
           //autoplay={true}
-        />
+          onSnapToItem={index => setActiveIndex(index)}
+        /> */}
+        {/* {pagination()} */}
 
         <View style={styles.headerViewContainer}>
-          {/*Putt the name of selected item here  */}
           <HeadingText
-            text="Name"
-            componentStyle={{marginTop: 0, marginBottom: 0, paddingTop: 0}}
+            text={item.name}
+            style={{
+              marginTop: 10,
+              marginBottom: 0,
+              paddingTop: 0,
+              paddingLeft: 10,
+              fontSize: 30,
+            }}
+            viewStyle={{alignSelf: 'center'}}
           />
-          <View style={{flex: 1}} />
-          <TouchableOpacity
-            onPress={() => setFavourtFlag(!favourtFlag)}
-            activeOpacity={0.7}>
-            {favourtFlag && (
-              <View style={styles.iconContainer}>
-                <Icon name="heart" size={30} />
-              </View>
-            )}
-            {!favourtFlag && (
-              <View style={styles.iconContainer}>
-                <Icon name="heart-outline" size={30} />
-              </View>
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => console.log('i love you asad')}>
-            <View style={styles.iconContainer}>
-              <Icon name="share-social" size={30} />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={{width: '100%'}}>
           <Text
-            componentStyle={styles.textContainer}
-            text={
-              'Wikipedia is a free content, multilingual online encyclopedia written and maintained by a community of volunteers through a model of open collaboration, using a wiki-based editing system. Individual contributors, also called editors, are known as Wikipedians. Wikipedia'
-            }
+            text={item.about}
+            viewStyle={{alignSelf: 'center'}}
+            style={{opacity: 0.6}}
           />
         </View>
-        <FlatListItem />
-        <FlatListItem />
-        <View style={{height: 20}} />
-        <YoutubePlayer
-          height={300}
-          play={playing}
-          videoId={'KVZ-P-ZI6W4'}
-          //onChangeState={onStateChange}
-        />
-        <View style={{height: 30, width: 100}} />
+        <View style={styles.countViewContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginBottom: 10,
+            }}>
+            <Text
+              text={'$'}
+              style={{opacity: 0.6, color: primary, fontSize: 15}}
+              viewStyle={{alignSelf: 'center', marginTop: 5, paddingRight: 0}}
+            />
+            <Text
+              text={count == 0 ? item.price : item.price * count}
+              viewStyle={{paddingBottom: 10, marginBottom: 10}}
+              style={{
+                paddingLeft: 0,
+                opacity: count == 0 ? 0.5 : 1,
+                fontSize: 30,
+              }}
+              viewStyle={{alignSelf: 'center'}}
+            />
+          </View>
+          <View style={{flexDirection: 'row',alignItems:"center"}}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              disabled={count == 0 ? true : false}
+              onPress={() => setCount(count - 1)}>
+              <View
+                style={[
+                  styles.plusMinusButtonContainer,
+                  {backgroundColor: count == 0 ? '#dbdbdb' : '#afafaf'},
+                ]}>
+                <Icon name="minus" color={white} size={30} />
+              </View>
+            </TouchableOpacity>
+            <Text
+              text={count}
+              style={{
+                fontSize: 35,
+                paddingHorizontal: 10,
+                color: {primary},
+                opacity: count == 0 ? 0.1 : 1,
+              }}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setCount(count + 1)}>
+              <View style={styles.plusMinusButtonContainer}>
+                <Icon name="plus" color={white} size={30} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{width: '100%', backgroundColor: 'white'}}>
+          <Text style={styles.textContainer} text={item.detail} />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            width: '100%',
+          }}></View>
+        <Button text={'Add to cart'} style={{marginBottom: '7%'}} />
       </ScrollView>
-      <View
+      {/* <View
         style={{
           backgroundColor: '#00000000',
           width: '100%',
@@ -130,7 +206,7 @@ const screen = props => {
             renderItem={optionFunction}
             sliderWidth={windowWidth}
             itemWidth={100}
-            firstItem={1}
+            firstItem={2}
             scrollEnabled={true}
             onSnapToItem={index => setFocusedItemIndex(index)}
             containerCustomStyle={{backgroundColor: '#00000000'}}
@@ -143,48 +219,42 @@ const screen = props => {
             componentStyle={styles.bottomTextContainer}
           />
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1, backgroundColor: '#F4F4F4'},
+  mainContainer: {
+    flex: 1,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: 'white',
+  },
   carouselShadowContainer: {
     width: '100%',
     height: 300,
-    backgroundColor: 'white',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    backgroundColor: 'blue',
+
     alignSelf: 'center',
-    shadowOffset: {
-      width: 89,
-      height: 89,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    shadowColor: 'black',
-    elevation: 8,
-    marginBottom: 10,
   },
   carouselContainer: {
     width: '100%',
     alignSelf: 'center',
-    height: '100%',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    backgroundColor: 'red',
+    height: 300,
+    backgroundColor: primary,
   },
   textContainer: {
     fontSize: 18,
     width: '100%',
-    paddingTop: 0,
+    paddingTop: 10,
     opacity: 0.5,
+    paddingHorizontal: 10,
   },
   bottomViewContainer: {
     height: 66,
     width: '100%',
-    backgroundColor: '#F7941F',
+    backgroundColor: primary,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -196,10 +266,29 @@ const styles = StyleSheet.create({
     marginLeft: -40,
   },
   headerViewContainer: {
-    flexDirection: 'row',
     width: '100%',
+    marginTop: -30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: 'white',
   },
-  iconContainer: {alignSelf: 'center', marginTop: 5, marginRight: 10},
+  iconContainer: {alignSelf: 'center', marginTop: 10, marginRight: 10},
+  countViewContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 50,
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    //backgroundColor: 'red',
+  },
+  plusMinusButtonContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: PrimaryColor,
+  },
 });
 
 export default screen;

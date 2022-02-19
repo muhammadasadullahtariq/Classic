@@ -10,12 +10,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HeadingText from '../Global/headerText';
 import image from '../../Asserts/Images/logo.png';
 import NormalText from '../Global/normalText';
+import {useNavigation} from '@react-navigation/native';
+import primary from '../Global/Colors';
 
 const screen = props => {
   const [cartFlag, setCartFlag] = useState(false);
   const [favourtFlag, setFavourtFlag] = useState(false);
+  const navgation = useNavigation();
 
-  
   useEffect(() => {
     console.log(props.item);
   }, []);
@@ -25,15 +27,18 @@ const screen = props => {
       <TouchableOpacity
         activeOpacity={0.7}
         style={{width: '100%', height: '65%'}}
-        onPress={() => console.log('Move to other screen')}>
-        <Image source={props.item.source} style={styles.imageContainer} />
+        onPress={() => {
+          navgation.navigate('DetailScreen', {item: props.item});
+        }}>
+        <Image source={props.item.image} style={styles.imageContainer} />
       </TouchableOpacity>
-      <View style={styles.childViewContainer}>
-        <HeadingText text={'Name :'} componentStyle={styles.headingContainer} />
-        <NormalText
-          text={props.item.name}
-          componentStyle={styles.normalTextContainer}
-        />
+      {/* <View style={styles.childViewContainer}> */}
+      <HeadingText
+        text={props.item.name}
+        style={styles.headingContainer}
+        viewStyle={{alignSelf: 'center'}}
+      />
+      {/* <NormalText text={props.item.name} style={styles.normalTextContainer} />
         <View style={{flex: 1}} />
         <TouchableOpacity
           onPress={() => setFavourtFlag(!favourtFlag)}
@@ -48,19 +53,17 @@ const screen = props => {
               <Icon name="heart-outline" size={25} />
             </View>
           )}
-        </TouchableOpacity>
-      </View>
-      <View style={styles.childViewContainer}>
-        <HeadingText
-          text={'Price  :'}
-          componentStyle={styles.headingContainer}
-        />
-        <NormalText
-          text={props.item.price}
-          componentStyle={styles.normalTextContainer}
-        />
-        <View style={{flex: 1}} />
-        <TouchableOpacity
+        </TouchableOpacity> */}
+      {/* </View> */}
+      {/* <View style={styles.childViewContainer}> */}
+      {/* <HeadingText text={props.item.price} style={styles.headingContainer} /> */}
+      <NormalText
+        text={props.item.about}
+        style={styles.normalTextContainer}
+        viewStyle={{alignSelf: 'center'}}
+      />
+      {/* <View style={{flex: 1}} /> */}
+      {/* <TouchableOpacity
           onPress={() => setCartFlag(!cartFlag)}
           activeOpacity={0.7}>
           {cartFlag && (
@@ -73,7 +76,19 @@ const screen = props => {
               <Icon name="ios-cart-outline" size={25} />
             </View>
           )}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+      {/* </View> */}
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <NormalText
+          text={'$'}
+          style={{opacity: 0.6, color: primary, fontSize: 15}}
+          viewStyle={{alignSelf: 'center', marginTop: 5, paddingRight: 0}}
+        />
+        <HeadingText
+          text={props.item.price}
+          style={{marginTop: 5, paddingLeft: 0}}
+          viewStyle={{alignSelf: 'center'}}
+        />
       </View>
     </View>
   );
@@ -83,7 +98,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     height: 220,
     width: 180,
-    borderRadius: 15,
+    borderRadius: 30,
     overflow: 'hidden',
     backgroundColor: 'white',
     alignSelf: 'center',
@@ -95,7 +110,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     elevation: 9,
     marginBottom: 15,
-    marginHorizontal: 10,
+    marginHorizontal: 0,
   },
   imageContainer: {
     height: '100%',
@@ -116,6 +131,7 @@ const styles = StyleSheet.create({
   },
   childViewContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   iconContainer: {alignSelf: 'center', marginTop: 5, marginRight: 10},
 });

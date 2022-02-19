@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import InputComponent from './inputComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
+import primary from './Colors';
 
 const screen = props => {
   return (
     <View style={[styles.mainContainer, props.mainContainer]}>
       <View style={styles.seacrIconViewContainer}>
-        <Icon name={props.iconName} color="#1692ff" size={30} />
+        <Icon name={props.iconName} color={primary} size={30} />
       </View>
       <InputComponent
         style={[{width: '70%'}, props.style]}
@@ -39,11 +40,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     backgroundColor: 'white',
-    borderTopLeftRadius: 30,
-    borderBottomLeftRadius: 30,
+    borderTopLeftRadius: 11,
+    borderBottomLeftRadius: 11,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
+    //borderWidth: 3,
     borderRightWidth: 0,
     borderRightColor: 'white',
     borderColor: '#1692ff',

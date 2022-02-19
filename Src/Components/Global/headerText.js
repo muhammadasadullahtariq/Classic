@@ -6,9 +6,7 @@ const screen = props => {
 
   return (
     <View style={[props.viewStyle, styles.mainContainer]}>
-      <Text style={[styles.componentContainer, props.componentStyle]}>
-        {props.text}
-      </Text>
+      <Text style={[styles.componentContainer, props.style]}>{props.text}</Text>
     </View>
   );
 };
@@ -17,10 +15,10 @@ const styles = StyleSheet.create({
   mainContainer: {},
   componentContainer: {
     //fontFamily: 'Riche',
-    fontSize: 30,
+    fontSize: 20,
     color: 'black',
     padding: 5,
-    marginVertical: 5,
+    // marginVertical: 5,
     fontWeight: 'bold',
   },
 });
