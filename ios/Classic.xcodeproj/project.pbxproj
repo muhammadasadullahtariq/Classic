@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ClassicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ClassicTests.m */; };
-		048EC77A273C28C00051D4ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 048EC779273C28C00051D4ED /* GoogleService-Info.plist */; };
+		043B4F3D27F22D9D00A6A352 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 043B4F3C27F22D9D00A6A352 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -33,7 +33,8 @@
 		00E356EE1AD99517003FC87E /* ClassicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ClassicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassicTests.m; sourceTree = "<group>"; };
-		048EC779273C28C00051D4ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		043B4F3A27F2253200A6A352 /* FBSDKCoreKit_Basics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit_Basics.xcframework; path = Pods/FBSDKCoreKit_Basics/XCFrameworks/FBSDKCoreKit_Basics.xcframework; sourceTree = "<group>"; };
+		043B4F3C27F22D9D00A6A352 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04F0B2DB273AEC4600559E3F /* Riche.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Riche.ttf; path = ../Src/Asserts/Fonts/Riche.ttf; sourceTree = "<group>"; };
 		06CD7D83C4F94FB1B4BCE342 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		08CEB229EFBA44E5B5758C51 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -120,7 +121,7 @@
 		13B07FAE1A68108700A75B9A /* Classic */ = {
 			isa = PBXGroup;
 			children = (
-				048EC779273C28C00051D4ED /* GoogleService-Info.plist */,
+				043B4F3C27F22D9D00A6A352 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -134,6 +135,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				043B4F3A27F2253200A6A352 /* FBSDKCoreKit_Basics.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				410A9092D1A21F1754855F1E /* libPods-Classic.a */,
 				7F4A93D62EB4505098C944F4 /* libPods-Classic-ClassicTests.a */,
@@ -296,7 +298,7 @@
 			files = (
 				186543BC83564C5294B90495 /* Riche.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				048EC77A273C28C00051D4ED /* GoogleService-Info.plist in Resources */,
+				043B4F3D27F22D9D00A6A352 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				EFB23E76AA3F4EFE8CD8BB4A /* Machel.otf in Resources */,
 			);

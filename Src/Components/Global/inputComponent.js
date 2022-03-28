@@ -26,6 +26,7 @@ const style = StyleSheet.create({
     alignSelf: 'center',
     height: 50,
     justifyContent: 'center',
+    //flexDirection:""
   },
   textCointaner: {
     width: '100%',
@@ -47,6 +48,7 @@ const style = StyleSheet.create({
     overflow: 'hidden',
     //fontFamily: 'Montserrat',
     fontWeight: '500',
+    //justifyContent:""
   },
 });
 

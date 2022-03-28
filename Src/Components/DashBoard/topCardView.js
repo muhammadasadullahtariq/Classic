@@ -4,15 +4,20 @@ import resturant from '../../Asserts/Images/Restaurant.png';
 import CardView from 'react-native-cardview';
 import HearderText from '../Global/headerText';
 import NormalText from '../Global/normalText';
-import PrimaryColor from '../Global/Colors';
+import * as PrimaryColor from '../../Constants/Colors';
+import {useNavigation} from '@react-navigation/native';
 
-const screen = props => {
+const Screen = props => {
+  const Navigator = useNavigation();
+
   useEffect(() => {
-    console.log(props.item ,"asad ullah")
+    console.log(props.item, 'asad ullah');
   }, []);
 
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => Navigator.navigate('ResturantList')}>
       <View style={styles.mainContainer}>
         <CardView
           cardElevation={2}
@@ -46,11 +51,11 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {},
   cardcontainer: {
-    backgroundColor: PrimaryColor,
+    backgroundColor: PrimaryColor.primary,
     width: '95%',
     alignSelf: 'center',
     marginTop: 10,
   },
 });
 
-export default screen;
+export default Screen;

@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Text from './normalText';
-import primary from './Colors';
+import * as colors from '../../Constants/Colors';
 
-const PrimaryColor = primary;
+//const PrimaryColor = primary;
 
-const screen = props => {
+const Screen = props => {
   useEffect(() => {}, []);
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={[styles.mainContainer, props.viewStyle]}
-      onPress={props.Onpress}>
+      onPress={props.onPress}>
       <View style={[styles.componentContainer, props.style]}>
         <Text
           text={props.text}
@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
   componentContainer: {
     width: '60%',
     height: 50,
-    backgroundColor:PrimaryColor,
+    backgroundColor:colors.primary,
     borderRadius: 10,
     alignSelf: 'center',
     justifyContent: 'center',
   },
 });
 
-export default screen;
+export default Screen;

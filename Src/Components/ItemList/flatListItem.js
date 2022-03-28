@@ -11,7 +11,7 @@ import HeadingText from '../Global/headerText';
 import image from '../../Asserts/Images/logo.png';
 import NormalText from '../Global/normalText';
 import {useNavigation} from '@react-navigation/native';
-import primary from '../Global/Colors';
+import primary from '../../Constants/Colors';
 
 const screen = props => {
   const [cartFlag, setCartFlag] = useState(false);

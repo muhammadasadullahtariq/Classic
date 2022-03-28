@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import Text from '../Global/normalText';
-import primary from '../Global/Colors';
+import * as colors from '../../Constants/Colors';
 
 const screen = props => {
   const [toptionsArray, setOptionsArray] = useState([
@@ -23,8 +23,8 @@ const screen = props => {
             <View style={{marginHorizontal: 10}}>
               {selected == item && (
                 <View>
-                  <Text text={item} componentStyle={{color: primary}} />
-                  <View style={{height: 5, backgroundColor: primary}} />
+                  <Text text={item} componentStyle={{color: colors.primary}} />
+                  <View style={{height: 5, backgroundColor: colors.primary}} />
                 </View>
               )}
               <TouchableOpacity onPress={() => setSelected(item)}>

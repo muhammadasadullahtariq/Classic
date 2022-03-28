@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Text from './normalText';
 import HeaderText from './headerText';
-import primary from './Colors';
+import * as colors from '../../Constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const white = 'white';
@@ -37,7 +37,7 @@ const screen = props => {
             style={{
               fontSize: 25,
               paddingHorizontal: 10,
-              color: {primary},
+              color: colors.primary,
               opacity: props.count == 0 ? 0.1 : 1,
             }}
           />
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: primary,
+    backgroundColor: colors.primary,
     //marginLeft: 10,
   },
 });

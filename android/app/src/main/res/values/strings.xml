@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Classic</string>
+    <string name="facebook_app_id">1079842035941474</string>
+<string name="facebook_client_token">f3c4741b20bf77dbe2d7c49f5907add2</string>
 </resources>

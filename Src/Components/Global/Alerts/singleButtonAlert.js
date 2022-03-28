@@ -1,10 +1,11 @@
 import React from 'react';
-import {Modal, Pressable, StyleSheet, View, Text} from 'react-native';
+import {Modal, Pressable, StyleSheet, View} from 'react-native';
 import ButtonComponent from '../button';
+import Text from '../normalText';
 
 const screen = props => {
   return (
-    <Modal visible={props.visible} transparent={true} style={{height: 3}}>
+    <Modal transparent={true} style={{height: 3}} visible={props.visible}>
       <View
         style={{
           flex: 1,
@@ -20,7 +21,7 @@ const screen = props => {
             marginBottom: '10%',
             borderRadius: 22,
           }}>
-          <Text style={styles.textContainer}>{props.text}</Text>
+          <Text text={props.text} style={styles.textContainer}></Text>
           <View
             style={{
               flexDirection: 'row',
@@ -29,7 +30,7 @@ const screen = props => {
             }}>
             <ButtonComponent
               text="OK"
-              componentStyle={{
+              style={{
                 width: '60%',
                 marginBottom: 20,
               }}
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 30,
     marginTop: 40,
-    fontFamily: 'Montserrat',
+    //fontFamily: 'Montserrat',
     color: '#4F6C8D',
     textAlign: 'center',
   },

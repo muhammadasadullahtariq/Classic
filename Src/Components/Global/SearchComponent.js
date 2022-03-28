@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import InputComponent from './inputComponent';
 import Icon from 'react-native-vector-icons/Feather';
-import primary from './Colors';
+import primary from '../../Constants/Colors';
 
 const white = 'white';
 

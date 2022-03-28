@@ -10,15 +10,15 @@ import {
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import logo from '../Asserts/Images/logo.png';
 import dhol from '../Asserts/Images/dhol.png';
-import YouTube from 'react-native-youtube';
+//import YouTube from 'react-native-youtube';
 import Text from '../Components/Global/normalText';
 import Options from '../Components/ItemList/unFocusedOption';
 import optionsArr from '../Asserts/Strings/detailScreenOptions';
 import HeadingText from '../Components/Global/headerText';
 import Icon from 'react-native-vector-icons/Feather';
 import FlatListItem from '../Components/DetailScreen/flatListItem';
-import YoutubePlayer from 'react-native-youtube-iframe';
-import primary from '../Components/Global/Colors';
+//import YoutubePlayer from 'react-native-youtube-iframe';
+import primary from '../Constants/Colors';
 import FantText from '../Components/DetailScreen/deatailFant';
 import SizeView from '../Components/DetailScreen/sizeView';
 import Button from '../Components/Global/button';
@@ -26,7 +26,7 @@ import Button from '../Components/Global/button';
 const PrimaryColor = primary;
 const white = 'white';
 
-const screen = ({route, navigation}) => {
+const Screen = ({route, navigation}) => {
   const c = useRef();
   const o = useRef();
   const {item} = route.params;
@@ -141,7 +141,7 @@ const screen = ({route, navigation}) => {
                 opacity: count == 0 ? 0.5 : 1,
                 fontSize: 30,
               }}
-              viewStyle={{alignSelf: 'center'}}
+              // viewStyle={{alignSelf: 'center'}}
             />
           </View>
           <View style={{flexDirection: 'row',alignItems:"center"}}>
@@ -291,4 +291,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default screen;
+export default Screen;

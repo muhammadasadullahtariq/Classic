@@ -3,7 +3,7 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import FlatListItem from "../Components/Resturants/flatListItem";
 import ResturantList from "../Data/resturants";
 
-const screen = props => {
+const Screen = props => {
   useEffect(() => {}, []);
 
   return (
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   mainContainer: {},
 });
 
-export default screen;
+export default Screen;

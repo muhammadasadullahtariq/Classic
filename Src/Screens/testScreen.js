@@ -6,12 +6,12 @@ import Button from '../Components/Global/button';
 import ActiveButton from '../Components/Global/activeButton';
 import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
 import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
-import WaitingAlert from '../Components/Global/Alerts/waitingAlertComponent';
+import WaitingAlert from '../Components/Global/Alerts/waitingAlert';
 import InputComponent from '../Components/Global/inputComponentWithIcon';
 import Rating from '../Components/Rating/userRating';
 import TitleName from '../Components/DashBoard/titleName';
 
-const screen = () => {
+const Screen = () => {
   useEffect(() => {}, []);
 
   return (
@@ -22,4 +22,4 @@ const screen = () => {
   );
 };
 
-export default screen;
+export default Screen;

@@ -1,61 +1,97 @@
 import * as React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, View, TouchableOpacity, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TestScreen from '../Screens/testScreen';
-import UserLogin from '../Screens/Login';
+import SignIn from '../Screens/Login';
 import DashBoard from '../Screens/dashBord';
 import DetailScreen from '../Screens/detailscreen';
 import Resturant from '../Screens/resturantList';
-import ProductList from '../Screens/productsList';
+import productsListOfResturant from '../Screens/productsListOfResturant';
 import SignUp from '../Screens/Signup';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import primary from '../Constants/Colors';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
+import Context from './drawerContext';
+import Profile from '../Screens/Profile';
+import ResturantDetail from '../Screens/resturantDetail';
+import BillScreen from '../Screens/paypal';
+import ProductsList from '../Screens/productsList';
+import * as colors from '../Constants/Colors';
+
+//import Test from '../Screens/Test';
+
+const white = 'white';
 
 const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
 
 const NavigationDrawerStructure = props => {
+  const navigation = useNavigation();
   //Structure for the navigatin Drawer
   const toggleDrawer = () => {
     //Props to open/close the drawer
-    props.navigationProps.toggleDrawer();
+    navigation.toggleDrawer();
   };
 
   return (
     <View style={{flexDirection: 'row'}}>
       <TouchableOpacity onPress={toggleDrawer}>
         {/*Donute Button Image */}
-        <Image
-          source={{
-            uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png',
-          }}
-          style={{width: 25, height: 25, marginLeft: 5}}
-        />
+        <View style={{marginLeft: 5}}>
+          <Icon name={'list-outline'} size={25} color={white} />
+        </View>
       </TouchableOpacity>
     </View>
   );
 };
 
-function Navigation({navigation}) {
+const ProductListWithDrawer = () => {
+  return (
+    <Drawer.Navigator
+      drawerContent={props => <Context {...props} />}
+      initialRouteName="DashBoard"
+      screenOptions={{
+        headerStyle: {backgroundColor: colors.primary},
+        headerTitleStyle: {
+          textAlign: 'center',
+          color: 'black',
+        },
+        headerTintColor: 'black',
+        headerLeft: () => <NavigationDrawerStructure />,
+      }}>
+      <Drawer.Screen
+        name="DashBoard"
+        component={DashBoard}
+        options={{headerShown: false}}
+      />
+      {/* <Drawer.Screen name="ProductDetail" component={UserLogin} /> */}
+    </Drawer.Navigator>
+  );
+};
+
+function Navigation() {
   return (
     <NavigationContainer>
-      <StatusBar hidden={false} translucent={true} />
+      <StatusBar
+        hidden={false}
+        translucent={true}
+        backgroundColor={colors.primary}
+      />
       <Stack.Navigator
         screenOptions={{
-          headerStyle: {backgroundColor: '#FF007F'},
+          headerStyle: {backgroundColor: colors.primary},
           headerTitleStyle: {
             textAlign: 'center',
-            color: 'black',
+            color: 'white',
           },
           headerTintColor: 'black',
-          // headerLeft: () => (
-          //   <NavigationDrawerStructure navigationProps={navigation} />
-          // ),
         }}
-        initialRouteName="DashBoard">
-        <Stack.Screen name="Test" component={TestScreen} />
-        <Stack.Screen name="Login" component={UserLogin} />
+        initialRouteName="Home">
+        <Stack.Screen name="TestScreen" component={TestScreen} />
+        <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen
           name="DashBoard"
           component={DashBoard}
@@ -72,15 +108,49 @@ function Navigation({navigation}) {
           options={{headerShown: true}}
         />
         <Stack.Screen
-          name="ProductList"
-          component={ProductList}
+          name="ProductListOfResturant"
+          component={productsListOfResturant}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="ProductList"
+          component={ProductsList}
+          options={{headerShown: true}}
+        />
+
         <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{headerShown: true}}
         />
+        <Stack.Screen
+          name="Home"
+          component={ProductListWithDrawer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="ResturantDetail"
+          component={ResturantDetail}
+          option={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="BillScreen"
+          component={BillScreen}
+          options={{headerShown: true}}
+        />
+        {/* <Stack.Screen
+          name="Test"
+          component={Test}
+          options={{headerShown: false}}
+        /> */}
+        {/* <Stack.Screen  name="tested"
+        component={}
+        option={{headerShown:false}}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

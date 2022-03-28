@@ -3,7 +3,7 @@ import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import image from '../../Asserts/Images/Restaurant.png';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
-import primary from '../Global/Colors';
+import primary from '../../Constants/Colors';
 
 const obj = {
   image: image,

@@ -9,7 +9,7 @@ import {
 import image from '../../Asserts/Images/Restaurant.png';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
-import primary from '../Global/Colors';
+import primary from '../../Constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
@@ -28,17 +28,17 @@ const white = 'white';
 // };
 const windowWidth = Dimensions.get('window').width;
 
-const screen = props => {
+const Screen = props => {
   const navgation = useNavigation();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(props.index, 'asad ullah');
+  }, []);
   const [count, setCount] = useState(0);
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => {
-        navgation.navigate('DetailScreen', {item: props.item});
-      }}>
+      onPress={() => props.onPress(props.index)}>
       <View style={styles.mainContainer}>
         <View style={{}}>
           <View
@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    marginTop: 10,alignSelf:'center'
+    marginTop: 10,
+    alignSelf: 'center',
   },
   imageContainer: {height: 85, width: 85, borderRadius: 50, marginTop: 20},
   plusMinusButtonContainer: {
@@ -147,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default screen;
+export default Screen;

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import Text from '../Global/normalText';
-import primary from '../Global/Colors';
+import primary from '../../Constants/Colors';
 
 const screen = props => {
   const [toptionsArray, setOptionsArray] = useState(props.size);
