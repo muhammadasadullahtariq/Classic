@@ -1,13 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import FlatListItem from '../Components/Products/flatListItem';
+import {StyleSheet, View, FlatList, Image, Dimensions} from 'react-native';
+import FlatListItem from '../Components/Cart Product/flatListItem';
 import {recentlyAdded} from '../Data/products';
 import Text from '../Components/Global/normalText';
 import HeaderText from '../Components/Global/headerText';
@@ -16,50 +9,22 @@ import * as colors from '../Constants/Colors';
 import PlusMinusButton from '../Components/Global/plusMinusButton';
 import ResturantList from '../Data/resturants';
 import Button from '../Components/Global/button';
-import { useNavigation } from '@react-navigation/native';
 
 const white = 'white';
 
 const windowHeight = Dimensions.get('window').height;
 
 const Screen = props => {
-
-const navigation=useNavigation();
-
   const [selectedItem, setSelectedItem] = useState(0);
+  const refRBSheet = useRef();
+
   useEffect(() => {
     refRBSheet.current.open();
   }, []);
-  const refRBSheet = useRef();
 
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              height: 300,
-              width: '100%',
-              backgroundColor: 'black',
-              borderBottomLeftRadius: 15,
-              borderBottomRightRadius: 15,
-            }}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={()=>navigation.navigate('ResturantDetail')}>
-              <Image
-                source={ResturantList[3].image}
-                style={{
-                  width: '100%',
-                  height: 300,
-                  borderBottomLeftRadius: 15,
-                  borderBottomRightRadius: 15,
-                  backgroundColor: 'black',
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-        )}
         ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
         data={recentlyAdded}
         renderItem={items => (
@@ -104,10 +69,10 @@ const navigation=useNavigation();
             backgroundColor: colors.primary,
             zIndex: -1,
           }}
-          source={recentlyAdded[0].image}
+          source={recentlyAdded[selectedItem].image}
         />
         <HeaderText
-          text={recentlyAdded[0].name}
+          text={recentlyAdded[selectedItem].name}
           style={{
             marginTop: 10,
             marginBottom: 0,
@@ -116,21 +81,30 @@ const navigation=useNavigation();
             fontSize: 30,
           }}
         />
-        <Text text={recentlyAdded[0].detail} style={{opacity: 0.6}} />
+        <Text
+          text={recentlyAdded[selectedItem].detail}
+          style={{opacity: 0.6}}
+        />
         <PlusMinusButton count={0} price={45} />
         <View
           style={{
             flex: 1,
             width: '100%',
           }}></View>
-        <Button text={'Add to cart'} style={{marginBottom: '7%'}} />
+        <Button
+          text={'Add to cart'}
+          style={{marginBottom: '7%'}}
+          onPress={() => refRBSheet.current.close()}
+        />
       </RBSheet>
+      <View style={{width: 100, flex: 1}} />
+      <Button text={'Proceed to Bill'} style={{marginBottom: 20}} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {},
+  mainContainer: {flex: 1},
   textStyle: {fontSize: 30, marginTop: 20},
   iamgeContainer: {
     height: 50,

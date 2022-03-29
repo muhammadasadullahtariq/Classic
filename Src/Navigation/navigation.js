@@ -18,6 +18,7 @@ import Profile from '../Screens/Profile';
 import ResturantDetail from '../Screens/resturantDetail';
 import BillScreen from '../Screens/paypal';
 import ProductsList from '../Screens/productsList';
+import CartProducts from '../Screens/cartProducts';
 import * as colors from '../Constants/Colors';
 
 //import Test from '../Screens/Test';
@@ -137,6 +138,11 @@ function Navigation() {
           name="ResturantDetail"
           component={ResturantDetail}
           option={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="CartProducts"
+          component={CartProducts}
+          options={{headerShown: true}}
         />
         <Stack.Screen
           name="BillScreen"

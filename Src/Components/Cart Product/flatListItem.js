@@ -9,11 +9,11 @@ import {
 import image from '../../Asserts/Images/Restaurant.png';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
-import primary from '../../Constants/Colors';
+import * as colors from '../../Constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
-const PrimaryColor = primary;
+const PrimaryColor = colors.primary;
 const white = 'white';
 
 // const obj = {
@@ -60,29 +60,29 @@ const Screen = props => {
               onPress={() => console.log('Liked button pressed')}>
               {props.item.flag && (
                 <View style={{marginTop: 20}}>
-                  <Icon name="heart" color={primary} size={15} />
+                  <Icon name="heart" color={colors.primary} size={15} />
                 </View>
               )}
               {!props.item.flag && (
                 <View style={{marginTop: 20}}>
-                  <Icon name="hearto" color={primary} size={15} />
+                  <Icon name="hearto" color={colors.primary} size={15} />
                 </View>
               )}
             </TouchableOpacity>
           </View>
-          <HeaderText text={props.item.name} style={{color: primary}} />
+          <HeaderText text={props.item.name} style={{color: colors.primary}} />
           <Text text={props.item.about} />
           <View style={{flexDirection: 'row'}}>
             <HeaderText text={'$ ' + props.item.price} style={{fontSize: 18}} />
             <View style={{flex: 1}} />
-            {/* <View
+            <View
               style={{
                 flexDirection: 'row',
                 marginRight: -85,
                 alignItems: 'center',
                 marginTop: -10,
               }}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 activeOpacity={0.8}
                 disabled={count == 0 ? true : false}
                 onPress={() => setCount(count - 1)}>
@@ -93,24 +93,31 @@ const Screen = props => {
                   ]}>
                   <Icon name="minus" color={white} size={25} />
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              <Text
+                text={'Quantity:'}
+                style={{
+                  fontSize: 18,
+                  padding: 0,
+                  color: colors.primary,
+                }}
+              />
               <Text
                 text={count}
                 style={{
                   fontSize: 25,
-                  paddingHorizontal: 10,
-                  color: {primary},
-                  opacity: count == 0 ? 0.1 : 1,
+                  paddingRight: 10,
+                  //paddingHorizontal: 10,
                 }}
               />
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setCount(count + 1)}>
                 <View style={styles.plusMinusButtonContainer}>
                   <Icon name="plus" color={white} size={25} />
                 </View>
-              </TouchableOpacity>
-            </View> */}
+              </TouchableOpacity> */}
+            </View>
           </View>
         </View>
         <Image source={props.item.image} style={styles.imageContainer} />

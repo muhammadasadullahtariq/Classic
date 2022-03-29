@@ -27,7 +27,15 @@ const screen = props => {
                   <View style={{height: 5, backgroundColor: colors.primary}} />
                 </View>
               )}
-              <TouchableOpacity onPress={() => setSelected(item)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelected(item);
+                  if (item === "All") {
+                    props.setAllProducts(true);
+                  } else {
+                    props.setAllProducts(false);
+                  }
+                }}>
                 {selected != item && <Text text={item} />}
               </TouchableOpacity>
             </View>

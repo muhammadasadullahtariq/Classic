@@ -19,12 +19,17 @@ import RightCardView from '../Components/DashBoard/rightCardView';
 import {recentlyAdded} from '../Data/products.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Card} from 'react-native-shadow-cards';
+import {useNavigation} from '@react-navigation/native';
 
 const white = 'white';
 
 const Screen = props => {
+  const navigation = useNavigation();
+
   const [columnNum, setColumnNum] = useState(2);
   const [dimensionChange, setDimensionChange] = useState(true);
+  const [allProducts, setAllProducts] = useState(true);
+
   Dimensions.addEventListener('change', () => {
     setDimensionChange(!dimensionChange);
   });
@@ -65,29 +70,35 @@ const Screen = props => {
           mainContainer={{width: '85%'}}
         />
         <TouchableOpacity
-          onPress={() => console.log('I pressed')}
+          onPress={() => navigation.navigate('CartProducts')}
           activeOpacity={0.7}>
           <View style={styles.cartView}>
             <Icon name="cart-outline" size={30} color={colors.primary} />
           </View>
         </TouchableOpacity>
       </View>
-      <TopOptionView />
+      <TopOptionView setAllProducts={flag => setAllProducts(flag)} />
 
       <FlatList
-        ListHeaderComponent={() => (
-          <View>
-            <TopCardView item={options[0]} />
-            <View style={{flexDirection: 'row', width: '100%'}}>
-              <LeftCardView item={options[1]} />
-              <View style={{width: '50%'}}>
-                <RightCardView item={options[2]} />
-                <RightCardView item={options[3]} />
+        ListHeaderComponent={() => {
+          if (allProducts) {
+            return (
+              <View>
+                <TopCardView item={options[0]} />
+                <View style={{flexDirection: 'row', width: '100%'}}>
+                  <LeftCardView item={options[1]} />
+                  <View style={{width: '50%'}}>
+                    <RightCardView item={options[2]} />
+                    <RightCardView item={options[3]} />
+                  </View>
+                </View>
+                <HeaderText text="You May Likes" />
               </View>
-            </View>
-            <HeaderText text="You May Likes" />
-          </View>
-        )}
+            );
+          } else {
+            return <View />;
+          }
+        }}
         data={recentlyAdded}
         columnWrapperStyle={{justifyContent: 'space-between'}}
         renderItem={items => <FlatListItem item={items.item} />}

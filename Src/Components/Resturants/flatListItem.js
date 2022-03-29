@@ -4,6 +4,7 @@ import image from '../../Asserts/Images/Restaurant.png';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
 import primary from '../../Constants/Colors';
+import {useNavigation} from '@react-navigation/native';
 
 const obj = {
   image: image,
@@ -17,10 +18,13 @@ const obj = {
 };
 
 const screen = props => {
+  const navigation = useNavigation();
   useEffect(() => {}, []);
 
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => navigation.navigate('ProductListOfResturant')}>
       <View style={styles.mainContainer}>
         <View>
           <HeaderText text={props.item.name} style={{color: primary}} />
