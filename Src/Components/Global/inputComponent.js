@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Keyboard, Platform} from 'react-native';
+import {View, StyleSheet, TextInput, Platform} from 'react-native';
 
 export const component = props => {
   return (
@@ -12,6 +12,7 @@ export const component = props => {
         multiline={props.multiLine}
         numberOfLines={props.numberOfLines}
         keyboardType={props.Keyboard == null ? 'default' : props.Keyboard}
+        secureTextEntry={props.secureTextEntry}
         onChangeText={props.textHandler}
         style={[style.textCointaner, props.style]}
         textAlignVertical={props.flag ? 'top' : 'center'}

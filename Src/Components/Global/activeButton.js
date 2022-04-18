@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Text from './normalText';
-import primary from '../../Constants/Colors';
+import * as Colors from '../../Constants/Colors';
 
 const screen = props => {
   useEffect(() => {}, []);
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   componentContainer: {
     width: '50%',
     height: 50,
-    backgroundColor: primary,
+    backgroundColor: Colors.primary,
     borderRadius: 30,
     alignSelf: 'center',
     justifyContent: 'center',

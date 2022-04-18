@@ -90,7 +90,7 @@ function Navigation() {
           },
           headerTintColor: 'black',
         }}
-        initialRouteName="Home">
+        initialRouteName="SignIn">
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen

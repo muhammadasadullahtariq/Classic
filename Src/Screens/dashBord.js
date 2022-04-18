@@ -20,6 +20,7 @@ import {recentlyAdded} from '../Data/products.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Card} from 'react-native-shadow-cards';
 import {useNavigation} from '@react-navigation/native';
+import getUserLocation from '../Functions/getUserLocation';
 
 const white = 'white';
 
@@ -29,6 +30,7 @@ const Screen = props => {
   const [columnNum, setColumnNum] = useState(2);
   const [dimensionChange, setDimensionChange] = useState(true);
   const [allProducts, setAllProducts] = useState(true);
+  const [location, setLocation] = useState('');
 
   Dimensions.addEventListener('change', () => {
     setDimensionChange(!dimensionChange);
@@ -46,6 +48,7 @@ const Screen = props => {
     } else {
       setColumnNum(6);
     }
+    getUserLocation(setLocation)
   }, [dimensionChange]);
 
   return (

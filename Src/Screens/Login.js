@@ -11,13 +11,16 @@ import TextInput from '../Components/Global/inputComponentWithIcon';
 import Heading from '../Components/Global/headerText';
 import Button from '../Components/Global/activeButton';
 import Text from '../Components/Global/normalText';
-import primary from '../Constants/Colors';
+import * as Color from '../Constants/Colors';
 import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlert';
 import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin,GoogleSigninButton} from '@react-native-google-signin/google-signin';
-import ButtonA from '../Components/Global/button';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
+import checkUserExist from '../Functions/useRegistration/checkUserExist';
 
 const height = Dimensions.get('window').height;
 
@@ -34,6 +37,9 @@ const Screen = () => {
   const [alertText, setAlertText] = useState('Please Enter Name');
 
   useEffect(() => {
+    if (auth().currentUser !== null) {
+      userHandeler(auth().currentUser.uid);
+    }
     GoogleSignin.configure({
       scopes: ['email'],
       iosClientId:
@@ -43,6 +49,31 @@ const Screen = () => {
       offlineAccess: true,
     });
   }, []);
+
+  const userHandeler = async googleId => {
+    const user = await checkUserExist(googleId);
+    console.log(user);
+    console.log(auth().currentUser.email);
+    if (user.status == 'Success') {
+      global.user = user.data._id;
+      Navigator.reset({
+        routes: [{name: 'Home', params: {user: user.data}}],
+      });
+    } else {
+      Navigator.reset({
+        routes: [
+          {
+            name: 'SignUp',
+            params: {
+              user: false,
+              email: auth().currentUser.email,
+              googleId: googleId,
+            },
+          },
+        ],
+      });
+    }
+  };
 
   const validateEmail = email => {
     const re =
@@ -77,7 +108,6 @@ const Screen = () => {
 
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
-
   }
 
   const buttonHandler = () => {
@@ -85,28 +115,28 @@ const Screen = () => {
     setWaitingAlertFalg(true);
     auth()
       .signInWithEmailAndPassword(emailAddress, pin)
-      .then(() => {
-        setWaitingAlertFalg(false);
-        // setAlertFlag(true);
-        // setAlertText('User account created & signed in!');
-        Navigator.navigate('Home');
+      .then(res => {
+        userHandeler(res.user.uid);
       })
       .catch(error => {
         setWaitingAlertFalg(false);
         if (error.code === 'auth/email-already-in-use') {
           setAlertFlag(true);
           setAlertText('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
+        } else if (error.code === 'auth/invalid-email') {
           setAlertFlag(true);
           setAlertText('That email address is invalid!');
+        } else if (error.code === 'auth/wrong-password') {
+          setAlertFlag(true);
+          setAlertText('Wrong Password!');
+        } else if (error.code === 'auth/user-not-found') {
+          setAlertFlag(true);
+          setAlertText('User not found');
         }
         console.log(error);
         setAlertFlag(true);
         setAlertText('Unable to login, Please try Again!');
         console.log(alertFlag);
-        //console.error(error);
       });
   };
 
@@ -124,21 +154,30 @@ const Screen = () => {
       <TextInput
         placeHolder={'Enter mail address'}
         iconName={'mail-outline'}
+        Keyboard={'email-address'}
         textHandler={emailHandler}
         borderFlag={!emailVerified}
       />
       <TextInput
         placeHolder={'Enter password'}
         iconName={'key-outline'}
+        secureTextEntry={true}
         textHandler={passWordHandler}
       />
       <View style={{height: '5%'}} />
       <GoogleSigninButton
-        style={{width: 192, height: 48}}
+        style={{
+          width: 192,
+          height: 48,
+          alignSelf: 'center',
+          marginBottom: 20,
+          color: '1',
+        }}
         size={GoogleSigninButton.Size.Wide}
-       
         onPress={() =>
-          onGoogleButtonPress().then(() => Navigator.navigate('Home'))
+          onGoogleButtonPress().then(res => {
+            userHandeler(res.user.uid);
+          })
         }
       />
       <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
@@ -146,13 +185,15 @@ const Screen = () => {
       <View style={{flex: 1}} />
       <TouchableOpacity
         onPress={() => {
-          Navigator.navigate('SignUp');
+          Navigator.reset({
+            routes: [{name: 'SignUp', params: {user: true}}],
+          });
         }}
         activeOpacity={0.7}>
         <Text
           text={'Not have account'}
           style={{
-            color: primary,
+            color: Color.primary,
             fontSize: 10,
             alignSelf: 'center',
             marginBottom: 30,

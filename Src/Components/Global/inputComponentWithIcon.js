@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import InputComponent from './inputComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
-import primary from '../../Constants/Colors';
+import * as colors from '../../Constants/Colors';
 
 const screen = props => {
   return (
@@ -12,25 +12,21 @@ const screen = props => {
           styles.seacrIconViewContainer,
           {borderColor: props.borderFlag ? 'red' : 'white'},
         ]}>
-        <Icon name={props.iconName} color={primary} size={30} />
+        <Icon name={props.iconName} color={colors.primary} size={30} />
       </View>
       <InputComponent
         style={[
           styles.textContainer,
           props.style,
-          {borderColor: props.borderFlag ?  'red':'white' },
+          {borderColor: props.borderFlag ? 'red' : 'white'},
         ]}
         placeHolder={props.placeHolder}
+        secureTextEntry={props.secureTextEntry}
+        Keyboard={props.Keyboard}
         text={props.text}
         textHandler={props.textHandler}
         onSubmit={props.onSubmit}
-        // style={{
-        //   borderTopLeftRadius: 0,
-        //   borderBottomLeftRadius: 0,
-        //   textAlign: 'left',
-        //   borderLeftWidth: 0,
-        //   borderLeftColor: 'white',
-        // }}
+        
       />
     </View>
   );

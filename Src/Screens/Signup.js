@@ -16,11 +16,19 @@ import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlert';
 import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
 import auth from '@react-native-firebase/auth';
-
+import IconPerson from 'react-native-vector-icons/Ionicons';
+import * as colors from '../Constants/Colors';
+import imagePicker from '../Functions/Media/imagePicker';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
+import registerUser from '../Functions/useRegistration/registerUser';
+import messaging from '@react-native-firebase/messaging';
 
 const height = Dimensions.get('window').height;
 
-const Screen = () => {
+const Screen = ({navigation, route}) => {
   const Navigator = useNavigation();
   const [buttonText, setButtonText] = useState('Sign up');
   const [buttonFlag, setButtonFlag] = useState(false);
@@ -31,8 +39,59 @@ const Screen = () => {
   const [alertText, setAlertText] = useState('Please Enter Name');
   const [alertFlag, setAlertFlag] = useState(false);
   const [waitingAlertFlag, setWaitingAlertFalg] = useState(false);
+  const [profileImage, setProfileImage] = useState();
+  const [googleButtonFlag, setGoogleButtonFlag] = useState(route.params.user);
+  const [googleId, setGoogleId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [cellNumber, setCellNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [messageToken, setMessageToken] = useState('');
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['email'],
+      iosClientId:
+        '931690655900-ml7fj2g9m31o2rmustdblve5fhsdak44.apps.googleusercontent.com',
+      webClientId:
+        '931690655900-lhjl95nuj9a5sip0qnr3gavsha8msk3g.apps.googleusercontent.com',
+      offlineAccess: true,
+    });
+    if (!googleButtonFlag) {
+      setEmailAddress(route.params.email);
+      setGoogleId(route.params.googleId);
+    }
+    messaging()
+      .getToken()
+      .then(token => {
+        setMessageToken(token);
+      });
+  }, []);
+
+  const userHandeler = async googleId => {
+    setWaitingAlertFalg(true);
+    setGoogleButtonFlag(false);
+    const res = await registerUser(
+      userName,
+      emailAddress,
+      cellNumber,
+      0,
+      0,
+      address,
+      messageToken,
+      profileImage,
+      googleId,
+    );
+    console.log(res);
+    setWaitingAlertFalg(false);
+    if (res.status == 'Success') {
+      Navigator.reset({
+        routes: [{name: 'Home', params: {user: res.data}}],
+      });
+    } else {
+      setAlertFlag(true);
+      setAlertText(res.message);
+    }
+  };
 
   const validateEmail = email => {
     const re =
@@ -47,44 +106,85 @@ const Screen = () => {
     } else {
       setEmailVerified(false);
     }
+    verificationHandeler();
   };
+
+  async function onGoogleButtonPress() {
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  }
 
   const pinCodeHandler = text => {
     setPinn(text);
-    if (text.length >= 6 && emailVerified) {
+    verificationHandeler();
+  };
+
+  const buttonHandler = () => {
+    if (!googleButtonFlag) {
+      userHandeler(googleId);
+      return;
+    } else {
+      setWaitingAlertFalg(true);
+      auth()
+        .createUserWithEmailAndPassword(emailAddress, pin)
+        .then(res => {
+          res.user.sendEmailVerification();
+          setGoogleId(res.user.uid);
+          userHandeler(res.user.uid);
+        })
+        .catch(error => {
+          setWaitingAlertFalg(false);
+          if (error.code === 'auth/email-already-in-use') {
+            setAlertText('That email address is already in use!');
+            setAlertFlag(true);
+          } else if (error.code === 'auth/invalid-email') {
+            setAlertText('That email address is invalid!');
+            setAlertFlag(true);
+          } else {
+            setWaitingAlertFalg(false);
+            setAlertText('Unable to Sign Up');
+            setAlertFlag(true);
+          }
+        });
+    }
+  };
+
+  const profileImageHandler = async () => {
+    imagePicker('ab', setProfileImage);
+  };
+
+  const verificationHandeler = () => {
+    if(googleButtonFlag){
+    if (
+      pin.length >= 6 &&
+      emailVerified &&
+      userName.length > 0 &&
+      cellNumber.length > 7 &&
+      cellNumber.length < 14 &&
+      emailVerified
+    ) {
       setButtonFlag(true);
     } else {
       setButtonFlag(false);
     }
-  };
-
-  const buttonHandler = () => {
-    console.log('Button Clicked');
-    auth()
-      .createUserWithEmailAndPassword(mail, password)
-      .then(res => {
-        // setAlertText('User account created & signed in!');
-        // setAlertFlag(true);
-        setWaitingAlertFalg(false);
-        res.user.updateProfile({displayName: userName});
-        navigation.navigate('Home');
-      })
-      .catch(error => {
-        setWaitingAlertFalg(false);
-        if (error.code === 'auth/email-already-in-use') {
-          setAlertText('That email address is already in use!');
-          setAlertFlag(true);
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          setAlertText('That email address is invalid!');
-          setAlertFlag(true);
-        }
-        setWaitingAlertFalg(false);
-        setAlertText('Unable to Sign Up');
-        setAlertFlag(true);
-        //console.error(error);
-      });
+  }
+  else{
+    if (
+      userName.length > 0 &&
+      cellNumber.length > 7 &&
+      cellNumber.length < 14
+    ) {
+      setButtonFlag(true);
+    } else {
+      setButtonFlag(false);
+    }
+  }
   };
 
   return (
@@ -95,21 +195,80 @@ const Screen = () => {
         onPress={() => setAlertFlag(false)}
       />
       <WaitingAlert visible={waitingAlertFlag} />
-      <Image style={styles.imageContainer} source={logo} />
-      <Heading text="Login" viewStyle={{alignSelf: 'center'}} />
+      {profileImage == null ? (
+        <TouchableOpacity activeOpacity={0.8} onPress={profileImageHandler}>
+          <View style={styles.profilePlus}>
+            <IconPerson name="person" size={50} color={colors.white} />
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity activeOpacity={0.8} onPress={profileImageHandler}>
+          <Image source={profileImage.path} style={styles.profileImage} />
+        </TouchableOpacity>
+      )}
       <View style={{height: '5%'}} />
       <TextInput
-        placeHolder={'Enter mail address'}
-        iconName={'mail-outline'}
-        textHandler={emailHandler}
-        borderFlag={!emailVerified}
+        placeHolder={'Enter name'}
+        iconName={'person-outline'}
+        textHandler={text => {
+          setUserName(text);
+          verificationHandeler();
+        }}
+        text={userName}
+      />
+      {googleButtonFlag && (
+        <TextInput
+          placeHolder={'Enter mail address'}
+          iconName={'mail-outline'}
+          text={emailAddress}
+          textHandler={emailHandler}
+          borderFlag={!emailVerified}
+        />
+      )}
+      {googleButtonFlag && (
+        <TextInput
+          placeHolder={'Enter pin code'}
+          iconName={'key-outline'}
+          textHandler={pinCodeHandler}
+          text={pin}
+        />
+      )}
+      <TextInput
+        placeHolder={'Enter phone number'}
+        iconName={'ios-call-outline'}
+        text={cellNumber}
+        textHandler={text => {
+          setCellNumber(text);
+          verificationHandeler();
+        }}
       />
       <TextInput
-        placeHolder={'Enter code'}
-        iconName={'key-outline'}
-        textHandler={pinCodeHandler}
+        placeHolder={'Enter address optional'}
+        iconName={'ios-location-outline'}
+        textHandler={text => {
+          setAddress(text);
+          verificationHandeler();
+        }}
+        text={address}
       />
       <View style={{height: '5%'}} />
+      {googleButtonFlag && (
+        <GoogleSigninButton
+          style={{
+            width: 192,
+            height: 48,
+            alignSelf: 'center',
+            marginBottom: 20,
+            color: 1,
+          }}
+          size={GoogleSigninButton.Size.Wide}
+          onPress={() =>
+            onGoogleButtonPress().then(res => {
+              userHandeler(res.user.uid);
+            })
+          }
+        />
+      )}
 
       <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
       <View style={{flex: 1}} />
@@ -121,7 +280,7 @@ const Screen = () => {
         <Text
           text={'Already have account'}
           style={{
-            color: primary,
+            color: colors.primary,
             fontSize: 10,
             alignSelf: 'center',
             marginBottom: 30,
@@ -136,9 +295,26 @@ const styles = StyleSheet.create({
   mainContainer: {flex: 1},
   imageContainer: {
     width: '80%',
-    height: (30 / 100) * height,
+    height: (20 / 100) * height,
     alignSelf: 'center',
     aspectRatio: 1,
+  },
+  profileImage: {
+    alignSelf: 'center',
+    borderRadius: 100,
+    height: 60,
+    width: 60,
+    marginTop: '10%',
+  },
+  profilePlus: {
+    alignSelf: 'center',
+    borderRadius: 100,
+    height: 60,
+    width: 60,
+    marginTop: '10%',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
   },
 });
 
