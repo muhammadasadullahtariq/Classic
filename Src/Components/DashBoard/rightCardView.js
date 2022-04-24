@@ -16,7 +16,9 @@ const Screen = props => {
     <TouchableOpacity
       activeOpacity={0.8}
       style={{width: '100%'}}
-      onPress={() => Navigator.navigate('ProductList')}>
+      onPress={() =>
+        Navigator.navigate('ProductList', {product: props.item.name})
+      }>
       <View style={styles.mainContainer}>
         <CardView
           cardElevation={2}

@@ -16,11 +16,11 @@ const screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {justifyContent: 'center'},
   componentContainer: {
-    //fontFamily: 'Riche',
+    
     fontSize: 18,
     color: 'black',
     padding: 5,
-    // marginVertical: 5,
+    
   },
 });
 

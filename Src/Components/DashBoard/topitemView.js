@@ -30,7 +30,8 @@ const screen = props => {
               <TouchableOpacity
                 onPress={() => {
                   setSelected(item);
-                  if (item === "All") {
+                  props.handleItemSelection(item);
+                  if (item === 'All') {
                     props.setAllProducts(true);
                   } else {
                     props.setAllProducts(false);

@@ -9,58 +9,55 @@ import * as colors from '../Constants/Colors';
 import PlusMinusButton from '../Components/Global/plusMinusButton';
 import ResturantList from '../Data/resturants';
 import Button from '../Components/Global/button';
+import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory';
 
 const white = 'white';
 
 const windowHeight = Dimensions.get('window').height;
 
-const Screen = props => {
+const Screen = ({route, navigation}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const refRBSheet = useRef();
+  const [products, setProducts] = useState(recentlyAdded);
 
   useEffect(() => {
-    refRBSheet.current.open();
+    //refRBSheet.current.open();
+    handleProduct();
   }, []);
+
+  const handleProduct = async () => {
+    const {product} = route.params;
+    console.log(product);
+    var result = await getSpecificSubCategory(product);
+    if (result.status === 'Success') {
+      setProducts(result.data);
+    }
+  };
 
   return (
     <View style={styles.mainContainer}>
-      <FlatList
-        // ListHeaderComponent={() => (
-        //   <View
-        //     style={{
-        //       height: 300,
-        //       width: '100%',
-        //       backgroundColor: 'black',
-        //       borderBottomLeftRadius: 15,
-        //       borderBottomRightRadius: 15,
-        //     }}>
-        //     <Image
-        //       source={ResturantList[3].image}
-        //       style={{
-        //         width: '100%',
-        //         height: 300,
-        //         borderBottomLeftRadius: 15,
-        //         borderBottomRightRadius: 15,
-        //         backgroundColor: 'black',
-        //       }}
-        //     />
-        //   </View>
-        // )}
-        ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
-        data={recentlyAdded}
-        renderItem={items => (
-          <FlatListItem
-            item={items.item}
-            index={items.index}
-            onPress={index => {
-              setSelectedItem(index);
-              refRBSheet.current.open();
-              console.log(index);
-            }}
-          />
-        )}
-        keyExtractor={(item, index) => +item.key}
-      />
+      {products.length > 0 ? (
+        <FlatList
+          ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
+          data={products}
+          renderItem={items => (
+            <FlatListItem
+              item={items.item}
+              index={items.index}
+              onPress={index => {
+                setSelectedItem(index);
+                refRBSheet.current.open();
+                console.log(index);
+              }}
+            />
+          )}
+          keyExtractor={(item, index) => +item.key}
+        />
+      ) : (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <HeaderText text={'Sorry No Product Found'} />
+        </View>
+      )}
       <RBSheet
         ref={refRBSheet}
         closeOnDragDown={true}
@@ -123,7 +120,7 @@ const Screen = props => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {},
+  mainContainer: {flex: 1},
   textStyle: {fontSize: 30, marginTop: 20},
   iamgeContainer: {
     height: 50,

@@ -17,7 +17,7 @@ const Screen = props => {
       activeOpacity={0.8}
       style={{width: '50%'}}
       onPress={() => {
-        Navigator.navigate('ProductList');
+        Navigator.navigate('ProductList', {product: props.item.name});
         console.log('i called');
       }}>
       <CardView

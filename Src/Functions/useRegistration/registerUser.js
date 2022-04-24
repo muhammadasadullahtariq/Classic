@@ -25,10 +25,9 @@ const registerUser = async (
       imageResult = await imageUpload(image.responce);
       if (imageResult.status == 'Fail') {
         imageResult = '';
-      }
-      else{
-        console.log('imageResult',imageResult);
-imageResult = imageResult.data.filename;
+      } else {
+        console.log('imageResult', imageResult);
+        imageResult = API_URL + '/upload/' + imageResult.data.filename;
       }
     }
     console.log(

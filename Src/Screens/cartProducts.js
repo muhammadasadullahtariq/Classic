@@ -7,26 +7,23 @@ import HeaderText from '../Components/Global/headerText';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import * as colors from '../Constants/Colors';
 import PlusMinusButton from '../Components/Global/plusMinusButton';
-import ResturantList from '../Data/resturants';
 import Button from '../Components/Global/button';
-
-const white = 'white';
-
-const windowHeight = Dimensions.get('window').height;
+import {connect, useDispatch, useSelector} from 'react-redux';
 
 const Screen = props => {
   const [selectedItem, setSelectedItem] = useState(0);
   const refRBSheet = useRef();
+  const products = useSelector(state => state.products);
 
   useEffect(() => {
-    refRBSheet.current.open();
+    //refRBSheet.current.open();
   }, []);
 
   return (
     <View style={styles.mainContainer}>
       <FlatList
         ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
-        data={recentlyAdded}
+        data={products}
         renderItem={items => (
           <FlatListItem
             item={items.item}

@@ -21,6 +21,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Card} from 'react-native-shadow-cards';
 import {useNavigation} from '@react-navigation/native';
 import getUserLocation from '../Functions/getUserLocation';
+import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory.js';
+import getRecentAddedProducts from '../Functions/searchProducts/getRecentAddedProduct.js';
 
 const white = 'white';
 
@@ -31,6 +33,7 @@ const Screen = props => {
   const [dimensionChange, setDimensionChange] = useState(true);
   const [allProducts, setAllProducts] = useState(true);
   const [location, setLocation] = useState('');
+  const [products, setProducts] = useState(recentlyAdded);
 
   Dimensions.addEventListener('change', () => {
     setDimensionChange(!dimensionChange);
@@ -48,8 +51,21 @@ const Screen = props => {
     } else {
       setColumnNum(6);
     }
-    getUserLocation(setLocation)
+    getUserLocation(setLocation);
   }, [dimensionChange]);
+
+  const handleItemSelection = async item => {
+    var result;
+    if (item !== 'All') {
+      result = await getSpecificSubCategory(item);
+    } else {
+      result = await getRecentAddedProducts();
+    }
+    console.log(result, 'result');
+    if (result.status === 'Success') {
+      setProducts(result.data);
+    }
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -80,7 +96,10 @@ const Screen = props => {
           </View>
         </TouchableOpacity>
       </View>
-      <TopOptionView setAllProducts={flag => setAllProducts(flag)} />
+      <TopOptionView
+        setAllProducts={flag => setAllProducts(flag)}
+        handleItemSelection={handleItemSelection}
+      />
 
       <FlatList
         ListHeaderComponent={() => {
@@ -102,7 +121,7 @@ const Screen = props => {
             return <View />;
           }
         }}
-        data={recentlyAdded}
+        data={products}
         columnWrapperStyle={{justifyContent: 'space-between'}}
         renderItem={items => <FlatListItem item={items.item} />}
         numColumns={columnNum}
