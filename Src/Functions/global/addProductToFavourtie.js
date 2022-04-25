@@ -1,6 +1,9 @@
 import {API_URL} from '@env';
+//import {useDispatch} from 'react-redux';
+import {addProductToFavorite} from '../../Actions/actions';
 
-export default async function addProductToFavourite(id) {
+export default async function addProductToFavourite(id, dispatch) {
+  //const dispatch = useDispatch();
   try {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -17,11 +20,11 @@ export default async function addProductToFavourite(id) {
       redirect: 'follow',
     };
 
-    var result = await fetch(
-      'localhost:3000/api/addProductToFavorite',
-      requestOptions,
-    );
+    var result = await fetch(API_URL + 'addProductToFavorite', requestOptions);
     result = await result.json();
+    if (result.status == 'Success') {
+      dispatch(addProductToFavorite(result.data.id));
+    }
     return result;
   } catch (err) {
     console.log(err);

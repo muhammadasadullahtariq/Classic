@@ -6,34 +6,32 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import image from '../../Asserts/Images/Restaurant.png';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
 import primary from '../../Constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
+import handelFavourite from '../../Functions/global/handelFavourite';
+import checkProductExistInFavourite from '../../Functions/global/checkProductExistInFavourite';
+import { useDispatch } from 'react-redux';
 
 const PrimaryColor = primary;
-const white = 'white';
-
-// const obj = {
-//   source: image,
-//   price: '3000',
-//   name: 'Burger',
-//   key: '0',
-//   rating: 4.5,
-//   price: 45,
-//   detail: 'Delight pizza with souce and onion',
-//   about: 'Short detail',
-// };
 const windowWidth = Dimensions.get('window').width;
 
 const Screen = props => {
   const navgation = useNavigation();
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log(props.index, 'asad ullah');
   }, []);
   const [count, setCount] = useState(0);
+  const [favouriteFalg, setFavouriteFalg] = useState(
+    checkProductExistInFavourite(props.item._id),
+  );
+
+  const handelFavouriteButton = async () => {
+    await handelFavourite(favouriteFalg, setFavouriteFalg, props.item._id, dispatch);
+  };
 
   return (
     <TouchableOpacity
@@ -45,7 +43,6 @@ const Screen = props => {
             style={{
               flexDirection: 'row',
               width: windowWidth - 85 - 60,
-              //backgroundColor: 'black',
             }}>
             <Text
               text={props.item.rating}
@@ -57,13 +54,16 @@ const Screen = props => {
             <View style={{flex: 1}} />
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={() => console.log('Liked button pressed')}>
-              {props.item.flag && (
+              onPress={() => {
+                console.log('Liked button pressed');
+                handelFavouriteButton();
+              }}>
+              {favouriteFalg && (
                 <View style={{marginTop: 20}}>
                   <Icon name="heart" color={primary} size={15} />
                 </View>
               )}
-              {!props.item.flag && (
+              {!favouriteFalg && (
                 <View style={{marginTop: 20}}>
                   <Icon name="hearto" color={primary} size={15} />
                 </View>

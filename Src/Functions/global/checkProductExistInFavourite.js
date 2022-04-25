@@ -1,15 +1,12 @@
 import {useSelector} from 'react-redux';
 
-function checkProductExistInFavourite(productId) {
-  var isExist = false;
-  var favouriteProducts = JSON.parse(localStorage.getItem('favouriteProducts'));
-  if (favouriteProducts != null) {
-    for (var i = 0; i < favouriteProducts.length; i++) {
-      if (favouriteProducts[i].productId == productId) {
-        isExist = true;
-        break;
-      }
-    }
+export default function checkProductExistInFavourite(productId) {
+  var favouriteProducts = useSelector(state => state.user);
+  console.log(favouriteProducts);
+  favouriteProducts = favouriteProducts.favourties;
+  console.log(favouriteProducts);
+  if (favouriteProducts.indexOf(productId) > -1) {
+    return true;
   }
-  return isExist;
+  return false;
 }

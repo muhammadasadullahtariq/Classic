@@ -13,6 +13,7 @@ import * as colors from '../Constants/Colors';
 import Button from '../Components/Global/button';
 import {useDispatch, useSelector} from 'react-redux';
 import {addProduct} from '../Actions/actions';
+import checkProductExistInFavourties from '../Functions/global/checkProductExistInFavourite';
 const white = 'white';
 
 const Screen = ({route, navigation}) => {
@@ -23,6 +24,7 @@ const Screen = ({route, navigation}) => {
 
   useEffect(() => {
     console.log(item);
+    
   }, []);
 
   return (

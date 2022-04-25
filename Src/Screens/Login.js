@@ -21,6 +21,8 @@ import {
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import checkUserExist from '../Functions/useRegistration/checkUserExist';
+import {addUser} from '../Actions/actions';
+import {useDispatch} from 'react-redux';
 
 const height = Dimensions.get('window').height;
 
@@ -35,6 +37,7 @@ const Screen = () => {
   const [alertFlag, setAlertFlag] = useState(false);
   const [waitingAlertFlag, setWaitingAlertFalg] = useState(false);
   const [alertText, setAlertText] = useState('Please Enter Name');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (auth().currentUser !== null) {
@@ -56,6 +59,7 @@ const Screen = () => {
     console.log(auth().currentUser.email);
     if (user.status == 'Success') {
       global.user = user.data._id;
+      dispatch(addUser(user.data));
       Navigator.reset({
         routes: [{name: 'Home', params: {user: user.data}}],
       });

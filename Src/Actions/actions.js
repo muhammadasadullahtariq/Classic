@@ -48,24 +48,24 @@ const emptyCart = () => {
 };
 
 const addUser = user => {
-    return {
-        type: ActionTypes.ADD_USER,
-        user,
-    };
+  return {
+    type: ActionTypes.ADD_USER,
+    user,
+  };
 };
 
 const addProductToFavorite = product => {
-    return {
-        type: ActionTypes.ADD_PRODUCT_TO_FAVORITE,
-        product,
-    };
+  return {
+    type: ActionTypes.ADD_PRODUCT_TO_FAVORITE,
+    product,
+  };
 };
 
 const removeProductFromFavorite = product => {
-    return {
-        type: ActionTypes.REMOVE_PRODUCT_FROM_FAVORITE,
-        product,
-    };
+  return {
+    type: ActionTypes.REMOVE_PRODUCT_FROM_FAVORITE,
+    product,
+  };
 };
 
 export {
@@ -76,4 +76,7 @@ export {
   getProductList,
   checkProductExistInCart,
   emptyCart,
+  addUser,
+  addProductToFavorite,
+  removeProductFromFavorite,
 };

@@ -11,6 +11,10 @@ import Text from '../Global/normalText';
 import * as colors from '../../Constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
+import checkProductExistInFavourites from '../../Functions/global/checkProductExistInFavourite';
+import handelFavourite from '../../Functions/global/handelFavourite';
+import { useDispatch } from 'react-redux';
+
 
 const PrimaryColor = colors.primary;
 const white = 'white';
@@ -19,10 +23,18 @@ const windowWidth = Dimensions.get('window').width;
 
 const Screen = props => {
   const navgation = useNavigation();
-  const [favouriteFalg, setFavouriteFalg] = useState(false);
+  const dispatch = useDispatch();
+  const [favouriteFalg, setFavouriteFalg] = useState(
+    checkProductExistInFavourites(props.item._id),
+  );
+
   useEffect(() => {
     console.log(props.index, 'asad ullah');
   }, []);
+
+  const handelFavouriteButton = async () => {
+    await handelFavourite(favouriteFalg, setFavouriteFalg, props.item._id, dispatch);
+  };
 
   return (
     <TouchableOpacity
@@ -42,7 +54,10 @@ const Screen = props => {
             <View style={{flex: 1}} />
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={() => console.log('Liked button pressed')}>
+              onPress={() => {
+                console.log('Liked button pressed');
+                handelFavouriteButton();
+              }}>
               {favouriteFalg && (
                 <View style={{marginTop: 20}}>
                   <Icon name="heart" color={colors.primary} size={15} />
