@@ -10,7 +10,6 @@ import Resturant from '../Screens/resturantList';
 import productsListOfResturant from '../Screens/productsListOfResturant';
 import SignUp from '../Screens/Signup';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import primary from '../Constants/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Context from './drawerContext';
@@ -20,6 +19,8 @@ import BillScreen from '../Screens/paypal';
 import ProductsList from '../Screens/productsList';
 import CartProducts from '../Screens/cartProducts';
 import * as colors from '../Constants/Colors';
+import FavouriteProductsList from '../Screens/favouriteProductsList';
+import Orders from '../Screens/ordersScreen';
 
 //import Test from '../Screens/Test';
 
@@ -148,6 +149,16 @@ function Navigation() {
           name="BillScreen"
           component={BillScreen}
           options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="FavouriteProductsList"
+          component={FavouriteProductsList}
+          options={{headerShown: true, headerTitle: 'Favourite'}}
+        />
+        <Stack.Screen
+          name="Orders"
+          component={Orders}
+          options={{headerShown: true, headerTitle: 'Orders'}}
         />
         {/* <Stack.Screen
           name="Test"

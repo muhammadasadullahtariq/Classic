@@ -1,5 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TouchableOpacity,TouchableHighlight} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 import Text from '../Global/normalText';
 import Icon from 'react-native-vector-icons/Ionicons';
 import primary from '../../Constants/Colors';
@@ -10,7 +15,13 @@ const screen = props => {
   useEffect(() => {}, []);
 
   return (
-    <TouchableHighlight onPress={() => console.log('i pressed')} activeOpacity={0.6} underlayColor={brown}>
+    <TouchableHighlight
+      onPress={() => {
+        console.log('i pressed');
+        props.onPress(props.text);
+      }}
+      activeOpacity={0.6}
+      underlayColor={brown}>
       <View style={styles.mainContainer}>
         <Icon name={props.iconName} size={30} color={primary} />
         <Text

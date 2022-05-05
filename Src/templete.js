@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-const screen = props => {
+const Screen = props => {
   useEffect(() => {}, []);
 
   return <View style={styles.mainContainer}></View>;

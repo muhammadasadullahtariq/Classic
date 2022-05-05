@@ -1,37 +1,54 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Image} from 'react-native';
-import asad from '../Asserts/Images/asad.jpeg';
+import profile from '../Asserts/Images/defaulProfileImage.png';
 import HeaderText from '../Components/Global/headerText';
 import Text from '../Components/Global/normalText';
 import ProfileDetail from '../Components/Profile/iconAndDetail';
 import ProfileSeeting from '../Components/Profile/profileSetting';
+import {useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native'; 
 const white = 'white';
 
 const Screen = props => {
-  useEffect(() => {}, []);
+  const user = useSelector(state => state.user);
+  const [profileImage, setProfileImage] = useState(profile);
+  const navigation = useNavigation();
+  useEffect(() => {
+    if (user.image != '') {
+      setProfileImage({uri: user.image});
+    }
+  }, []);
+
+  const onPressHandler = (text) => {
+    navigation.navigate(text);
+  }
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.profileContainer}>
-        <Image source={asad} style={styles.imageContainer} />
+        <Image source={profileImage} style={styles.imageContainer} />
         <View style={{justifyContent: 'center', marginLeft: 10}}>
-          <HeaderText text={'Asad ullah tariq'} />
+          <HeaderText text={user.name} />
           <Text text={'@AUT008'} />
         </View>
       </View>
       <View style={{height: 10, width: '100%'}} />
-      <ProfileDetail
-        iconName="location-outline"
-        value="Yazman mandi bahawalpur"
-      />
-      <ProfileDetail iconName="call-outline" value="03045622878" />
-      <ProfileDetail
-        iconName="mail-outline"
-        value="asadullahtariq89@gmail.com"
-      />
+      <ProfileDetail iconName="location-outline" value={user.address} />
+      <ProfileDetail iconName="call-outline" value={user.phone} />
+      <ProfileDetail iconName="mail-outline" value={user.email} />
       <View style={{height: 20}} />
-      <ProfileSeeting iconName="heart-outline" value={'My Favourites'} />
-      <ProfileSeeting iconName="briefcase-outline" value={'My purchases'} />
+      <ProfileSeeting
+        iconName="heart-outline"
+        value={'My Favourites'}
+        text={'FavouriteProductsList'}
+        onPress={onPressHandler}
+      />
+      <ProfileSeeting
+        iconName="briefcase-outline"
+        value={'My purchases'}
+        text={'Orders'}
+        onPress={onPressHandler}
+      />
       <ProfileSeeting iconName="share-social-outline" value={'Support'} />
       <ProfileSeeting iconName="information-circle-outline" value={'Support'} />
       <ProfileSeeting iconName="settings-outline" value={'Settings'} />

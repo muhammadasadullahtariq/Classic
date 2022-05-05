@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {
   useTheme,
@@ -12,16 +12,21 @@ import {
   Switch,
 } from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import asad from '../Asserts/Images/asad.jpeg';
-
+import profile from '../Asserts/Images/defaulProfileImage.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-//import {AuthContext} from './context';
+import {useSelector} from 'react-redux';
 
 export default function DrawerContent(props) {
   const paperTheme = useTheme();
-
-  //const {signOut, toggleTheme} = React.useContext(AuthContext);
+  const user = useSelector(state => state.user);
+  const [profileImage, setProfileImage] = useState(profile);
+  useEffect(() => {
+    console.log(user);
+    if (user.image != '') {
+      console.log(user.image);
+      setProfileImage({uri: user.image});
+    }
+  }, []);
 
   return (
     <View style={{flex: 1}}>
@@ -30,13 +35,9 @@ export default function DrawerContent(props) {
           <View style={styles.userInfoSection}>
             <View style={{flexDirection: 'row'}}>
               <Image
-                source={asad}
+                source={profileImage}
                 style={{width: '100%', height: 400, marginTop: -50}}
               />
-              <View style={{marginLeft: 15, flexDirection: 'column'}}>
-                <Title style={styles.title}>John Doe</Title>
-                <Caption style={styles.caption}>@j_doe</Caption>
-              </View>
             </View>
           </View>
 
@@ -56,7 +57,7 @@ export default function DrawerContent(props) {
               )}
               label="Favourites"
               onPress={() => {
-                props.navigation.navigate('BookmarkScreen');
+                props.navigation.navigate('FavouriteProductsList');
               }}
             />
             <DrawerItem
@@ -68,21 +69,7 @@ export default function DrawerContent(props) {
                 props.navigation.navigate('SettingsScreen');
               }}
             />
-           
           </Drawer.Section>
-          {/* <Drawer.Section title="Preferences">
-            <TouchableRipple
-              onPress={() => {
-                //toggleTheme();
-              }}>
-              <View style={styles.preference}>
-                <Text>Dark Theme</Text>
-                <View pointerEvents="none">
-                  <Switch value={paperTheme.dark} />
-                </View>
-              </View>
-            </TouchableRipple>
-          </Drawer.Section> */}
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
