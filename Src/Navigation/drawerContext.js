@@ -15,9 +15,9 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import profile from '../Asserts/Images/defaulProfileImage.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 export default function DrawerContent(props) {
-  const paperTheme = useTheme();
   const user = useSelector(state => state.user);
   const [profileImage, setProfileImage] = useState(profile);
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function DrawerContent(props) {
       console.log(user.image);
       setProfileImage({uri: user.image});
     }
-  }, []);
+  }, [user]);
 
   return (
     <View style={{flex: 1}}>
@@ -66,7 +66,7 @@ export default function DrawerContent(props) {
               )}
               label="Settings"
               onPress={() => {
-                props.navigation.navigate('SettingsScreen');
+                props.navigation.navigate('SettingScreen');
               }}
             />
           </Drawer.Section>
@@ -79,7 +79,8 @@ export default function DrawerContent(props) {
           )}
           label="Sign Out"
           onPress={() => {
-            //signOut();
+            auth().signOut();
+            props.navigation.navigate('Signin');
           }}
         />
       </Drawer.Section>

@@ -27,7 +27,7 @@ const registerUser = async (
         imageResult = '';
       } else {
         console.log('imageResult', imageResult);
-        imageResult = API_URL + '/upload/' + imageResult.data.filename;
+        imageResult = API_URL + imageResult.data.filename;
       }
     }
     console.log(

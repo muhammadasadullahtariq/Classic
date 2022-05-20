@@ -1,7 +1,6 @@
 import ImagePicker from 'react-native-image-crop-picker';
 
-
-const imagePicker = (responce, setVideoORImageSourceArray) => {
+const imagePicker = (responce, setVideoORImageSourceArray, setImageChanged) => {
   try {
     if (responce == 'Take Photo') {
       try {
@@ -13,6 +12,7 @@ const imagePicker = (responce, setVideoORImageSourceArray) => {
           compressImageMaxHeight: 480,
           freeStyleCropEnabled: true,
         }).then(image => {
+          setImageChanged(true);
           setVideoORImageSourceArray({
             path: {uri: image.path},
             responce: image,
@@ -32,6 +32,7 @@ const imagePicker = (responce, setVideoORImageSourceArray) => {
         avoidEmptySpaceAroundImage: true,
         maxFiles: 1,
       }).then(image => {
+        setImageChanged(true);
         setVideoORImageSourceArray({
           path: {uri: image.path},
           responce: image,

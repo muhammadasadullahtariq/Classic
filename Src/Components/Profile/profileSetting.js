@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   TouchableHighlight,
+  Share,
 } from 'react-native';
 import Text from '../Global/normalText';
 import Icon from 'react-native-vector-icons/Ionicons';

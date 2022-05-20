@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, Share} from 'react-native';
 import profile from '../Asserts/Images/defaulProfileImage.png';
 import HeaderText from '../Components/Global/headerText';
 import Text from '../Components/Global/normalText';
 import ProfileDetail from '../Components/Profile/iconAndDetail';
 import ProfileSeeting from '../Components/Profile/profileSetting';
 import {useSelector} from 'react-redux';
-import { useNavigation } from '@react-navigation/native'; 
+import {useNavigation} from '@react-navigation/native';
 const white = 'white';
 
 const Screen = props => {
@@ -19,9 +19,31 @@ const Screen = props => {
     }
   }, []);
 
-  const onPressHandler = (text) => {
-    navigation.navigate(text);
-  }
+  const shareHandler = async () => {
+    try {
+      const result = await Share.share({
+        url: 'https://aboutreact.com/react-native-facebook-share/',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const onPressHandler = text => {
+    //console.log(text);
+    if (text === 'Share') {
+      shareHandler();
+    } else navigation.navigate(text);
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -49,9 +71,24 @@ const Screen = props => {
         text={'Orders'}
         onPress={onPressHandler}
       />
-      <ProfileSeeting iconName="share-social-outline" value={'Support'} />
-      <ProfileSeeting iconName="information-circle-outline" value={'Support'} />
-      <ProfileSeeting iconName="settings-outline" value={'Settings'} />
+      <ProfileSeeting
+        iconName="share-social-outline"
+        value={'Share'}
+        text={'Share'}
+        onPress={onPressHandler}
+      />
+      <ProfileSeeting
+        iconName="information-circle-outline"
+        value={'Support'}
+        text={'Support'}
+        onPress={onPressHandler}
+      />
+      <ProfileSeeting
+        iconName="settings-outline"
+        value={'Settings'}
+        text={'SettingScreen'}
+        onPress={onPressHandler}
+      />
     </View>
   );
 };

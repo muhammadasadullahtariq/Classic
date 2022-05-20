@@ -36,6 +36,7 @@
     "react-native-ratings": "^8.1.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.4.1",
+    "react-native-root-toast": "^3.3.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.9.0",
     "react-native-shadow-cards": "^1.0.2",

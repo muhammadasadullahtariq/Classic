@@ -21,6 +21,8 @@ import CartProducts from '../Screens/cartProducts';
 import * as colors from '../Constants/Colors';
 import FavouriteProductsList from '../Screens/favouriteProductsList';
 import Orders from '../Screens/ordersScreen';
+import Support from '../Screens/support';
+import SettingScreen from '../Screens/SettingScreen';
 
 //import Test from '../Screens/Test';
 
@@ -159,6 +161,16 @@ function Navigation() {
           name="Orders"
           component={Orders}
           options={{headerShown: true, headerTitle: 'Orders'}}
+        />
+        <Stack.Screen
+          name="Support"
+          component={Support}
+          options={{headerShown: true, headerTitle: 'Support'}}
+        />
+        <Stack.Screen
+          name="SettingScreen"
+          component={SettingScreen}
+          options={{headerShown: true, headerTitle: 'Setting'}}
         />
         {/* <Stack.Screen
           name="Test"

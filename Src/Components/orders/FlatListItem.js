@@ -54,10 +54,8 @@ const Screen = props => {
             style={{color: primary}}
           />
           <View style={{flexDirection: 'row'}}>
-            <HeaderText
-              text={'$ ' + props.item.totalPrice}
-              style={{fontSize: 18}}
-            />
+            <HeaderText text={'Total Bill:'} style={{fontSize: 18}} />
+            <Text text={'$ ' + props.item.totalPrice} style={{fontSize: 18}} />
             <View style={{flex: 1}} />
           </View>
           {props.item.products.map((product, index) => (
@@ -76,7 +74,7 @@ const Screen = props => {
 const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
-    height: 150,
+    minHeight: 120,
     width: windowWidth - 20,
     backgroundColor: 'white',
     borderBottomWidth: 1,

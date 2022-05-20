@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Platform} from 'react-native';
+import * as Colors from '../../Constants/Colors';
 
 export const component = props => {
   return (
     <View style={[style.mainView, props.viewStyle, style.shadow]}>
       <TextInput
+        selectionColor={Colors.primary}
         autoCorrect={false}
         placeholder={props.placeHolder}
         value={props.text}
