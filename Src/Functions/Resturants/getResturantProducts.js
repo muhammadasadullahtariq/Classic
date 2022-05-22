@@ -11,7 +11,7 @@ async function getResturantProducts(id) {
      redirect: 'follow',
    };
     const result = await fetch(
-      API_URL + 'getProductRestaurant/' + id,
+      API_URL + 'allProductsOfRestaurant/' + id,
       requestOptions,
     );
     const json = await result.json();

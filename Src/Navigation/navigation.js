@@ -93,7 +93,7 @@ function Navigation() {
           },
           headerTintColor: 'black',
         }}
-        initialRouteName="SignIn">
+        initialRouteName="ProductListOfResturant">
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen

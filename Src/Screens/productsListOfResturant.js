@@ -16,21 +16,50 @@ import * as colors from '../Constants/Colors';
 import PlusMinusButton from '../Components/Global/plusMinusButton';
 import ResturantList from '../Data/resturants';
 import Button from '../Components/Global/button';
-import { useNavigation } from '@react-navigation/native';
+import getResturantProducts from '../Functions/Resturants/getResturantProducts';
+import image from '../Asserts/Images/Restaurant.png';
 
 const white = 'white';
 
-const windowHeight = Dimensions.get('window').height;
-
-const Screen = props => {
-
-const navigation=useNavigation();
+const Screen = ({navigation, route}) => {
+  //const id=route.params.id;
+  const [data, setData] = useState({
+    products: [
+      {
+        image: image,
+        price: '3000',
+        name: 'Burger',
+        key: '0',
+        rating: 4.5,
+        price: 45,
+        detail: 'Delight pizza with souce and onion',
+        about: 'Short detail',
+      },
+    ],
+  });
 
   const [selectedItem, setSelectedItem] = useState(0);
   useEffect(() => {
-    refRBSheet.current.open();
+    productsHandler();
+    //refRBSheet.current.open();
   }, []);
   const refRBSheet = useRef();
+
+  const productsHandler = async () => {
+    const result = await getResturantProducts('6237eaf14d8b28e766b87b7f');
+
+    console.log(result);
+    if (result.status === 'Success') {
+      var data = result.data;
+      if (data.image != '') {
+        data.image = {uri: data.image};
+      } else {
+        data.image = image;
+      }
+      setData(data);
+      //setResturant(result.data.resturant);
+    }
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -46,9 +75,11 @@ const navigation=useNavigation();
             }}>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={()=>navigation.navigate('ResturantDetail')}>
+              onPress={() =>
+                navigation.navigate('ResturantDetail', {id: data._id})
+              }>
               <Image
-                source={ResturantList[3].image}
+                source={data.image}
                 style={{
                   width: '100%',
                   height: 300,
@@ -61,7 +92,7 @@ const navigation=useNavigation();
           </View>
         )}
         ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
-        data={recentlyAdded}
+        data={data.products}
         renderItem={items => (
           <FlatListItem
             item={items.item}
@@ -104,10 +135,10 @@ const navigation=useNavigation();
             backgroundColor: colors.primary,
             zIndex: -1,
           }}
-          source={recentlyAdded[0].image}
+          source={data.products[selectedItem].image}
         />
         <HeaderText
-          text={recentlyAdded[0].name}
+          text={data.products[selectedItem].name}
           style={{
             marginTop: 10,
             marginBottom: 0,
@@ -116,8 +147,11 @@ const navigation=useNavigation();
             fontSize: 30,
           }}
         />
-        <Text text={recentlyAdded[0].detail} style={{opacity: 0.6}} />
-        <PlusMinusButton count={0} price={45} />
+        <Text
+          text={data.products[selectedItem].detail}
+          style={{opacity: 0.6}}
+        />
+        <PlusMinusButton count={0} price={data.products[selectedItem].price} />
         <View
           style={{
             flex: 1,

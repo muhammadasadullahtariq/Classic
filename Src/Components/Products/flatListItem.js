@@ -13,7 +13,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import handelFavourite from '../../Functions/global/handelFavourite';
 import checkProductExistInFavourite from '../../Functions/global/checkProductExistInFavourite';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
+import image from '../../Asserts/Images/burger.png';
 
 const PrimaryColor = primary;
 const windowWidth = Dimensions.get('window').width;
@@ -22,7 +23,7 @@ const Screen = props => {
   const navgation = useNavigation();
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(props.index, 'asad ullah');
+    console.log(props.item._id, 'asad ullah');
   }, []);
   const [count, setCount] = useState(0);
   const [favouriteFalg, setFavouriteFalg] = useState(
@@ -30,11 +31,17 @@ const Screen = props => {
   );
 
   const handelFavouriteButton = async () => {
-    await handelFavourite(favouriteFalg, setFavouriteFalg, props.item._id, dispatch);
+    await handelFavourite(
+      favouriteFalg,
+      setFavouriteFalg,
+      props.item._id,
+      dispatch,
+    );
   };
 
   return (
     <TouchableOpacity
+      key={props.item._id}
       activeOpacity={0.8}
       onPress={() => props.onPress(props.index)}>
       <View style={styles.mainContainer}>
@@ -113,7 +120,10 @@ const Screen = props => {
             </View> */}
           </View>
         </View>
-        <Image source={props.item.image} style={styles.imageContainer} />
+        <Image
+          source={props.item.image == '' ? image : {url: props.item.image}}
+          style={styles.imageContainer}
+        />
       </View>
     </TouchableOpacity>
   );
