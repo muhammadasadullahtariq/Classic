@@ -1,19 +1,28 @@
 import {API_URL} from '@env';
 
-const updateLocation = async location => {
+async function postOrder(
+  location,
+  products,
+  resturantId,
+  address,
+  detail,
+  totalPrice,
+) {
   try {
     console.log(location);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
-      id: global.user,
-      user: {
-        location: {
-          latitude: location.longitude,
-          longitude: location.latitude,
-        },
-      },
+      name: 'Testing asad 2',
+      location: location,
+      address: address,
+      detail: detail,
+      products: products,
+      totalPrice: totalPrice,
+      user: global.user,
+      restaurant: resturantId,
+      billMethod: 'cash',
     });
 
     var requestOptions = {
@@ -23,14 +32,13 @@ const updateLocation = async location => {
       redirect: 'follow',
     };
 
-    const result = await fetch(API_URL + 'updateuser', requestOptions);
+    const result = await fetch(API_URL + 'addOrder', requestOptions);
     const json = await result.json();
-    console.log(json);
     return json;
   } catch (error) {
     console.log(error);
     return {status: 'Fail', message: error.message};
   }
-};
+}
 
-export default updateLocation;
+export default postOrder;

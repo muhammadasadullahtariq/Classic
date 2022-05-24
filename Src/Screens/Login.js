@@ -43,6 +43,7 @@ const Screen = () => {
     if (auth().currentUser !== null) {
       userHandeler(auth().currentUser.uid);
     }
+    console.log(auth().currentUser, 'current user');
     GoogleSignin.configure({
       scopes: ['email'],
       iosClientId:

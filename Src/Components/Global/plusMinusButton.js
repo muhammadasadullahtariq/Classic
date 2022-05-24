@@ -23,7 +23,7 @@ const screen = props => {
           <TouchableOpacity
             activeOpacity={0.8}
             disabled={props.count == 0 ? true : false}
-            onPress={props.minusHandler}>
+            onPress={() => props.setCount(props.count - 1)}>
             <View
               style={[
                 styles.plusMinusButtonContainer,
@@ -41,7 +41,9 @@ const screen = props => {
               opacity: props.count == 0 ? 0.1 : 1,
             }}
           />
-          <TouchableOpacity activeOpacity={0.8} onPress={props.plusHandler}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => props.setCount(props.count + 1)}>
             <View style={styles.plusMinusButtonContainer}>
               <Icon name="plus" color={white} size={25} />
             </View>

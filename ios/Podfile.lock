@@ -534,6 +534,27 @@ PODS:
     - React-RCTImage
   - RNVectorIcons (9.0.0):
     - React-Core
+  - Stripe (22.3.2):
+    - Stripe/Stripe3DS2 (= 22.3.2)
+    - StripeApplePay (= 22.3.2)
+    - StripeCore (= 22.3.2)
+    - StripeUICore (= 22.3.2)
+  - stripe-react-native (0.10.0):
+    - React-Core
+    - Stripe (~> 22.3.0)
+    - StripeFinancialConnections (~> 22.3.0)
+  - Stripe/Stripe3DS2 (22.3.2):
+    - StripeApplePay (= 22.3.2)
+    - StripeCore (= 22.3.2)
+    - StripeUICore (= 22.3.2)
+  - StripeApplePay (22.3.2):
+    - StripeCore (= 22.3.2)
+  - StripeCore (22.3.2)
+  - StripeFinancialConnections (22.3.2):
+    - StripeCore (= 22.3.2)
+    - StripeUICore (= 22.3.2)
+  - StripeUICore (22.3.2):
+    - StripeCore (= 22.3.2)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -609,6 +630,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -646,6 +668,11 @@ SPEC REPOS:
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripeUICore
     - TOCropViewController
     - YogaKit
 
@@ -742,6 +769,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  stripe-react-native:
+    :path: "../node_modules/@stripe/stripe-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -825,10 +854,16 @@ SPEC CHECKSUMS:
   RNReanimated: f1b73ebfdd510dc56b8970bf19444cb0d5acd35a
   RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  Stripe: 17d25f91e6332898ba92585cd84be1a8b5594239
+  stripe-react-native: b96949583aa3a10954510230b97747fa6c453718
+  StripeApplePay: 90b4c66db77cb49273eb8f5d58385b5dc3923cff
+  StripeCore: 7d8cf9e15ed8c3b25782693195cbf8757c7c3c4d
+  StripeFinancialConnections: 01deacb97a300f001b5b1ecfbed548d22b6a77de
+  StripeUICore: e90f3a6d4244fbda668fbc44cb657281574a7bd8
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: bb909dde8f7b0d03e4035a43cff0311b1c9b989d
+PODFILE CHECKSUM: 8917458794cea7c5fa4265c41e285f788c2b779b
 
 COCOAPODS: 1.11.3

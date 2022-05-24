@@ -10,16 +10,12 @@ import WaitingAlert from '../Components/Global/Alerts/waitingAlert';
 import InputComponent from '../Components/Global/inputComponentWithIcon';
 import Rating from '../Components/Rating/userRating';
 import TitleName from '../Components/DashBoard/titleName';
+import BoxChecker from '../Components/Global/check';
 
 const Screen = () => {
   useEffect(() => {}, []);
 
-  return (
-    <View
-      style={{backgroundColor: '#cfcfcf', flex: 1, justifyContent: 'center'}}>
-      <TitleName name={'Hellow World'} />
-    </View>
-  );
+  return <BoxChecker text="Asad ullah" selectedItem={0} index={0} />;
 };
 
 export default Screen;

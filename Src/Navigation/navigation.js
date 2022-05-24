@@ -23,6 +23,7 @@ import FavouriteProductsList from '../Screens/favouriteProductsList';
 import Orders from '../Screens/ordersScreen';
 import Support from '../Screens/support';
 import SettingScreen from '../Screens/SettingScreen';
+import CardBillScreen from '../Screens/billScreen';
 
 //import Test from '../Screens/Test';
 
@@ -93,7 +94,7 @@ function Navigation() {
           },
           headerTintColor: 'black',
         }}
-        initialRouteName="ProductListOfResturant">
+        initialRouteName="SignIn">
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen
@@ -180,6 +181,11 @@ function Navigation() {
         {/* <Stack.Screen  name="tested"
         component={}
         option={{headerShown:false}}/> */}
+        <Stack.Screen
+          name="CardBillScreen"
+          component={CardBillScreen}
+          options={{headerShown: true}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
