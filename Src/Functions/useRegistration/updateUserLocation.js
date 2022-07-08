@@ -10,8 +10,8 @@ const updateLocation = async location => {
       id: global.user,
       user: {
         location: {
-          latitude: location.longitude,
-          longitude: location.latitude,
+          latitude: location.latitude,
+          longitude: location.longitude,
         },
       },
     });

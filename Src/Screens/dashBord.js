@@ -20,23 +20,26 @@ import RightCardView from '../Components/DashBoard/rightCardView';
 import {recentlyAdded} from '../Data/products.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Card} from 'react-native-shadow-cards';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import getUserLocation from '../Functions/getUserLocation';
 import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory.js';
 import getRecentAddedProducts from '../Functions/searchProducts/getRecentAddedProduct.js';
 import Text from '../Components/Global/normalText';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
+import ContextMenu from '../Components/Global/contextMenu';
 
 const white = 'white';
 
 const Screen = props => {
   const navigation = useNavigation();
-  const cartProducts = useSelector(state => state.products);
+  const cartProducts = useSelector(state => state.products, shallowEqual);
   const [columnNum, setColumnNum] = useState(2);
   const [dimensionChange, setDimensionChange] = useState(true);
   const [allProducts, setAllProducts] = useState(true);
   const [location, setLocation] = useState('');
   const [products, setProducts] = useState([]);
+  const [contextMenuFlag, setContextMenuFlag] = useState(true);
+  const isFoused = useIsFocused();
 
   Dimensions.addEventListener('change', () => {
     setDimensionChange(!dimensionChange);
@@ -44,7 +47,7 @@ const Screen = props => {
 
   useEffect(() => {
     console.log(options, 'loop');
-    global.user = '625d106e2b920d62fb561bb4';
+
     let width = Dimensions.get('window').width;
     if (width <= 480) {
       setColumnNum(2);
@@ -55,9 +58,8 @@ const Screen = props => {
     } else {
       setColumnNum(6);
     }
-    getUserLocation(setLocation);
     handleItemSelection('All');
-  }, [dimensionChange]);
+  }, [dimensionChange, isFoused]);
 
   const handleItemSelection = async item => {
     var result;
@@ -72,22 +74,27 @@ const Screen = props => {
     }
   };
 
+  async function locationHandler(responce, index) {
+    setContextMenuFlag(false);
+    if (index === 0) {
+      getUserLocation(setLocation);
+    }
+  }
+
   return (
     <View style={styles.mainContainer}>
+      <ContextMenu
+        visible={contextMenuFlag}
+        array={['use Current Location', 'use last location']}
+        heading="Select Location"
+        itemPressed={locationHandler}
+        closeMenu={() => setContextMenuFlag(false)}
+      />
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          //justifyContent: 'space-around',
-          //backgroundColor: white,
         }}>
-        {/* <TouchableOpacity
-          onPress={() => console.log('I pressed')}
-          activeOpacity={0.7}>
-          <Card style={styles.cartView}>
-            <Icon name="list-outline" size={30} color={primary} />
-          </Card>
-        </TouchableOpacity> */}
         <SearchBar
           placeHolder="Find Food"
           onPress={() => console.log('i called')}
@@ -100,18 +107,7 @@ const Screen = props => {
             <Icon name="cart-outline" size={30} color={colors.primary} />
           </View>
           {cartProducts.length > 0 && (
-            <View
-              style={{
-                backgroundColor: colors.primary,
-                width: 20,
-                minHeight: 20,
-                borderRadius: 40,
-                marginTop: -15,
-                alignSelf: 'flex-end',
-                marginRight: -5,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+            <View style={styles.productCountContainer}>
               <Text
                 text={cartProducts.length}
                 style={{color: white, fontSize: 12, padding: 0}}
@@ -168,6 +164,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     alignSelf: 'center',
+  },
+  productCountContainer: {
+    backgroundColor: colors.primary,
+    width: 20,
+    minHeight: 20,
+    borderRadius: 40,
+    marginTop: -15,
+    alignSelf: 'flex-end',
+    marginRight: -5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

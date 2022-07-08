@@ -41,31 +41,6 @@ export default function PaymentScreen() {
   const user = useSelector(state => state.user);
 
   const orderHandler = async () => {
-    //   location,
-    //   products,
-    //   resturantId,
-    //   address,
-    //   detail,
-    //   totalPrice,
-    // [
-    //   {
-    //     _id: '6237eea3fd079784efbaf0f0',
-    //     image: '',
-    //     name: 'firstProdect',
-    //     price: 100,
-    //     quantity: 2,
-    //     shortDetail: 'its Pizza yoo',
-    //   },
-    //   {
-    //     _id: '6237ee91fd079784efbaf0eb',
-    //     image: '',
-    //     name: 'firstProdect 1',
-    //     price: 100,
-    //     quantity: 2,
-    //     shortDetail: 'its Pizza yoo',
-    //   },
-    // ];
-    // {"__v": 10, "_id": "625d106e2b920d62fb561bb4", "address": "Yazman mandi", "createdAt": "2022-04-18T07:17:02.496Z", "deviceId": "eMA-6bd4NUzmni0ODgCDPC:APA91bGX60VvTCLg5iSjDeP4TBXee8847blURwm6UtEl6rW6s2OJa0b-onpBCXRanDFuYI0Cf27FXdyI65QCcoRdXDn_K5RQ5Edn-l9RrXBbB2-s-RQImT6rOKyDvYTBwkD4ZZwNxorG", "email": "asadullahtariq89@gmail.com", "favourties": [], "googleId": "r7jSoxzXRYO4LG8JfltDA5K37j32", "image": "http://localhost:3000/api/1652395872746-980276725-37675BBA-4DE1-46E1-9C2E-901E5E9B5295.jpg", "location": {"latitude": 29.394644, "longitude": 71.663875}, "name": "Asad ullah 8", "orders": [], "phone": "0304562287", "reviews": [], "role": 1, "status": 1, "updatedAt": "2022-05-22T16:50:11.701Z"}
     const result = await postOrder(
       location,
       products,
@@ -83,8 +58,9 @@ export default function PaymentScreen() {
     console.log(totalPrice);
     console.log(restaurant);
     console.log(user);
+    console.log('user Location\t', user.location);
     setLocation(user.location);
-  }, []);
+  }, [location]);
 
   return (
     <ScrollView>
@@ -94,15 +70,15 @@ export default function PaymentScreen() {
         style={styles.map}
         ref={map}
         initialRegion={{
-          latitude: 29.394644,
-          longitude: 71.663875,
+          latitude: location.latitude,
+          longitude: location.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
         <Marker
           coordinate={{
-            latitude: 29.394644,
-            longitude: 71.663875,
+            latitude: location.latitude,
+            longitude: location.longitude,
           }}
           draggable={true}
           onDragEnd={e => {
