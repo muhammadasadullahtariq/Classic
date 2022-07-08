@@ -9,11 +9,28 @@ import * as colors from '../Constants/Colors';
 import PlusMinusButton from '../Components/Global/plusMinusButton';
 import Button from '../Components/Global/button';
 import getFavouriteProducts from '../Functions/global/getFavouriteProducts';
+import productImage from '../assets/Images/burger.png';
+import {useDispatch, useSelector} from 'react-redux';
+import {addProduct, removeProduct} from '../Actions/actions';
+import showToast from '../Components/Global/toast';
 
 const Screen = ({route, navigation}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const refRBSheet = useRef();
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState([
+    {
+      image: productImage,
+      price: '3000',
+      name: 'Burger',
+      key: '0',
+      rating: 4.5,
+      price: 45,
+      detail: 'Delight pizza with souce and onion',
+      about: 'Short detail',
+    },
+  ]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     handleProduct();
@@ -39,6 +56,7 @@ const Screen = ({route, navigation}) => {
               onPress={index => {
                 setSelectedItem(index);
                 refRBSheet.current.open();
+                setCount(0);
                 console.log(index);
               }}
             />
@@ -79,10 +97,14 @@ const Screen = ({route, navigation}) => {
             backgroundColor: colors.primary,
             zIndex: -1,
           }}
-          source={recentlyAdded[selectedItem].image}
+          source={
+            products[selectedItem].image == ''
+              ? productImage
+              : {uri: products[selectedItem].image}
+          }
         />
         <HeaderText
-          text={recentlyAdded[selectedItem].name}
+          text={products[selectedItem].name}
           style={{
             marginTop: 10,
             marginBottom: 0,
@@ -91,11 +113,12 @@ const Screen = ({route, navigation}) => {
             fontSize: 30,
           }}
         />
-        <Text
-          text={recentlyAdded[selectedItem].detail}
-          style={{opacity: 0.6}}
+        <Text text={products[selectedItem].detail} style={{opacity: 0.6}} />
+        <PlusMinusButton
+          count={count}
+          price={products[selectedItem].price}
+          setCount={setCount}
         />
-        <PlusMinusButton count={0} price={45} />
         <View
           style={{
             flex: 1,
@@ -104,7 +127,18 @@ const Screen = ({route, navigation}) => {
         <Button
           text={'Add to cart'}
           style={{marginBottom: '7%'}}
-          onPress={() => refRBSheet.current.close()}
+          onPress={() => {
+            if (count > 0) {
+              dispatch(
+                addProduct({...products[selectedItem], quantity: count}),
+              );
+              showToast('Product added to cart');
+            } else {
+              dispatch(removeProduct(products[selectedItem]));
+              showToast('Product removed from cart');
+            }
+            refRBSheet.current.close();
+          }}
         />
       </RBSheet>
     </View>

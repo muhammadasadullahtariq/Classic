@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Text from '../Global/normalText';
 import Icon from 'react-native-vector-icons/Ionicons';
-//import arr from '../../Asserts/Strings/detailScreenOptions';
+//import arr from '../../assets/Strings/detailScreenOptions';
 
 const screen = props => {
   useEffect(() => {}, []);

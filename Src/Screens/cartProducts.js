@@ -10,6 +10,8 @@ import PlusMinusButton from '../Components/Global/plusMinusButton';
 import Button from '../Components/Global/button';
 import {useDispatch, useSelector} from 'react-redux';
 import {addProduct, removeProduct} from '../Actions/actions';
+import showToast from '../Components/Global/toast';
+import productImage from '../assets/Images/burger.png';
 
 const Screen = ({navigation, route}) => {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -71,7 +73,11 @@ const Screen = ({navigation, route}) => {
               backgroundColor: colors.primary,
               zIndex: -1,
             }}
-            source={products[selectedItem].image}
+            source={
+              products[selectedItem].image === ''
+                ? productImage
+                : {uri: products[selectedItem].image}
+            }
           />
           <HeaderText
             text={products[selectedItem].name}
@@ -100,12 +106,14 @@ const Screen = ({navigation, route}) => {
             onPress={() => {
               setSelectedItem(0);
               refRBSheet.current.close();
-              if (count > 0)
+              if (count > 0) {
                 dispatch(
                   addProduct({...products[selectedItem], quantity: count}),
                 );
-              else {
+                showToast('Cart updated');
+              } else {
                 dispatch(removeProduct(products[selectedItem]));
+                showToast('Product removed from cart');
               }
             }}
           />
@@ -122,7 +130,10 @@ const Screen = ({navigation, route}) => {
   } else {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text text={'No Products in Cart'} style={{fontSize: 30}} />
+        <Text
+          text={'No Products in Cart'}
+          style={{fontSize: 30, color: colors.brown}}
+        />
       </View>
     );
   }

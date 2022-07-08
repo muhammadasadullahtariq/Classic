@@ -3,7 +3,7 @@ import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Text from '../Global/normalText';
 import Icon from 'react-native-vector-icons/Ionicons';
 import primary from '../../Constants/Colors';
-//import arr from '../../Asserts/Strings/detailScreenOptions';
+//import arr from '../../assets/Strings/detailScreenOptions';
 
 const screen = props => {
   useEffect(() => {}, []);

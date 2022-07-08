@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HeadingText from '../Global/headerText';
-import image from '../../Asserts/Images/logo.png';
+import image from '../../assets/Images/logo.png';
 import NormalText from '../Global/normalText';
 import {useNavigation} from '@react-navigation/native';
+import productImage from '../../assets/Images/burger.png';
 import primary from '../../Constants/Colors';
+import * as COLORS from '../../Constants/Colors';
 
 const screen = props => {
   const [cartFlag, setCartFlag] = useState(false);
@@ -30,63 +32,31 @@ const screen = props => {
         onPress={() => {
           navgation.navigate('DetailScreen', {item: props.item});
         }}>
-        <Image source={props.item.image} style={styles.imageContainer} />
+        <Image
+          source={
+            props.item.image === '' ? productImage : {uri: props.item.image}
+          }
+          style={styles.imageContainer}
+        />
       </TouchableOpacity>
-      {/* <View style={styles.childViewContainer}> */}
       <HeadingText
         text={props.item.name}
         style={styles.headingContainer}
         viewStyle={{alignSelf: 'center'}}
       />
-      {/* <NormalText text={props.item.name} style={styles.normalTextContainer} />
-        <View style={{flex: 1}} />
-        <TouchableOpacity
-          onPress={() => setFavourtFlag(!favourtFlag)}
-          activeOpacity={0.7}>
-          {favourtFlag && (
-            <View style={styles.iconContainer}>
-              <Icon name="heart" size={25} />
-            </View>
-          )}
-          {!favourtFlag && (
-            <View style={styles.iconContainer}>
-              <Icon name="heart-outline" size={25} />
-            </View>
-          )}
-        </TouchableOpacity> */}
-      {/* </View> */}
-      {/* <View style={styles.childViewContainer}> */}
-      {/* <HeadingText text={props.item.price} style={styles.headingContainer} /> */}
-      <NormalText
-        text={props.item.about}
-        style={styles.normalTextContainer}
-        viewStyle={{alignSelf: 'center'}}
-      />
-      {/* <View style={{flex: 1}} /> */}
-      {/* <TouchableOpacity
-          onPress={() => setCartFlag(!cartFlag)}
-          activeOpacity={0.7}>
-          {cartFlag && (
-            <View style={styles.iconContainer}>
-              <Icon name="ios-cart" size={25} />
-            </View>
-          )}
-          {!cartFlag && (
-            <View style={styles.iconContainer}>
-              <Icon name="ios-cart-outline" size={25} />
-            </View>
-          )}
-        </TouchableOpacity> */}
-      {/* </View> */}
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}>
         <NormalText
           text={'$'}
           style={{opacity: 0.6, color: primary, fontSize: 15}}
-          viewStyle={{alignSelf: 'center', marginTop: 5, paddingRight: 0}}
+          viewStyle={{alignSelf: 'center', paddingRight: 0}}
         />
         <HeadingText
           text={props.item.price}
-          style={{marginTop: 5, paddingLeft: 0}}
+          style={{paddingLeft: 0, color: COLORS.primary}}
           viewStyle={{alignSelf: 'center'}}
         />
       </View>
@@ -117,11 +87,13 @@ const styles = StyleSheet.create({
     width: '100%',
     aspectRatio: 1.4,
     alignSelf: 'center',
+    backgroundColor: COLORS.primary,
   },
   headingContainer: {
-    fontSize: 15,
+    fontSize: 18,
     padding: 0,
     paddingLeft: 5,
+    marginTop: 10,
   },
   normalTextContainer: {
     fontSize: 15,

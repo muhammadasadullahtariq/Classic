@@ -1,11 +1,11 @@
-import macdonalds from '../Asserts/Images/Resturants/mcdonalds.jpeg';
-import burgerKing from '../Asserts/Images/Resturants/burgerKing.jpeg';
-import pizzaHut from '../Asserts/Images/Resturants/pizzaHut.png';
-//import PizzaPizza from '../Asserts/Images/Resturants/pizzapizza.jpeg';
-import kfc from '../Asserts/Images/Resturants/kfc.jpg';
-import tacoBell from '../Asserts/Images/Resturants/tacoBell.jpeg';
-import dominos from '../Asserts/Images/Resturants/dominos.png';
-import subway from '../Asserts/Images/Resturants/subway.jpeg';
+import macdonalds from '../assets/Images/Resturants/mcdonalds.jpeg';
+import burgerKing from '../assets/Images/Resturants/burgerKing.jpeg';
+import pizzaHut from '../assets/Images/Resturants/pizzaHut.png';
+//import PizzaPizza from '../assets/Images/Resturants/pizzapizza.jpeg';
+import kfc from '../assets/Images/Resturants/kfc.jpg';
+import tacoBell from '../assets/Images/Resturants/tacoBell.jpeg';
+import dominos from '../assets/Images/Resturants/dominos.png';
+import subway from '../assets/Images/Resturants/subway.jpeg';
 
 const list = [
   {name: 'Mcdonalds', image: macdonalds, key: '0', foodType: 'Fast Food'},
@@ -16,6 +16,5 @@ const list = [
   {name: 'Dominos', image: dominos, key: '5', foodType: 'Fast Food'},
   {name: 'Subway', image: subway, key: '6', foodType: 'Fast Food'},
 ];
-
 
 export default list;

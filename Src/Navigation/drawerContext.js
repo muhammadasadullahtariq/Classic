@@ -12,7 +12,7 @@ import {
   Switch,
 } from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import profile from '../Asserts/Images/defaulProfileImage.png';
+import profile from '../assets/Images/defaulProfileImage.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
@@ -80,7 +80,7 @@ export default function DrawerContent(props) {
           label="Sign Out"
           onPress={() => {
             auth().signOut();
-            props.navigation.navigate('Signin');
+            props.navigation.navigate('SignIn');
           }}
         />
       </Drawer.Section>

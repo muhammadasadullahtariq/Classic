@@ -22,7 +22,8 @@ const Screen = props => {
   const navgation = useNavigation();
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(props.index, 'asad ullah');
+    //console.log(props.item.products, 'asad ullah');
+    //console.log(props.index, 'asad ullah');
   }, []);
   const [count, setCount] = useState(0);
   // const [favouriteFalg, setFavouriteFalg] = useState(
@@ -58,13 +59,15 @@ const Screen = props => {
             <Text text={'$ ' + props.item.totalPrice} style={{fontSize: 18}} />
             <View style={{flex: 1}} />
           </View>
-          {props.item.products.map((product, index) => (
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text text={product.item.name} />
-              <Text text={product.quantity} />
-            </View>
-          ))}
+          {props.item.products.map((product, index) => {
+            return (
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text text={product.name} />
+                <Text text={product.quantity} />
+              </View>
+            );
+          })}
         </View>
       </View>
     </TouchableOpacity>

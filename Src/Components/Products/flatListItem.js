@@ -8,15 +8,14 @@ import {
 } from 'react-native';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
-import primary from '../../Constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import handelFavourite from '../../Functions/global/handelFavourite';
 import checkProductExistInFavourite from '../../Functions/global/checkProductExistInFavourite';
 import {useDispatch} from 'react-redux';
-import image from '../../Asserts/Images/burger.png';
+import image from '../../assets/Images/burger.png';
+import * as COLORS from '../../Constants/Colors';
 
-const PrimaryColor = primary;
 const windowWidth = Dimensions.get('window').width;
 
 const Screen = props => {
@@ -67,20 +66,23 @@ const Screen = props => {
               }}>
               {favouriteFalg && (
                 <View style={{marginTop: 20}}>
-                  <Icon name="heart" color={primary} size={15} />
+                  <Icon name="heart" color={COLORS.primary} size={15} />
                 </View>
               )}
               {!favouriteFalg && (
                 <View style={{marginTop: 20}}>
-                  <Icon name="hearto" color={primary} size={15} />
+                  <Icon name="hearto" color={COLORS.primary} size={15} />
                 </View>
               )}
             </TouchableOpacity>
           </View>
-          <HeaderText text={props.item.name} style={{color: primary}} />
+          <HeaderText text={props.item.name} style={{color: COLORS.primary}} />
           <Text text={props.item.about} />
           <View style={{flexDirection: 'row'}}>
-            <HeaderText text={'$ ' + props.item.price} style={{fontSize: 18}} />
+            <HeaderText
+              text={'$ ' + props.item.price}
+              style={{fontSize: 18, color: COLORS.darkBrown}}
+            />
             <View style={{flex: 1}} />
             {/* <View
               style={{
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: PrimaryColor,
+    backgroundColor: COLORS.primary,
     //marginLeft: 10,
   },
 });

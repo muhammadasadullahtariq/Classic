@@ -12,7 +12,7 @@ import Text from '../Components/Global/normalText';
 import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlert';
 import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
-import profile from '../Asserts/Images/defaulProfileImage.png';
+import profile from '../assets/Images/defaulProfileImage.png';
 import IconPerson from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import * as colors from '../Constants/Colors';

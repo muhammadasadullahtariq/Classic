@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import resturant from '../../Asserts/Images/Restaurant.png';
+import resturant from '../../assets/Images/Restaurant.png';
 import CardView from 'react-native-cardview';
 import HearderText from '../Global/headerText';
 import NormalText from '../Global/normalText';

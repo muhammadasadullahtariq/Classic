@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Image, Share} from 'react-native';
-import profile from '../Asserts/Images/defaulProfileImage.png';
+import profile from '../assets/Images/defaulProfileImage.png';
 import HeaderText from '../Components/Global/headerText';
 import Text from '../Components/Global/normalText';
 import ProfileDetail from '../Components/Profile/iconAndDetail';

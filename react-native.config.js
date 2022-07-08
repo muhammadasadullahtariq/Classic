@@ -1,4 +1,4 @@
 module.exports = {
-  assets: ['./Src/Asserts/Fonts/'],
+  assets: ['./Src/assets/Fonts/'],
 };
 //import as from

@@ -12,6 +12,7 @@ async function getRecentAddedProducts() {
       requestOptions,
     );
     const json = await result.json();
+    console.log('result is =>', json);
     return json;
   } catch (error) {
     console.log(error);

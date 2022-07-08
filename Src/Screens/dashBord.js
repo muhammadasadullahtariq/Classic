@@ -6,6 +6,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import {options} from '../Data/dashBoard.js';
 import FlatListItem from '../Components/ItemList/flatListItem';
@@ -23,17 +24,19 @@ import {useNavigation} from '@react-navigation/native';
 import getUserLocation from '../Functions/getUserLocation';
 import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory.js';
 import getRecentAddedProducts from '../Functions/searchProducts/getRecentAddedProduct.js';
+import Text from '../Components/Global/normalText';
+import {useSelector} from 'react-redux';
 
 const white = 'white';
 
 const Screen = props => {
   const navigation = useNavigation();
-
+  const cartProducts = useSelector(state => state.products);
   const [columnNum, setColumnNum] = useState(2);
   const [dimensionChange, setDimensionChange] = useState(true);
   const [allProducts, setAllProducts] = useState(true);
   const [location, setLocation] = useState('');
-  const [products, setProducts] = useState(recentlyAdded);
+  const [products, setProducts] = useState([]);
 
   Dimensions.addEventListener('change', () => {
     setDimensionChange(!dimensionChange);
@@ -41,6 +44,7 @@ const Screen = props => {
 
   useEffect(() => {
     console.log(options, 'loop');
+    global.user = '625d106e2b920d62fb561bb4';
     let width = Dimensions.get('window').width;
     if (width <= 480) {
       setColumnNum(2);
@@ -52,6 +56,7 @@ const Screen = props => {
       setColumnNum(6);
     }
     getUserLocation(setLocation);
+    handleItemSelection('All');
   }, [dimensionChange]);
 
   const handleItemSelection = async item => {
@@ -94,6 +99,25 @@ const Screen = props => {
           <View style={styles.cartView}>
             <Icon name="cart-outline" size={30} color={colors.primary} />
           </View>
+          {cartProducts.length > 0 && (
+            <View
+              style={{
+                backgroundColor: colors.primary,
+                width: 20,
+                minHeight: 20,
+                borderRadius: 40,
+                marginTop: -15,
+                alignSelf: 'flex-end',
+                marginRight: -5,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                text={cartProducts.length}
+                style={{color: white, fontSize: 12, padding: 0}}
+              />
+            </View>
+          )}
         </TouchableOpacity>
       </View>
       <TopOptionView
@@ -126,8 +150,9 @@ const Screen = props => {
         renderItem={items => <FlatListItem item={items.item} />}
         numColumns={columnNum}
         key={columnNum}
-        keyExtractor={(item, index) => +item.key}
+        keyExtractor={item => item.name}
         style={{marginTop: 10, marginHorizontal: 10}}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );

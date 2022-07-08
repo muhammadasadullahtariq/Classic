@@ -1,8 +1,8 @@
-import resturant from '../Asserts/Images/Restaurant.png';
-import pizza from '../Asserts/Images/pizza.png';
-import wings from '../Asserts/Images/wings.png';
-import burger from '../Asserts/Images/burger.png';
-import image from '../Asserts/Images/burger.png';
+import resturant from '../assets/Images/Restaurant.png';
+import pizza from '../assets/Images/pizza.png';
+import wings from '../assets/Images/wings.png';
+import burger from '../assets/Images/burger.png';
+import image from '../assets/Images/burger.png';
 
 export const recentlyAdded = [
   {

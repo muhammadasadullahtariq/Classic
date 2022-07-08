@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import image from '../../Asserts/Images/Restaurant.png';
+import image from '../../assets/Images/Restaurant.png';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
 import primary from '../../Constants/Colors';

@@ -7,7 +7,7 @@ export default [
   {
     name: 'Review',
     icon: 'reader-outline',
-    id: '2',
+    id: '3',
   },
   {
     name: 'Add to favourite',

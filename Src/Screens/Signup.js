@@ -5,19 +5,19 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
-import logo from '../Asserts/Images/logo.png';
+import logo from '../assets/Images/logo.png';
 import TextInput from '../Components/Global/inputComponentWithIcon';
 import Heading from '../Components/Global/headerText';
 import Button from '../Components/Global/activeButton';
 import Text from '../Components/Global/normalText';
-import primary from '../Constants/Colors';
 import {useNavigation} from '@react-navigation/native';
 import WaitingAlert from '../Components/Global/Alerts/waitingAlert';
 import SingleButtonAlert from '../Components/Global/Alerts/singleButtonAlert';
 import auth from '@react-native-firebase/auth';
 import IconPerson from 'react-native-vector-icons/Ionicons';
-import * as colors from '../Constants/Colors';
+import * as Colors from '../Constants/Colors';
 import imagePicker from '../Functions/Media/imagePicker';
 import {
   GoogleSignin,
@@ -25,6 +25,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import registerUser from '../Functions/useRegistration/registerUser';
 import messaging from '@react-native-firebase/messaging';
+import googleLogo from '../assets/Images/google.png';
 
 const height = Dimensions.get('window').height;
 
@@ -160,99 +161,128 @@ const Screen = ({navigation, route}) => {
   };
 
   const verificationHandeler = () => {
-    if(googleButtonFlag){
-    if (
-      pin.length >= 6 &&
-      emailVerified &&
-      userName.length > 0 &&
-      cellNumber.length > 7 &&
-      cellNumber.length < 14 &&
-      emailVerified
-    ) {
-      setButtonFlag(true);
+    if (googleButtonFlag) {
+      if (
+        pin.length >= 6 &&
+        emailVerified &&
+        userName.length > 0 &&
+        cellNumber.length > 7 &&
+        cellNumber.length < 14 &&
+        emailVerified
+      ) {
+        setButtonFlag(true);
+      } else {
+        setButtonFlag(false);
+      }
     } else {
-      setButtonFlag(false);
+      if (
+        userName.length > 0 &&
+        cellNumber.length > 7 &&
+        cellNumber.length < 14
+      ) {
+        setButtonFlag(true);
+      } else {
+        setButtonFlag(false);
+      }
     }
-  }
-  else{
-    if (
-      userName.length > 0 &&
-      cellNumber.length > 7 &&
-      cellNumber.length < 14
-    ) {
-      setButtonFlag(true);
-    } else {
-      setButtonFlag(false);
-    }
-  }
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <SingleButtonAlert
-        text={alertText}
-        visible={alertFlag}
-        onPress={() => setAlertFlag(false)}
-      />
-      <WaitingAlert visible={waitingAlertFlag} />
-      {profileImage == null ? (
-        <TouchableOpacity activeOpacity={0.8} onPress={profileImageHandler}>
-          <View style={styles.profilePlus}>
-            <IconPerson name="person" size={50} color={colors.white} />
-          </View>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity activeOpacity={0.8} onPress={profileImageHandler}>
-          <Image source={profileImage.path} style={styles.profileImage} />
-        </TouchableOpacity>
-      )}
-      <View style={{height: '5%'}} />
-      <TextInput
-        placeHolder={'Enter name'}
-        iconName={'person-outline'}
-        textHandler={text => {
-          setUserName(text);
-          verificationHandeler();
-        }}
-        text={userName}
-      />
-      {googleButtonFlag && (
-        <TextInput
-          placeHolder={'Enter mail address'}
-          iconName={'mail-outline'}
-          text={emailAddress}
-          textHandler={emailHandler}
-          borderFlag={!emailVerified}
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.mainContainer}>
+        <SingleButtonAlert
+          text={alertText}
+          visible={alertFlag}
+          onPress={() => setAlertFlag(false)}
         />
-      )}
-      {googleButtonFlag && (
+        <WaitingAlert visible={waitingAlertFlag} />
+        {profileImage == null ? (
+          <TouchableOpacity activeOpacity={0.8} onPress={profileImageHandler}>
+            <View style={styles.profilePlus}>
+              <IconPerson name="person" size={50} color={Colors.white} />
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity activeOpacity={0.8} onPress={profileImageHandler}>
+            <Image source={profileImage.path} style={styles.profileImage} />
+          </TouchableOpacity>
+        )}
+        <View style={{height: '5%'}} />
         <TextInput
-          placeHolder={'Enter pin code'}
-          iconName={'key-outline'}
-          textHandler={pinCodeHandler}
-          text={pin}
+          placeHolder={'Enter name'}
+          iconName={'person-outline'}
+          textHandler={text => {
+            setUserName(text);
+            verificationHandeler();
+          }}
+          text={userName}
         />
-      )}
-      <TextInput
-        placeHolder={'Enter phone number'}
-        iconName={'ios-call-outline'}
-        text={cellNumber}
-        textHandler={text => {
-          setCellNumber(text);
-          verificationHandeler();
-        }}
-      />
-      <TextInput
-        placeHolder={'Enter address optional'}
-        iconName={'ios-location-outline'}
-        textHandler={text => {
-          setAddress(text);
-          verificationHandeler();
-        }}
-        text={address}
-      />
-      <View style={{height: '5%'}} />
-      {googleButtonFlag && (
+        {googleButtonFlag && (
+          <TextInput
+            placeHolder={'Enter mail address'}
+            iconName={'mail-outline'}
+            text={emailAddress}
+            textHandler={emailHandler}
+            borderFlag={!emailVerified}
+          />
+        )}
+        {googleButtonFlag && (
+          <TextInput
+            placeHolder={'Enter pin code'}
+            iconName={'key-outline'}
+            textHandler={pinCodeHandler}
+            text={pin}
+          />
+        )}
+        <TextInput
+          placeHolder={'Enter phone number'}
+          iconName={'ios-call-outline'}
+          text={cellNumber}
+          textHandler={text => {
+            setCellNumber(text);
+            verificationHandeler();
+          }}
+        />
+        <TextInput
+          placeHolder={'Enter address optional'}
+          iconName={'ios-location-outline'}
+          textHandler={text => {
+            setAddress(text);
+            verificationHandeler();
+          }}
+          text={address}
+        />
+        <View style={{height: '5%'}} />
+        {googleButtonFlag && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() =>
+              onGoogleButtonPress().then(res => {
+                userHandeler(res.user.uid);
+              })
+            }>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                backgroundColor: Colors.googleColor,
+                width: 218,
+                alignSelf: 'center',
+                marginBottom: 20,
+              }}>
+              <Image
+                source={googleLogo}
+                style={{width: 40, height: 40, backgroundColor: Colors.white}}
+              />
+              <View style={{width: 10}} />
+              <Text
+                text={'Sign in with Google'}
+                style={{color: Colors.white, marginRight: 5}}
+              />
+            </View>
+          </TouchableOpacity>
+        )}
+        {/* {googleButtonFlag && (
         <GoogleSigninButton
           style={{
             width: 192,
@@ -268,26 +298,27 @@ const Screen = ({navigation, route}) => {
             })
           }
         />
-      )}
+      )} */}
 
-      <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
-      <View style={{flex: 1}} />
-      <TouchableOpacity
-        onPress={() => {
-          Navigator.navigate('SignIn');
-        }}
-        activeOpacity={0.7}>
-        <Text
-          text={'Already have account'}
-          style={{
-            color: colors.primary,
-            fontSize: 10,
-            alignSelf: 'center',
-            marginBottom: 30,
+        <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
+        <View style={{flex: 1}} />
+        <TouchableOpacity
+          onPress={() => {
+            Navigator.navigate('SignIn');
           }}
-        />
-      </TouchableOpacity>
-    </View>
+          activeOpacity={0.7}>
+          <Text
+            text={'Already have account'}
+            style={{
+              color: Colors.primary,
+              fontSize: 10,
+              alignSelf: 'center',
+              marginBottom: 30,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -313,7 +344,7 @@ const styles = StyleSheet.create({
     width: 60,
     marginTop: '10%',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     justifyContent: 'center',
   },
 });

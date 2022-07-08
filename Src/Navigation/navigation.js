@@ -92,11 +92,16 @@ function Navigation() {
             textAlign: 'center',
             color: 'white',
           },
-          headerTintColor: 'black',
+          headerTintColor: white,
+          headerBackTitle: '',
         }}
         initialRouteName="SignIn">
         <Stack.Screen name="TestScreen" component={TestScreen} />
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="DashBoard"
           component={DashBoard}
@@ -126,7 +131,7 @@ function Navigation() {
         <Stack.Screen
           name="SignUp"
           component={SignUp}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Home"
@@ -146,7 +151,7 @@ function Navigation() {
         <Stack.Screen
           name="CartProducts"
           component={CartProducts}
-          options={{headerShown: true}}
+          options={{headerShown: true, title: 'Products in carts'}}
         />
         <Stack.Screen
           name="BillScreen"

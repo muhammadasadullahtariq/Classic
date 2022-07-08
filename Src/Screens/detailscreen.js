@@ -12,8 +12,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import * as colors from '../Constants/Colors';
 import Button from '../Components/Global/button';
 import {useDispatch, useSelector} from 'react-redux';
-import {addProduct} from '../Actions/actions';
-import checkProductExistInFavourties from '../Functions/global/checkProductExistInFavourite';
+import {addProduct,removeProduct} from '../Actions/actions';
+import productImage from '../assets/Images/burger.png';
+import showToast from '../Components/Global/toast';
 const white = 'white';
 
 const Screen = ({route, navigation}) => {
@@ -24,13 +25,15 @@ const Screen = ({route, navigation}) => {
 
   useEffect(() => {
     console.log(item);
-    
   }, []);
 
   return (
     <View style={styles.mainContainer}>
       <ScrollView contentContainerStyle={{flex: 1}}>
-        <Image source={item.image} style={styles.carouselContainer} />
+        <Image
+          source={item.image == '' ? productImage : {uri: item.image}}
+          style={styles.carouselContainer}
+        />
         <View style={styles.headerViewContainer}>
           <HeadingText
             text={item.name}
@@ -116,9 +119,16 @@ const Screen = ({route, navigation}) => {
           text={'Add to cart'}
           style={{marginBottom: '7%'}}
           onPress={() => {
-            console.log('Add to cart');
-            //console.log(product);
-            dispatch(addProduct({...item, quantity: count}));
+            if (count > 0) {
+              dispatch(addProduct({...item, quantity: count}));
+              showToast('Product added to cart');
+            } else {
+              dispatch(removeProduct(item));
+              showToast('Product removed from cart');
+            }
+            // console.log('Add to cart');
+            // //console.log(product);
+            // dispatch(addProduct({...item, quantity: count}));
             //console.log(product);
           }}
         />

@@ -8,7 +8,7 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import Resturant from '../Asserts/Images/Resturants/tacoBell.jpeg';
+import Resturant from '../assets/Images/Resturants/tacoBell.jpeg';
 import Text from '../Components/Global/normalText';
 import primary from '../Constants/Colors';
 //import reviewsData from '../Data/review';
@@ -18,7 +18,7 @@ import HeaderText from '../Components/Global/headerText';
 import getResturantDetails from '../Functions/Resturants/getResturantDetail';
 import getResturantReviews from '../Functions/Resturants/getResturantReviews';
 import * as Colors from '../Constants/Colors';
-import image from '../Asserts/Images/Restaurant.png';
+import image from '../assets/Images/Restaurant.png';
 //import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 const windowWidth = Dimensions.get('window').width;

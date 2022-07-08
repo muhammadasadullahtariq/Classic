@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import checkProductExistInFavourites from '../../Functions/global/checkProductExistInFavourite';
 import handelFavourite from '../../Functions/global/handelFavourite';
-import { useDispatch } from 'react-redux';
-
+import {useDispatch} from 'react-redux';
+import productImage from '../../assets/Images/burger.png';
 
 const PrimaryColor = colors.primary;
 const white = 'white';
@@ -33,7 +33,12 @@ const Screen = props => {
   }, []);
 
   const handelFavouriteButton = async () => {
-    await handelFavourite(favouriteFalg, setFavouriteFalg, props.item._id, dispatch);
+    await handelFavourite(
+      favouriteFalg,
+      setFavouriteFalg,
+      props.item._id,
+      dispatch,
+    );
   };
 
   return (
@@ -70,17 +75,19 @@ const Screen = props => {
               )}
             </TouchableOpacity>
           </View>
-          <HeaderText text={props.item.name} style={{color: colors.primary}} />
+          <HeaderText text={props.item.name} style={{color: 'black'}} />
           <Text text={props.item.about} />
-          <View style={{flexDirection: 'row'}}>
-            <HeaderText text={'$ ' + props.item.price} style={{fontSize: 18}} />
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <HeaderText
+              text={'$ ' + props.item.price}
+              style={{fontSize: 18, color: colors.darkBrown}}
+            />
             <View style={{flex: 1}} />
             <View
               style={{
                 flexDirection: 'row',
                 marginRight: -85,
                 alignItems: 'center',
-                marginTop: -10,
               }}>
               <Text
                 text={'Quantity:'}
@@ -100,7 +107,12 @@ const Screen = props => {
             </View>
           </View>
         </View>
-        <Image source={props.item.image} style={styles.imageContainer} />
+        <Image
+          source={
+            props.item.image == '' ? productImage : {uri: props.item.image}
+          }
+          style={styles.imageContainer}
+        />
       </View>
     </TouchableOpacity>
   );

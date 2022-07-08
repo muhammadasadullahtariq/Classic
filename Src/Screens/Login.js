@@ -5,8 +5,10 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
 } from 'react-native';
-import logo from '../Asserts/Images/logo.png';
+import logo from '../assets/Images/logo.png';
 import TextInput from '../Components/Global/inputComponentWithIcon';
 import Heading from '../Components/Global/headerText';
 import Button from '../Components/Global/activeButton';
@@ -23,6 +25,8 @@ import {
 import checkUserExist from '../Functions/useRegistration/checkUserExist';
 import {addUser} from '../Actions/actions';
 import {useDispatch} from 'react-redux';
+import googleLogo from '../assets/Images/google.png';
+import {color} from 'react-native-reanimated';
 
 const height = Dimensions.get('window').height;
 
@@ -146,31 +150,67 @@ const Screen = () => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <WaitingAlert visible={waitingAlertFlag} />
-      <SingleButtonAlert
-        text={alertText}
-        visible={alertFlag}
-        onPress={() => setAlertFlag(false)}
-      />
-      <Image style={styles.imageContainer} source={logo} />
-      <Heading text="Login" viewStyle={{alignSelf: 'center'}} />
-      <View style={{height: '5%'}} />
-      <TextInput
-        placeHolder={'Enter mail address'}
-        iconName={'mail-outline'}
-        Keyboard={'email-address'}
-        textHandler={emailHandler}
-        borderFlag={!emailVerified}
-      />
-      <TextInput
-        placeHolder={'Enter password'}
-        iconName={'key-outline'}
-        secureTextEntry={true}
-        textHandler={passWordHandler}
-      />
-      <View style={{height: '5%'}} />
-      <GoogleSigninButton
+    <SafeAreaView style={{flex: 1}}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+      <View style={styles.mainContainer}>
+        <WaitingAlert visible={waitingAlertFlag} />
+        <SingleButtonAlert
+          text={alertText}
+          visible={alertFlag}
+          onPress={() => setAlertFlag(false)}
+        />
+        <Image style={styles.imageContainer} source={logo} />
+        <Heading
+          text="Login"
+          viewStyle={{
+            alignSelf: 'center',
+            //marginLeft: '10%',
+          }}
+          style={{color: Color.primaryTextColor}}
+        />
+        <View style={{height: '1%'}} />
+        <TextInput
+          placeHolder={'Enter mail address'}
+          iconName={'mail-outline'}
+          Keyboard={'email-address'}
+          textHandler={emailHandler}
+          borderFlag={!emailVerified}
+        />
+        <TextInput
+          placeHolder={'Enter password'}
+          iconName={'key-outline'}
+          secureTextEntry={true}
+          textHandler={passWordHandler}
+        />
+        <View style={{height: '5%'}} />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() =>
+            onGoogleButtonPress().then(res => {
+              userHandeler(res.user.uid);
+            })
+          }>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              backgroundColor: Color.googleColor,
+              width: 218,
+              alignSelf: 'center',
+              marginBottom: 20,
+            }}>
+            <Image
+              source={googleLogo}
+              style={{width: 40, height: 40, backgroundColor: 'white'}}
+            />
+            <View style={{width: 10}} />
+            <Text
+              text={'Sign in with Google'}
+              style={{color: Color.white, marginRight: 5}}
+            />
+          </View>
+        </TouchableOpacity>
+        {/* <GoogleSigninButton
         style={{
           width: 192,
           height: 48,
@@ -184,28 +224,29 @@ const Screen = () => {
             userHandeler(res.user.uid);
           })
         }
-      />
-      <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
+      /> */}
+        <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
 
-      <View style={{flex: 1}} />
-      <TouchableOpacity
-        onPress={() => {
-          Navigator.reset({
-            routes: [{name: 'SignUp', params: {user: true}}],
-          });
-        }}
-        activeOpacity={0.7}>
-        <Text
-          text={'Not have account'}
-          style={{
-            color: Color.primary,
-            fontSize: 10,
-            alignSelf: 'center',
-            marginBottom: 30,
+        <View style={{flex: 1}} />
+        <TouchableOpacity
+          onPress={() => {
+            Navigator.reset({
+              routes: [{name: 'SignUp', params: {user: true}}],
+            });
           }}
-        />
-      </TouchableOpacity>
-    </View>
+          activeOpacity={0.7}>
+          <Text
+            text={'Not have account'}
+            style={{
+              color: Color.primary,
+              fontSize: 10,
+              alignSelf: 'center',
+              marginBottom: 30,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
