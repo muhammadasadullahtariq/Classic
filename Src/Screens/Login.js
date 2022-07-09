@@ -26,7 +26,6 @@ import checkUserExist from '../Functions/useRegistration/checkUserExist';
 import {addUser} from '../Actions/actions';
 import {useDispatch} from 'react-redux';
 import googleLogo from '../assets/Images/google.png';
-import {color} from 'react-native-reanimated';
 
 const height = Dimensions.get('window').height;
 
@@ -44,9 +43,6 @@ const Screen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (auth().currentUser !== null) {
-      userHandeler(auth().currentUser.uid);
-    }
     console.log(auth().currentUser, 'current user');
     GoogleSignin.configure({
       scopes: ['email'],

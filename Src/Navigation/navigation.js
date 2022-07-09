@@ -24,6 +24,8 @@ import Orders from '../Screens/ordersScreen';
 import Support from '../Screens/support';
 import SettingScreen from '../Screens/SettingScreen';
 import CardBillScreen from '../Screens/billScreen';
+import Splash from '../Screens/splashScreen';
+import OrderStatus from '../Screens/orderStatusScreen';
 
 //import Test from '../Screens/Test';
 
@@ -95,7 +97,7 @@ function Navigation() {
           headerTintColor: white,
           headerBackTitle: '',
         }}
-        initialRouteName="SignIn">
+        initialRouteName="Splash">
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen
           name="SignIn"
@@ -190,6 +192,16 @@ function Navigation() {
           name="CardBillScreen"
           component={CardBillScreen}
           options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="OrderStatus"
+          component={OrderStatus}
+          options={{headerShown: true, headerTitle: 'Order Status'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

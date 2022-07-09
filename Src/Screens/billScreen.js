@@ -7,6 +7,7 @@ import Text from '../Components/Global/normalText';
 import Button from '../Components/Global/button';
 import postOrder from '../Functions/orders/postOrder';
 import {useSelector} from 'react-redux';
+import showToast from '../Components/Global/toast';
 
 function App() {
   return (
@@ -51,6 +52,10 @@ export default function PaymentScreen() {
       arrray[selectedItem].text,
     );
     console.log(result);
+    if (result.status === 'Success') {
+      global.visited = false;
+      showToast('Order Placed Successfully');
+    }
   };
 
   useEffect(() => {
@@ -60,7 +65,8 @@ export default function PaymentScreen() {
     console.log(user);
     console.log('user Location\t', user.location);
     setLocation(user.location);
-  }, [location]);
+    map.current.animateToRegion(user.location, 1000);
+  }, []);
 
   return (
     <ScrollView>
@@ -81,6 +87,7 @@ export default function PaymentScreen() {
             longitude: location.longitude,
           }}
           draggable={true}
+          ref={map}
           onDragEnd={e => {
             setLocation(e.nativeEvent.coordinate);
             console.log(e.nativeEvent.coordinate);

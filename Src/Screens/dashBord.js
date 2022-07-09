@@ -27,6 +27,7 @@ import getRecentAddedProducts from '../Functions/searchProducts/getRecentAddedPr
 import Text from '../Components/Global/normalText';
 import {useSelector, shallowEqual} from 'react-redux';
 import ContextMenu from '../Components/Global/contextMenu';
+import checkActiveOrder from '../Functions/orders/getUserActiveOrder';
 
 const white = 'white';
 
@@ -38,7 +39,7 @@ const Screen = props => {
   const [allProducts, setAllProducts] = useState(true);
   const [location, setLocation] = useState('');
   const [products, setProducts] = useState([]);
-  const [contextMenuFlag, setContextMenuFlag] = useState(true);
+  const [contextMenuFlag, setContextMenuFlag] = useState(false); //turn to true after testing
   const isFoused = useIsFocused();
 
   Dimensions.addEventListener('change', () => {
@@ -46,8 +47,9 @@ const Screen = props => {
   });
 
   useEffect(() => {
-    console.log(options, 'loop');
-
+    if (!global.visited) {
+      activeOrderHandler();
+    }
     let width = Dimensions.get('window').width;
     if (width <= 480) {
       setColumnNum(2);
@@ -58,6 +60,7 @@ const Screen = props => {
     } else {
       setColumnNum(6);
     }
+
     handleItemSelection('All');
   }, [dimensionChange, isFoused]);
 
@@ -71,6 +74,8 @@ const Screen = props => {
     console.log(result, 'result');
     if (result.status === 'Success') {
       setProducts(result.data);
+    } else {
+      setContextMenuFlag(true);
     }
   };
 
@@ -78,6 +83,13 @@ const Screen = props => {
     setContextMenuFlag(false);
     if (index === 0) {
       getUserLocation(setLocation);
+    }
+  }
+
+  async function activeOrderHandler() {
+    const result = await checkActiveOrder();
+    if (result.status === 'Success') {
+      navigation.navigate('OrderStatus', {order: result.data});
     }
   }
 
