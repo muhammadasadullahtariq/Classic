@@ -7,6 +7,7 @@ async function postOrder(
   address,
   detail,
   totalPrice,
+  billStatus,
 ) {
   try {
     console.log(location);
@@ -23,7 +24,9 @@ async function postOrder(
       user: global.user,
       restaurant: resturantId,
       billMethod: 'cash',
+      billPaid: billStatus,
     });
+    console.log(raw);
 
     var requestOptions = {
       method: 'POST',

@@ -44,12 +44,14 @@ const Screen = () => {
         Navigator.reset({
           routes: [
             {
-              name: 'SignUp',
-              params: {
-                user: false,
-                email: auth().currentUser.email,
-                googleId: auth().currentUser.uid,
-              },
+              name: 'SignIn',
+              // params: {
+              //   user: false,
+              //   email:
+              //     auth().currentUser != null ? auth().currentUser.email : null,
+              //   googleId:
+              //     auth().currentUser != null ? auth().currentUser.uid : null,
+              // },
             },
           ],
         });

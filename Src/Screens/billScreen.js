@@ -32,8 +32,8 @@ export default function PaymentScreen() {
     longitude: 71.663875,
   });
   const [arrray, setArray] = useState([
-    {text: 'Pay now'},
-    {text: 'Pay on delievery'},
+    {text: 'Pay now', status: true},
+    {text: 'Pay on delievery', status: false},
   ]);
   const map = useRef(null);
   const products = useSelector(state => state.products);
@@ -42,6 +42,12 @@ export default function PaymentScreen() {
   const user = useSelector(state => state.user);
 
   const orderHandler = async () => {
+    console.log(restaurant, 'restaurant');
+    var billStatus = false;
+    if (selectedItem === 1) {
+      billStatus = true;
+    }
+    console.log(billStatus, 'billStatus');
     const result = await postOrder(
       location,
       products,
@@ -49,7 +55,7 @@ export default function PaymentScreen() {
       user.address,
       'asad',
       totalPrice,
-      arrray[selectedItem].text,
+      arrray[selectedItem].status,
     );
     console.log(result);
     if (result.status === 'Success') {
