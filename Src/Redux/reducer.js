@@ -130,6 +130,8 @@ function reducer(
           .concat(list.slice(indexOfProduct + 1));
         return {...state, user: {...state.user, favourties: list}};
       } else return state;
+    case ActionTypes.REMOVE_ALL_PRODUCTS:
+      return {...state, products: [], totalPrice: 0, resturant: ''};
     default:
       // return state if no action  is matched or if action is not defined (for example, if action is undefined) or if action is not a string (for example, if action is null)
       return state;

@@ -6,8 +6,9 @@ import MapView, {Marker} from 'react-native-maps';
 import Text from '../Components/Global/normalText';
 import Button from '../Components/Global/button';
 import postOrder from '../Functions/orders/postOrder';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import showToast from '../Components/Global/toast';
+import {removeAllProducts} from '../Actions/actions';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
 // PaymentScreen.ts
 import {CardField, useStripe} from '@stripe/stripe-react-native';
 
-export default function PaymentScreen() {
+export default function PaymentScreen({route, navigation}) {
   const {confirmPayment} = useStripe();
   const [selectedItem, setSelectedItem] = useState(0);
   const [location, setLocation] = useState({
@@ -40,6 +41,7 @@ export default function PaymentScreen() {
   const totalPrice = useSelector(state => state.totalPrice);
   const restaurant = useSelector(state => state.resturant);
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   const orderHandler = async () => {
     console.log(restaurant, 'restaurant');
@@ -61,6 +63,8 @@ export default function PaymentScreen() {
     if (result.status === 'Success') {
       global.visited = false;
       showToast('Order Placed Successfully');
+      dispatch(removeAllProducts());
+      navigation.pop(2);
     }
   };
 

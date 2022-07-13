@@ -75,7 +75,7 @@ const Screen = props => {
     if (result.status === 'Success') {
       setProducts(result.data);
     } else {
-      setContextMenuFlag(true);
+      //setContextMenuFlag(true);
     }
   };
 

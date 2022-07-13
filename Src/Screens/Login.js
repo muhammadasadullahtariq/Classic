@@ -26,6 +26,7 @@ import checkUserExist from '../Functions/useRegistration/checkUserExist';
 import {addUser} from '../Actions/actions';
 import {useDispatch} from 'react-redux';
 import googleLogo from '../assets/Images/google.png';
+import updateDeviceId from '../Functions/useRegistration/updateDeviceId';
 
 const height = Dimensions.get('window').height;
 
@@ -61,6 +62,7 @@ const Screen = () => {
     if (user.status == 'Success') {
       global.user = user.data._id;
       dispatch(addUser(user.data));
+      await updateDeviceId();
       Navigator.reset({
         routes: [{name: 'Home', params: {user: user.data}}],
       });

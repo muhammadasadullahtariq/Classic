@@ -6,7 +6,7 @@ import getNearByResturants from '../Functions/Resturants/getNearByResturants';
 import InfoText from '../Components/Global/headerText';
 
 const Screen = props => {
-  const [resturants, setResturants] = useState(ResturantList);
+  const [resturants, setResturants] = useState([]);
 
   useEffect(() => {
     resturantDataHandeler();
@@ -14,6 +14,7 @@ const Screen = props => {
 
   const resturantDataHandeler = async () => {
     const result = await getNearByResturants();
+    console.log("resturantDataHandeler", result);
     if (result.status === 'Success') {
       setResturants(result.data);
       console.log(result.data.length);

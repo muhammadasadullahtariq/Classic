@@ -5,6 +5,7 @@ import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
 import primary from '../../Constants/Colors';
 import {useNavigation} from '@react-navigation/native';
+import resturantImage from '../../assets/Images/Restaurant.png';
 
 const obj = {
   image: image,
@@ -24,13 +25,20 @@ const screen = props => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('ProductListOfResturant')}>
+      onPress={() =>
+        navigation.navigate('ProductListOfResturant', {id: props.item._id})
+      }>
       <View style={styles.mainContainer}>
         <View>
           <HeaderText text={props.item.name} style={{color: primary}} />
-          <Text text={props.item.foodType} style={{paddingLeft: 10}} />
+          <Text text={props.item.resturantCategory} style={{paddingLeft: 10}} />
         </View>
-        <Image source={props.item.image} style={styles.imageContainer} />
+        <Image
+          source={
+            props.item.image === '' ? resturantImage : {uri: props.item.image}
+          }
+          style={styles.imageContainer}
+        />
       </View>
     </TouchableOpacity>
   );

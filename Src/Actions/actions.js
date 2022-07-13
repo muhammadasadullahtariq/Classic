@@ -68,6 +68,12 @@ const removeProductFromFavorite = product => {
   };
 };
 
+const removeAllProducts = () => {
+  return {
+    type: ActionTypes.REMOVE_ALL_PRODUCTS,
+  };
+};
+
 export {
   addProduct,
   removeProduct,
@@ -79,4 +85,5 @@ export {
   addUser,
   addProductToFavorite,
   removeProductFromFavorite,
+  removeAllProducts,
 };

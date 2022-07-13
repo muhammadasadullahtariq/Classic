@@ -68,7 +68,7 @@ const Screen = ({navigation, route}) => {
       });
   }, []);
 
-  const userHandeler = async googleId => {
+  const userHandeler = async (googleId) => {
     setWaitingAlertFalg(true);
     setGoogleButtonFlag(false);
     const res = await registerUser(
