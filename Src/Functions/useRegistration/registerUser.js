@@ -47,8 +47,8 @@ const registerUser = async (
       email: email,
       phone: phone,
       location: {
-        type: 'Point',
-        coordinates: [longitude, latitude],
+        longitude,
+        latitude,
       },
       address: address,
       reviews: [],

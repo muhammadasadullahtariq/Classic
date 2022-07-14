@@ -55,7 +55,7 @@ const NavigationDrawerStructure = props => {
   );
 };
 
-const ProductListWithDrawer = () => {
+const ProductListWithDrawer = ({route: {params}}) => {
   return (
     <Drawer.Navigator
       drawerContent={props => <Context {...props} />}
@@ -73,6 +73,7 @@ const ProductListWithDrawer = () => {
         name="DashBoard"
         component={DashBoard}
         options={{headerShown: false}}
+        initialParams={params}
       />
       {/* <Drawer.Screen name="ProductDetail" component={UserLogin} /> */}
     </Drawer.Navigator>

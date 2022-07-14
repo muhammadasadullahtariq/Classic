@@ -26,6 +26,7 @@ import {
 import registerUser from '../Functions/useRegistration/registerUser';
 import messaging from '@react-native-firebase/messaging';
 import googleLogo from '../assets/Images/google.png';
+import updateDeviceId from '../Functions/useRegistration/updateDeviceId';
 
 const height = Dimensions.get('window').height;
 
@@ -47,6 +48,7 @@ const Screen = ({navigation, route}) => {
   const [cellNumber, setCellNumber] = useState('');
   const [address, setAddress] = useState('');
   const [messageToken, setMessageToken] = useState('');
+  const [imsageChanged, setImageChanged] = useState(false);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -68,7 +70,7 @@ const Screen = ({navigation, route}) => {
       });
   }, []);
 
-  const userHandeler = async (googleId) => {
+  const userHandeler = async googleId => {
     setWaitingAlertFalg(true);
     setGoogleButtonFlag(false);
     const res = await registerUser(
@@ -85,8 +87,12 @@ const Screen = ({navigation, route}) => {
     console.log(res);
     setWaitingAlertFalg(false);
     if (res.status == 'Success') {
+      global.user = res.data._id;
+      await updateDeviceId();
       Navigator.reset({
-        routes: [{name: 'Home', params: {user: res.data}}],
+        routes: [
+          {name: 'Home', params: {user: res.data, userRegistered: true}},
+        ],
       });
     } else {
       setAlertFlag(true);
@@ -157,7 +163,7 @@ const Screen = ({navigation, route}) => {
   };
 
   const profileImageHandler = async () => {
-    imagePicker('ab', setProfileImage);
+    imagePicker('ab', setProfileImage, setImageChanged);
   };
 
   const verificationHandeler = () => {
@@ -282,24 +288,6 @@ const Screen = ({navigation, route}) => {
             </View>
           </TouchableOpacity>
         )}
-        {/* {googleButtonFlag && (
-        <GoogleSigninButton
-          style={{
-            width: 192,
-            height: 48,
-            alignSelf: 'center',
-            marginBottom: 20,
-            color: 1,
-          }}
-          size={GoogleSigninButton.Size.Wide}
-          onPress={() =>
-            onGoogleButtonPress().then(res => {
-              userHandeler(res.user.uid);
-            })
-          }
-        />
-      )} */}
-
         <Button text={buttonText} active={buttonFlag} onPress={buttonHandler} />
         <View style={{flex: 1}} />
         <TouchableOpacity

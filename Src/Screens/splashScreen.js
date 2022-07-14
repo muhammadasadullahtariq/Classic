@@ -37,9 +37,18 @@ const Screen = () => {
       console.log('user Status', userStatus);
       console.log('done', userStatus);
       if (userStatus === 'Success') {
+        console.log('Calling my love', userStatus);
         Navigator.reset({
-          routes: [{name: 'Home', params: {user: user.data}}],
+          index: 0, //the stack index
+          routes: [
+            {name: 'Home', params: {userRegistered: false}}, //to go to initial stack screen
+          ],
         });
+        // Navigator.reset({
+        //   routes: [
+        //     {name: 'Home', params: {user: user.data, userRegistered: false}},
+        //   ],
+        // });
       } else {
         Navigator.reset({
           routes: [

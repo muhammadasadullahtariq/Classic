@@ -19,8 +19,7 @@ import LeftCardView from '../Components/DashBoard/leftCardView';
 import RightCardView from '../Components/DashBoard/rightCardView';
 import {recentlyAdded} from '../Data/products.js';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Card} from 'react-native-shadow-cards';
-import {useNavigation, useIsFocused} from '@react-navigation/native';
+import { useIsFocused} from '@react-navigation/native';
 import getUserLocation from '../Functions/getUserLocation';
 import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory.js';
 import getRecentAddedProducts from '../Functions/searchProducts/getRecentAddedProduct.js';
@@ -31,8 +30,8 @@ import checkActiveOrder from '../Functions/orders/getUserActiveOrder';
 
 const white = 'white';
 
-const Screen = props => {
-  const navigation = useNavigation();
+const Screen = ({navigation, route}) => {
+  const {userRegistered} = route.params;
   const cartProducts = useSelector(state => state.products, shallowEqual);
   const [columnNum, setColumnNum] = useState(2);
   const [dimensionChange, setDimensionChange] = useState(true);
@@ -47,6 +46,7 @@ const Screen = props => {
   });
 
   useEffect(() => {
+    console.log(route);
     if (!global.visited) {
       activeOrderHandler();
     }
@@ -60,8 +60,11 @@ const Screen = props => {
     } else {
       setColumnNum(6);
     }
-
     handleItemSelection('All');
+    if (userRegistered) {
+      setContextMenuFlag(false);
+      getUserLocation(setLocation);
+    }
   }, [dimensionChange, isFoused]);
 
   const handleItemSelection = async item => {

@@ -64,7 +64,9 @@ const Screen = () => {
       dispatch(addUser(user.data));
       await updateDeviceId();
       Navigator.reset({
-        routes: [{name: 'Home', params: {user: user.data}}],
+        routes: [
+          {name: 'Home', params: {user: user.data, userRegistered: false}},
+        ],
       });
     } else {
       Navigator.reset({

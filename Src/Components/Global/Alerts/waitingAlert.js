@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Text from '../normalText';
-
+import * as COLORS from '../../../Constants/Colors';
 const screen = props => {
   return (
     <Modal visible={props.visible} transparent={true} style={{height: 3}}>
@@ -27,7 +27,7 @@ const screen = props => {
             borderRadius: 10,
           }}>
           <View style={{flexDirection: 'row', padding: 10}}>
-            <ActivityIndicator size="large" color="#1692ff" />
+            <ActivityIndicator size="large" color={COLORS.primary} />
             <Text
               text={'Please wait'}
               componentStyle={{marginLeft: 20, fontSize: 25}}
