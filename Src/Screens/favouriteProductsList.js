@@ -68,79 +68,81 @@ const Screen = ({route, navigation}) => {
           <HeaderText text={'Sorry No Product Found'} />
         </View>
       )}
-      <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={false}
-        dragFromTopOnly={true}
-        height={450}
-        width={'90%'}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'transparent',
-          },
-          draggableIcon: {
-            backgroundColor: colors.primary,
-          },
-          container: {
-            width: '97%',
-            alignSelf: 'center',
-            borderRadius: 17,
-          },
-        }}>
-        <Image
-          style={{
-            width: '100%',
-            height: 200,
-            aspectRatio: 1.9,
-            marginTop: -25,
-            backgroundColor: colors.primary,
-            zIndex: -1,
-          }}
-          source={
-            products[selectedItem].image == ''
-              ? productImage
-              : {uri: products[selectedItem].image}
-          }
-        />
-        <HeaderText
-          text={products[selectedItem].name}
-          style={{
-            marginTop: 10,
-            marginBottom: 0,
-            paddingTop: 0,
-            paddingLeft: 10,
-            fontSize: 30,
-          }}
-        />
-        <Text text={products[selectedItem].detail} style={{opacity: 0.6}} />
-        <PlusMinusButton
-          count={count}
-          price={products[selectedItem].price}
-          setCount={setCount}
-        />
-        <View
-          style={{
-            flex: 1,
-            width: '100%',
-          }}></View>
-        <Button
-          text={'Add to cart'}
-          style={{marginBottom: '7%'}}
-          onPress={() => {
-            if (count > 0) {
-              dispatch(
-                addProduct({...products[selectedItem], quantity: count}),
-              );
-              showToast('Product added to cart');
-            } else {
-              dispatch(removeProduct(products[selectedItem]));
-              showToast('Product removed from cart');
+      {products.length > 0 && (
+        <RBSheet
+          ref={refRBSheet}
+          closeOnDragDown={true}
+          closeOnPressMask={false}
+          dragFromTopOnly={true}
+          height={450}
+          width={'90%'}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'transparent',
+            },
+            draggableIcon: {
+              backgroundColor: colors.primary,
+            },
+            container: {
+              width: '97%',
+              alignSelf: 'center',
+              borderRadius: 17,
+            },
+          }}>
+          <Image
+            style={{
+              width: '100%',
+              height: 200,
+              aspectRatio: 1.9,
+              marginTop: -25,
+              backgroundColor: colors.primary,
+              zIndex: -1,
+            }}
+            source={
+              products[selectedItem].image == ''
+                ? productImage
+                : {uri: products[selectedItem].image}
             }
-            refRBSheet.current.close();
-          }}
-        />
-      </RBSheet>
+          />
+          <HeaderText
+            text={products[selectedItem].name}
+            style={{
+              marginTop: 10,
+              marginBottom: 0,
+              paddingTop: 0,
+              paddingLeft: 10,
+              fontSize: 30,
+            }}
+          />
+          <Text text={products[selectedItem].detail} style={{opacity: 0.6}} />
+          <PlusMinusButton
+            count={count}
+            price={products[selectedItem].price}
+            setCount={setCount}
+          />
+          <View
+            style={{
+              flex: 1,
+              width: '100%',
+            }}></View>
+          <Button
+            text={'Add to cart'}
+            style={{marginBottom: '7%'}}
+            onPress={() => {
+              if (count > 0) {
+                dispatch(
+                  addProduct({...products[selectedItem], quantity: count}),
+                );
+                showToast('Product added to cart');
+              } else {
+                dispatch(removeProduct(products[selectedItem]));
+                showToast('Product removed from cart');
+              }
+              refRBSheet.current.close();
+            }}
+          />
+        </RBSheet>
+      )}
     </View>
   );
 };

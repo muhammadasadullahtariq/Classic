@@ -36,7 +36,7 @@ export default function DrawerContent(props) {
             <View style={{flexDirection: 'row'}}>
               <Image
                 source={profileImage}
-                style={{width: '100%', height: 400, marginTop: -50}}
+                style={{width: '100%', height: 400, marginTop: -50,resizeMode: 'contain'}}
               />
             </View>
           </View>

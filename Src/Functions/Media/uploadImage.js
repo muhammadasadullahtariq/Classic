@@ -18,7 +18,10 @@ const imageUpload = async imageSur => {
       body: formdata,
       redirect: 'follow',
     };
-    const response = await fetch(API_URL + 'uploadImage', requestOptions);
+    const response = await fetch(
+      API_URL + 'uploadPublicUserImage',
+      requestOptions,
+    );
     const json = await response.json();
     return json;
   } catch (error) {

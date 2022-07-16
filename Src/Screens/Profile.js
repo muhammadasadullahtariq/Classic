@@ -95,7 +95,13 @@ const Screen = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {backgroundColor: white, flex: 1},
-  imageContainer: {marginLeft: 20, borderRadius: 50, height: 100, width: 100},
+  imageContainer: {
+    marginLeft: 20,
+    borderRadius: 50,
+    height: 100,
+    width: 100,
+    resizeMode: 'contain',
+  },
   profileContainer: {marginTop: 20, marginLeft: 0, flexDirection: 'row'},
 });
 

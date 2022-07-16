@@ -69,6 +69,7 @@ const Screen = () => {
   }, []);
 
   const userHandeler = async googleId => {
+    
     const user = await checkUserExist(googleId);
     if (user.status == 'Success') {
       global.user = user.data._id;

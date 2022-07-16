@@ -73,6 +73,7 @@ const Screen = ({navigation, route}) => {
   const userHandeler = async googleId => {
     setWaitingAlertFalg(true);
     setGoogleButtonFlag(false);
+    console.log("profile image : ", profileImage);
     const res = await registerUser(
       userName,
       emailAddress,

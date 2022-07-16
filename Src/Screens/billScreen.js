@@ -9,6 +9,8 @@ import postOrder from '../Functions/orders/postOrder';
 import {useSelector, useDispatch} from 'react-redux';
 import showToast from '../Components/Global/toast';
 import {removeAllProducts} from '../Actions/actions';
+import HeaderText from '../Components/Global/headerText';
+import * as COLORS from '../Constants/Colors';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
 
 // PaymentScreen.ts
 import {CardField, useStripe} from '@stripe/stripe-react-native';
+
+import {ApplePayButton, useGooglePay} from '@stripe/stripe-react-native';
 
 export default function PaymentScreen({route, navigation}) {
   const {confirmPayment} = useStripe();
@@ -79,8 +83,13 @@ export default function PaymentScreen({route, navigation}) {
   }, []);
 
   return (
-    <ScrollView>
-      <Text text={'Confirm Your Location'} />
+    <ScrollView
+      style={styles.mainContainer}
+      contentContainerStyle={{ flexGrow: 1}}>
+      <HeaderText
+        text={'Confirm Your Location'}
+        style={{color: COLORS.primary, marginTop: 10, marginLeft: 10}}
+      />
       <View style={{height: 20, width: '100%'}} />
       <MapView
         style={styles.map}
@@ -105,6 +114,10 @@ export default function PaymentScreen({route, navigation}) {
           }}
         />
       </MapView>
+      <HeaderText
+        text={'Select Payment Method'}
+        style={{color: COLORS.primary, marginTop: 10, marginLeft: 10,marginBottom:10}}
+      />
       {arrray.map((item, index) => {
         return (
           <Check
@@ -118,27 +131,36 @@ export default function PaymentScreen({route, navigation}) {
         );
       })}
       {selectedItem == 0 && (
-        <CardField
-          postalCodeEnabled={true}
-          placeholders={{
-            number: '4242 4242 4242 4242',
-          }}
-          cardStyle={{
-            backgroundColor: '#FFFFFF',
-            textColor: '#000000',
-          }}
-          style={{
-            width: '100%',
-            height: 50,
-            marginVertical: 30,
-          }}
-          onCardChange={cardDetails => {
-            console.log('cardDetails', cardDetails);
-          }}
-          onFocus={focusedField => {
-            console.log('focusField', focusedField);
-          }}
-        />
+        <View>
+          <CardField
+            postalCodeEnabled={true}
+            placeholders={{
+              number: '4242 4242 4242 4242',
+            }}
+            cardStyle={{
+              backgroundColor: '#FFFFFF',
+              textColor: '#000000',
+            }}
+            style={{
+              width: '100%',
+              height: 50,
+              marginVertical: 30,
+            }}
+            onCardChange={cardDetails => {
+              console.log('cardDetails', cardDetails);
+            }}
+            onFocus={focusedField => {
+              console.log('focusField', focusedField);
+            }}
+          />
+          <ApplePayButton
+            onPress={() => {}}
+            type="plain"
+            buttonStyle="black"
+            borderRadius={4}
+            style={styles.payButton}
+          />
+        </View>
       )}
       <Button
         text={'Place order'}
@@ -156,11 +178,16 @@ const styles = StyleSheet.create({
     borderTopColor: '#ccc',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    marginVertical: 10,
     paddingVertical: 5,
   },
   map: {
     width: '100%',
     height: 400,
+  },
+  payButton: {
+    height: 60,
+    width: '90%',
+    marginVertical: 20,
+    alignSelf: 'center',
   },
 });

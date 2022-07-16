@@ -26,7 +26,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string/>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fbAPP-ID</string>
@@ -70,17 +70,15 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Classic use maps to show user resturant location and other things</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>Classic want to access images</string>
-  <key>NSCameraUsageDescription</key>
-  <string>Classic want to access Camera to take picture</string>
-  <key>NSLocationWhenInUseUsageDescription</key>
-  <string>This is the plist item for NSLocationWhenInUseUsageDescription</string>
-  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-  <string>This is the plist item for NSLocationAlwaysAndWhenInUseUsageDescription</string>
-  <key>NSLocationAlwaysUsageDescription</key>
-  <string>This is the plist item for NSLocationAlwaysUsageDescription</string>
+	<string>This is the plist item for NSLocationWhenInUseUsageDescription</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Classic want to access images</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Classic want to access Camera to take picture</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This is the plist item for NSLocationAlwaysAndWhenInUseUsageDescription</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This is the plist item for NSLocationAlwaysUsageDescription</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Machel.otf</string>

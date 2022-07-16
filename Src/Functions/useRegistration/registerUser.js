@@ -15,6 +15,7 @@ const registerUser = async (
   try {
     var imageIssue;
     var imageResult;
+    console.log("image", image);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -22,7 +23,10 @@ const registerUser = async (
       imageResult = '';
       console.log('hellow');
     } else {
+      //imageResult = await imageUpload(image);
+      console.log('hellow image');
       imageResult = await imageUpload(image.responce);
+      console.log('imageResult', imageResult);
       if (imageResult.status == 'Fail') {
         imageResult = '';
       } else {
