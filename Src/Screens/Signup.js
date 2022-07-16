@@ -6,10 +6,11 @@ import {
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
+  Platform,
+  ScrollView,
 } from 'react-native';
-import logo from '../assets/Images/logo.png';
+import StatusBar from '../Components/Global/statusBar';
 import TextInput from '../Components/Global/inputComponentWithIcon';
-import Heading from '../Components/Global/headerText';
 import Button from '../Components/Global/activeButton';
 import Text from '../Components/Global/normalText';
 import {useNavigation} from '@react-navigation/native';
@@ -73,7 +74,7 @@ const Screen = ({navigation, route}) => {
   const userHandeler = async googleId => {
     setWaitingAlertFalg(true);
     setGoogleButtonFlag(false);
-    console.log("profile image : ", profileImage);
+    console.log('profile image : ', profileImage);
     const res = await registerUser(
       userName,
       emailAddress,
@@ -196,7 +197,13 @@ const Screen = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.mainContainer}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={Colors.defaultBrownColor}
+      />
+      <ScrollView
+        style={styles.mainContainer}
+        contentContainerStyle={{flexGrow: 1}}>
         <SingleButtonAlert
           text={alertText}
           visible={alertFlag}
@@ -235,8 +242,9 @@ const Screen = ({navigation, route}) => {
         )}
         {googleButtonFlag && (
           <TextInput
-            placeHolder={'Enter pin code'}
+            placeHolder={'Enter password'}
             iconName={'key-outline'}
+            secureTextEntry={true}
             textHandler={pinCodeHandler}
             text={pin}
           />
@@ -276,6 +284,8 @@ const Screen = ({navigation, route}) => {
                 width: 218,
                 alignSelf: 'center',
                 marginBottom: 20,
+                height: 43,
+                alignItems: 'center',
               }}>
               <Image
                 source={googleLogo}
@@ -284,7 +294,7 @@ const Screen = ({navigation, route}) => {
               <View style={{width: 10}} />
               <Text
                 text={'Sign in with Google'}
-                style={{color: Colors.white, marginRight: 5}}
+                style={{color: Colors.white}}
               />
             </View>
           </TouchableOpacity>
@@ -306,13 +316,13 @@ const Screen = ({navigation, route}) => {
             }}
           />
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1},
+  mainContainer: {flex: 1, marginTop: Platform.OS === 'android' ? 20 : 0},
   imageContainer: {
     width: '80%',
     height: (20 / 100) * height,

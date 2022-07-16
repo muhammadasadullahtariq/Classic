@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, View, FlatList, Image, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Dimensions,
+  StatusBar,
+} from 'react-native';
 import FlatListItem from '../Components/Cart Product/flatListItem';
 import {recentlyAdded} from '../Data/products';
 import Text from '../Components/Global/normalText';
@@ -26,6 +33,7 @@ const Screen = ({navigation, route}) => {
   if (products.length > 0) {
     return (
       <View style={styles.mainContainer}>
+        <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
         <FlatList
           ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
           data={products}
@@ -130,6 +138,7 @@ const Screen = ({navigation, route}) => {
   } else {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
         <Text
           text={'No Products in Cart'}
           style={{fontSize: 30, color: colors.brown}}

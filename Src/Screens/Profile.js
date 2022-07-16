@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Image, Share} from 'react-native';
+import {StyleSheet, View, Image, Share, StatusBar} from 'react-native';
 import profile from '../assets/Images/defaulProfileImage.png';
 import HeaderText from '../Components/Global/headerText';
 import Text from '../Components/Global/normalText';
@@ -7,6 +7,7 @@ import ProfileDetail from '../Components/Profile/iconAndDetail';
 import ProfileSeeting from '../Components/Profile/profileSetting';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
+import * as COLORS from '../Constants/Colors';
 const white = 'white';
 
 const Screen = props => {
@@ -47,6 +48,7 @@ const Screen = props => {
 
   return (
     <View style={styles.mainContainer}>
+      <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <View style={styles.profileContainer}>
         <Image source={profileImage} style={styles.imageContainer} />
         <View style={{justifyContent: 'center', marginLeft: 10}}>

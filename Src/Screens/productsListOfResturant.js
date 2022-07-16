@@ -6,7 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  SafeAreaView,
+ Platform
 } from 'react-native';
 import FlatListItem from '../Components/Products/flatListItem';
 import {recentlyAdded} from '../Data/products';
@@ -23,6 +23,7 @@ import productImage from '../assets/Images/burger.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {addProduct, removeProduct} from '../Actions/actions';
 import showToast from '../Components/Global/toast';
+import StatusBar from '../Components/Global/statusBar';
 
 const Screen = ({navigation, route}) => {
   const id = route.params.id;
@@ -69,6 +70,7 @@ const Screen = ({navigation, route}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <StatusBar barStyle="light-content" />
       <FlatList
         ListHeaderComponent={() => (
           <View

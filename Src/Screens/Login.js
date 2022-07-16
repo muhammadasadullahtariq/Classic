@@ -6,8 +6,10 @@ import {
   Dimensions,
   TouchableOpacity,
   SafeAreaView,
-  StatusBar,
 } from 'react-native';
+import {
+  SafeAreaProvider,
+} from 'react-native-safe-area-context';
 import logo from '../assets/Images/logo.png';
 import TextInput from '../Components/Global/inputComponentWithIcon';
 import Heading from '../Components/Global/headerText';
@@ -27,6 +29,7 @@ import {addUser} from '../Actions/actions';
 import {useDispatch} from 'react-redux';
 import googleLogo from '../assets/Images/google.png';
 import updateDeviceId from '../Functions/useRegistration/updateDeviceId';
+import StatusBar from '../Components/Global/statusBar';
 
 const height = Dimensions.get('window').height;
 
@@ -150,8 +153,11 @@ const Screen = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+    <SafeAreaProvider style={{flex: 1}}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={Color.defaultBrownColor}
+      />
       <View style={styles.mainContainer}>
         <WaitingAlert visible={waitingAlertFlag} />
         <SingleButtonAlert
@@ -198,6 +204,8 @@ const Screen = () => {
               width: 218,
               alignSelf: 'center',
               marginBottom: 20,
+              height: 43,
+              alignItems: 'center',
             }}>
             <Image
               source={googleLogo}
@@ -206,7 +214,7 @@ const Screen = () => {
             <View style={{width: 10}} />
             <Text
               text={'Sign in with Google'}
-              style={{color: Color.white, marginRight: 5}}
+              style={{color: Color.white}}
             />
           </View>
         </TouchableOpacity>
@@ -246,7 +254,7 @@ const Screen = () => {
           />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

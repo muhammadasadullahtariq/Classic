@@ -5,16 +5,19 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Text from '../Components/Global/normalText';
 import HeadingText from '../Components/Global/headerText';
 import Icon from 'react-native-vector-icons/Feather';
 import * as colors from '../Constants/Colors';
 import Button from '../Components/Global/button';
 import {useDispatch, useSelector} from 'react-redux';
-import {addProduct,removeProduct} from '../Actions/actions';
+import {addProduct, removeProduct} from '../Actions/actions';
 import productImage from '../assets/Images/burger.png';
 import showToast from '../Components/Global/toast';
+import StatusBar from '../Components/Global/statusBar';
 const white = 'white';
 
 const Screen = ({route, navigation}) => {
@@ -28,7 +31,11 @@ const Screen = ({route, navigation}) => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaProvider style={styles.mainContainer}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors.primary}
+      />
       <ScrollView contentContainerStyle={{flex: 1}}>
         <Image
           source={item.image == '' ? productImage : {uri: item.image}}
@@ -133,7 +140,7 @@ const Screen = ({route, navigation}) => {
           }}
         />
       </ScrollView>
-    </View>
+    </SafeAreaProvider>
   );
 };
 

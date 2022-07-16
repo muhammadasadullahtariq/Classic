@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, View, FlatList, Image, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Dimensions,
+  StatusBar,
+} from 'react-native';
 import FlatListItem from '../Components/Products/flatListItem';
 import {recentlyAdded} from '../Data/products';
 import Text from '../Components/Global/normalText';
@@ -45,6 +52,7 @@ const Screen = ({route, navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       {products.length > 0 ? (
         <FlatList
           ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}

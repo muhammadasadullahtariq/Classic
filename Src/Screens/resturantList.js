@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, StatusBar} from 'react-native';
 import FlatListItem from '../Components/Resturants/flatListItem';
 import ResturantList from '../Data/resturants';
 import getNearByResturants from '../Functions/Resturants/getNearByResturants';
 import InfoText from '../Components/Global/headerText';
+import * as COLORS from '../Constants/Colors';
 
 const Screen = props => {
   const [resturants, setResturants] = useState([]);
@@ -14,7 +15,7 @@ const Screen = props => {
 
   const resturantDataHandeler = async () => {
     const result = await getNearByResturants();
-    console.log("resturantDataHandeler", result);
+    console.log('resturantDataHandeler', result);
     if (result.status === 'Success') {
       setResturants(result.data);
       console.log(result.data.length);
@@ -23,6 +24,7 @@ const Screen = props => {
 
   return (
     <View style={styles.mainContainer}>
+      <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       {resturants.length > 0 ? (
         <FlatList
           data={resturants}

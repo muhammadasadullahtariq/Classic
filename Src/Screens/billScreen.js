@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {StripeProvider} from '@stripe/stripe-react-native';
 import Check from '../Components/Global/check';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView, Platform} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Text from '../Components/Global/normalText';
 import Button from '../Components/Global/button';
@@ -27,7 +27,11 @@ function App() {
 // PaymentScreen.ts
 import {CardField, useStripe} from '@stripe/stripe-react-native';
 
-import {ApplePayButton, useGooglePay} from '@stripe/stripe-react-native';
+import {
+  ApplePayButton,
+  useGooglePay,
+  GooglePayButton,
+} from '@stripe/stripe-react-native';
 
 export default function PaymentScreen({route, navigation}) {
   const {confirmPayment} = useStripe();
@@ -85,7 +89,7 @@ export default function PaymentScreen({route, navigation}) {
   return (
     <ScrollView
       style={styles.mainContainer}
-      contentContainerStyle={{ flexGrow: 1}}>
+      contentContainerStyle={{flexGrow: 1}}>
       <HeaderText
         text={'Confirm Your Location'}
         style={{color: COLORS.primary, marginTop: 10, marginLeft: 10}}
@@ -116,8 +120,13 @@ export default function PaymentScreen({route, navigation}) {
       </MapView>
       <HeaderText
         text={'Select Payment Method'}
-        style={{color: COLORS.primary, marginTop: 10, marginLeft: 10,marginBottom:10}}
+        style={{
+          color: COLORS.primary,
+          marginTop: 10,
+          marginLeft: 10,
+        }}
       />
+      <View style={{height: 20, width: '100%'}} />
       {arrray.map((item, index) => {
         return (
           <Check
@@ -153,13 +162,17 @@ export default function PaymentScreen({route, navigation}) {
               console.log('focusField', focusedField);
             }}
           />
-          <ApplePayButton
-            onPress={() => {}}
-            type="plain"
-            buttonStyle="black"
-            borderRadius={4}
-            style={styles.payButton}
-          />
+          {Platform.OS != 'android' ? (
+            <ApplePayButton
+              onPress={() => {}}
+              type="plain"
+              buttonStyle="black"
+              borderRadius={4}
+              style={styles.payButton}
+            />
+          ) : (
+            <GooglePayButton borderRadius={4} style={styles.payButton} />
+          )}
         </View>
       )}
       <Button

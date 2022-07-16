@@ -15,12 +15,10 @@ const screen = props => {
 
 const styles = StyleSheet.create({
   mainContainer: {justifyContent: 'center'},
-  componentContainer: {
-    
+  componentContainer: { 
     fontSize: 18,
     color: 'black',
     padding: 5,
-    
   },
 });
 

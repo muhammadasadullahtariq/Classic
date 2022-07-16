@@ -26,7 +26,7 @@ const windowWidth = Dimensions.get('window').width;
 const Screen = ({navigation, route}) => {
   const [isReviewSelected, setIsReviewSelected] = useState(false);
   const [data, setData] = useState({
-    location: {coordinates: [29.394644, 71.663875]},
+    location: {latitude: 29.394644, longitude: 71.663875},
   });
   const [reviews, setReviews] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
@@ -65,8 +65,8 @@ const Screen = ({navigation, route}) => {
     console.log('i called');
     map.current.animateToRegion(
       {
-        latitude: data.location.coordinates[0],
-        longitude: data.location.coordinates[1],
+        latitude: data.location.latitude,
+        longitude: data.location.longitude,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
@@ -153,8 +153,8 @@ const Screen = ({navigation, route}) => {
             }}>
             <Marker
               coordinate={{
-                latitude: data.location.coordinates[0],
-                longitude: data.location.coordinates[1],
+                latitude: data.location.latitude,
+                longitude: data.location.longitude,
               }}
             />
           </MapView>
@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: 300,
     width: '100%',
+    resizeMode: 'contain',
+    backgroundColor: 'black',
   },
   rowButtonContainer: {
     flexDirection: 'row',

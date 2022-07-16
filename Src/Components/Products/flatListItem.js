@@ -77,11 +77,14 @@ const Screen = props => {
             </TouchableOpacity>
           </View>
           <HeaderText text={props.item.name} style={{color: COLORS.primary}} />
-          <Text text={props.item.about} />
+          <Text text={props.item.shortDetail} style={{}} />
           <View style={{flexDirection: 'row'}}>
             <HeaderText
               text={'$ ' + props.item.price}
-              style={{fontSize: 18, color: COLORS.darkBrown}}
+              style={{
+                fontSize: 18,
+                color: COLORS.darkBrown,
+              }}
             />
             <View style={{flex: 1}} />
             {/* <View
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e5e5e5',
     borderRadius: 17,
     marginHorizontal: 3,
-    marginBottom: 3,
+    //marginBottom: 3,
     //alignItems: 'center',
     paddingHorizontal: 8,
     justifyContent: 'space-between',

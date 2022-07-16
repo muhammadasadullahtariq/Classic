@@ -83,11 +83,7 @@ const ProductListWithDrawer = ({route: {params}}) => {
 function Navigation() {
   return (
     <NavigationContainer>
-      <StatusBar
-        hidden={false}
-        translucent={true}
-        backgroundColor={colors.primary}
-      />
+      <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       <Stack.Navigator
         screenOptions={{
           headerStyle: {backgroundColor: colors.primary},
@@ -123,7 +119,7 @@ function Navigation() {
         <Stack.Screen
           name="ProductListOfResturant"
           component={productsListOfResturant}
-          options={{headerShown: true, headerTitle: 'Products'}}
+          options={{headerShown: false, headerTitle: 'Products'}}
         />
         <Stack.Screen
           name="ProductList"

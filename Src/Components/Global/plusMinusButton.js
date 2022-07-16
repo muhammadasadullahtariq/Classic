@@ -13,7 +13,10 @@ const screen = props => {
   return (
     <View style={styles.mainContainer}>
       <View style={{flexDirection: 'row', width: '100%'}}>
-        <HeaderText text={'$ ' + props.price} style={{fontSize: 18}} />
+        <HeaderText
+          text={'$ ' + props.price}
+          style={{fontSize: 18, color: colors.primary}}
+        />
         <View style={{flex: 1}} />
         <View
           style={{

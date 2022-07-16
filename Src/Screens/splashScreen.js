@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Image, StyleSheet, View, Animated} from 'react-native';
+import {Image, StyleSheet, View, Animated, StatusBar} from 'react-native';
 import * as COLORS from '../Constants/Colors';
 import textImage from '../assets/Images/text.png';
 import bikeImage from '../assets/Images/bike.png';
@@ -69,7 +69,6 @@ const Screen = () => {
   }, []);
 
   const userHandeler = async googleId => {
-    
     const user = await checkUserExist(googleId);
     if (user.status == 'Success') {
       global.user = user.data._id;
@@ -84,6 +83,7 @@ const Screen = () => {
 
   return (
     <View style={styles.mainContainer}>
+      
       <Animated.Image
         source={bikeImage}
         style={{

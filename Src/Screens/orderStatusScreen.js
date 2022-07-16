@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image,StatusBar} from 'react-native';
 import * as COLORS from '../Constants/Colors';
 import preparingGif from '../assets/Images/preparing.gif';
 import riderGif from '../assets/Images/rider.gif';
@@ -16,6 +16,7 @@ const Screen = ({route, navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       {order.status === 'preparing' ||
         (order.status === 'active' && (
           <>

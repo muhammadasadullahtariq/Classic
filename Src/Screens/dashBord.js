@@ -6,8 +6,9 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
-  StatusBar,
 } from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import StatusBar from '../Components/Global/statusBar';
 import {options} from '../Data/dashBoard.js';
 import FlatListItem from '../Components/ItemList/flatListItem';
 import TopOptionView from '../Components/DashBoard/topitemView';
@@ -19,7 +20,7 @@ import LeftCardView from '../Components/DashBoard/leftCardView';
 import RightCardView from '../Components/DashBoard/rightCardView';
 import {recentlyAdded} from '../Data/products.js';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useIsFocused} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 import getUserLocation from '../Functions/getUserLocation';
 import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory.js';
 import getRecentAddedProducts from '../Functions/searchProducts/getRecentAddedProduct.js';
@@ -97,80 +98,86 @@ const Screen = ({navigation, route}) => {
   }
 
   return (
-    <View style={styles.mainContainer}>
-      <ContextMenu
-        visible={contextMenuFlag}
-        array={['use Current Location', 'use last location']}
-        heading="Select Location"
-        itemPressed={locationHandler}
-        closeMenu={() => setContextMenuFlag(false)}
+    <SafeAreaProvider>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={colors.defaultBrownColor}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <SearchBar
-          placeHolder="Find Food"
-          onPress={() => console.log('i called')}
-          mainContainer={{width: '85%'}}
+      <View style={styles.mainContainer}>
+        <ContextMenu
+          visible={contextMenuFlag}
+          array={['use Current Location', 'use last location']}
+          heading="Select Location"
+          itemPressed={locationHandler}
+          closeMenu={() => setContextMenuFlag(false)}
         />
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CartProducts')}
-          activeOpacity={0.7}>
-          <View style={styles.cartView}>
-            <Icon name="cart-outline" size={30} color={colors.primary} />
-          </View>
-          {cartProducts.length > 0 && (
-            <View style={styles.productCountContainer}>
-              <Text
-                text={cartProducts.length}
-                style={{color: white, fontSize: 12, padding: 0}}
-              />
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <SearchBar
+            placeHolder="Find Food"
+            onPress={() => console.log('i called')}
+            mainContainer={{width: '85%'}}
+          />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('CartProducts')}
+            activeOpacity={0.7}>
+            <View style={styles.cartView}>
+              <Icon name="cart-outline" size={30} color={colors.primary} />
             </View>
-          )}
-        </TouchableOpacity>
-      </View>
-      <TopOptionView
-        setAllProducts={flag => setAllProducts(flag)}
-        handleItemSelection={handleItemSelection}
-      />
-
-      <FlatList
-        ListHeaderComponent={() => {
-          if (allProducts) {
-            return (
-              <View>
-                <TopCardView item={options[0]} />
-                <View style={{flexDirection: 'row', width: '100%'}}>
-                  <LeftCardView item={options[1]} />
-                  <View style={{width: '50%'}}>
-                    <RightCardView item={options[2]} />
-                    <RightCardView item={options[3]} />
-                  </View>
-                </View>
-                <HeaderText text="You May Likes" />
+            {cartProducts.length > 0 && (
+              <View style={styles.productCountContainer}>
+                <Text
+                  text={cartProducts.length}
+                  style={{color: white, fontSize: 12, padding: 0}}
+                />
               </View>
-            );
-          } else {
-            return <View />;
-          }
-        }}
-        data={products}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
-        renderItem={items => <FlatListItem item={items.item} />}
-        numColumns={columnNum}
-        key={columnNum}
-        keyExtractor={item => item.name}
-        style={{marginTop: 10, marginHorizontal: 10}}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+            )}
+          </TouchableOpacity>
+        </View>
+        <TopOptionView
+          setAllProducts={flag => setAllProducts(flag)}
+          handleItemSelection={handleItemSelection}
+        />
+
+        <FlatList
+          ListHeaderComponent={() => {
+            if (allProducts) {
+              return (
+                <View>
+                  <TopCardView item={options[0]} />
+                  <View style={{flexDirection: 'row', width: '100%'}}>
+                    <LeftCardView item={options[1]} />
+                    <View style={{width: '50%'}}>
+                      <RightCardView item={options[2]} />
+                      <RightCardView item={options[3]} />
+                    </View>
+                  </View>
+                  <HeaderText text="You May Likes" />
+                </View>
+              );
+            } else {
+              return <View />;
+            }
+          }}
+          data={products}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+          renderItem={items => <FlatListItem item={items.item} />}
+          numColumns={columnNum}
+          key={columnNum}
+          keyExtractor={item => item.name}
+          style={{marginTop: 10, marginHorizontal: 10}}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {backgroundColor: '#E8E8E8', flex: 1, marginTop: 40},
+  mainContainer: {backgroundColor: '#E8E8E8', flex: 1},
   cartView: {
     width: 50,
     height: 50,

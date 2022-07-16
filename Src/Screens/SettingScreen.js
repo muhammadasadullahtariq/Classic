@@ -5,6 +5,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import TextInput from '../Components/Global/inputComponentWithIcon';
 import Button from '../Components/Global/activeButton';
@@ -152,6 +153,7 @@ const Screen = ({navigation, route}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       <SingleButtonAlert
         text={alertText}
         visible={alertFlag}
