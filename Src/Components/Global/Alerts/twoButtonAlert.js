@@ -26,6 +26,7 @@ const screen = props => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               width: '100%',
+              marginBottom: 20,
             }}>
             <ButtonComponent
               text="OK"
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 30,
     marginTop: 40,
-    fontFamily: 'Montserrat',
     color: '#4F6C8D',
     textAlign: 'center',
   },

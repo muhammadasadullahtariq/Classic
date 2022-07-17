@@ -14,16 +14,19 @@ import Icon from 'react-native-vector-icons/Feather';
 import * as colors from '../Constants/Colors';
 import Button from '../Components/Global/button';
 import {useDispatch, useSelector} from 'react-redux';
-import {addProduct, removeProduct} from '../Actions/actions';
+import {addProduct, removeProduct, emptyCart} from '../Actions/actions';
 import productImage from '../assets/Images/burger.png';
 import showToast from '../Components/Global/toast';
 import StatusBar from '../Components/Global/statusBar';
+import TwoButtonComponent from '../Components/Global/Alerts/twoButtonAlert';
 const white = 'white';
 
 const Screen = ({route, navigation}) => {
   const {item} = route.params;
   const [count, setCount] = useState(0);
   const product = useSelector(state => state);
+  const resturant = useSelector(state => state.resturant);
+  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,10 +35,27 @@ const Screen = ({route, navigation}) => {
 
   return (
     <SafeAreaProvider style={styles.mainContainer}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={colors.primary}
+      <TwoButtonComponent
+        okOnPress={() => {
+          console.log('Ok is pressed');
+          setShowAlert(false);
+          dispatch(emptyCart());
+          if (count > 0) {
+            dispatch(addProduct({...item, quantity: count}));
+            showToast('Product added to cart');
+          } else {
+            dispatch(removeProduct(item));
+            showToast('Product removed from cart');
+          }
+        }}
+        CancleOnPress={() => {
+          console.log('Cancel is pressed');
+          setShowAlert(false);
+        }}
+        visible={showAlert}
+        text="There is already a product from different resturant in the cart. Do you want empty cart and add this to the cart?"
       />
+      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <ScrollView contentContainerStyle={{flex: 1}}>
         <Image
           source={item.image == '' ? productImage : {uri: item.image}}
@@ -126,12 +146,17 @@ const Screen = ({route, navigation}) => {
           text={'Add to cart'}
           style={{marginBottom: '7%'}}
           onPress={() => {
-            if (count > 0) {
-              dispatch(addProduct({...item, quantity: count}));
-              showToast('Product added to cart');
+            if (resturant == '' || resturant == item.resturant) {
+              if (count > 0) {
+                dispatch(addProduct({...item, quantity: count}));
+                showToast('Product added to cart');
+              } else {
+                dispatch(removeProduct(item));
+                showToast('Product removed from cart');
+              }
             } else {
-              dispatch(removeProduct(item));
-              showToast('Product removed from cart');
+              console.log('resturant is not same', showAlert);
+              setShowAlert(true);
             }
             // console.log('Add to cart');
             // //console.log(product);

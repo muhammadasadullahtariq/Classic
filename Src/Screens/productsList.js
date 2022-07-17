@@ -17,6 +17,11 @@ import PlusMinusButton from '../Components/Global/plusMinusButton';
 import ResturantList from '../Data/resturants';
 import Button from '../Components/Global/button';
 import getSpecificSubCategory from '../Functions/searchProducts/getSpecificSubCategory';
+import {useDispatch, useSelector} from 'react-redux';
+import {addProduct, removeProduct, emptyCart} from '../Actions/actions';
+import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
+import productImage from '../assets/Images/burger.png';
+import showToast from '../Components/Global/toast';
 
 const white = 'white';
 
@@ -26,6 +31,10 @@ const Screen = ({route, navigation}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const refRBSheet = useRef();
   const [products, setProducts] = useState(recentlyAdded);
+  const dispatch = useDispatch();
+  const [count, setCount] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const resturant = useSelector(state => state.resturant);
 
   useEffect(() => {
     //refRBSheet.current.open();
@@ -43,6 +52,26 @@ const Screen = ({route, navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <TwoButtonAlert
+        okOnPress={() => {
+          console.log('Ok is pressed');
+          setShowAlert(false);
+          dispatch(emptyCart());
+          if (count > 0) {
+            dispatch(addProduct({...products[selectedItem], quantity: count}));
+            showToast('Product added to cart');
+          } else {
+            dispatch(removeProduct(products[selectedItem]));
+            showToast('Product removed from cart');
+          }
+        }}
+        CancleOnPress={() => {
+          console.log('Cancel is pressed');
+          setShowAlert(false);
+        }}
+        visible={showAlert}
+        text="There is already a product from different resturant in the cart. Do you want empty cart and add this to the cart?"
+      />
       <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       {products.length > 0 ? (
         <FlatList
@@ -66,63 +95,88 @@ const Screen = ({route, navigation}) => {
           <HeaderText text={'Sorry No Product Found'} />
         </View>
       )}
-      <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={false}
-        dragFromTopOnly={true}
-        height={450}
-        width={'90%'}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'transparent',
-          },
-          draggableIcon: {
-            backgroundColor: colors.primary,
-          },
-          container: {
-            width: '97%',
-            alignSelf: 'center',
-            borderRadius: 17,
-          },
-        }}>
-        <Image
-          style={{
-            width: '100%',
-            height: 200,
-            aspectRatio: 1.9,
-            marginTop: -25,
-            backgroundColor: colors.primary,
-            zIndex: -1,
-          }}
-          source={recentlyAdded[selectedItem].image}
-        />
-        <HeaderText
-          text={recentlyAdded[selectedItem].name}
-          style={{
-            marginTop: 10,
-            marginBottom: 0,
-            paddingTop: 0,
-            paddingLeft: 10,
-            fontSize: 30,
-          }}
-        />
-        <Text
-          text={recentlyAdded[selectedItem].detail}
-          style={{opacity: 0.6}}
-        />
-        <PlusMinusButton count={0} price={45} />
-        <View
-          style={{
-            flex: 1,
-            width: '100%',
-          }}></View>
-        <Button
-          text={'Add to cart'}
-          style={{marginBottom: '7%'}}
-          onPress={() => refRBSheet.current.close()}
-        />
-      </RBSheet>
+      {products.length > 0 && (
+        <RBSheet
+          ref={refRBSheet}
+          closeOnDragDown={true}
+          closeOnPressMask={false}
+          dragFromTopOnly={true}
+          height={450}
+          width={'90%'}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'transparent',
+            },
+            draggableIcon: {
+              backgroundColor: colors.primary,
+            },
+            container: {
+              width: '97%',
+              alignSelf: 'center',
+              borderRadius: 17,
+            },
+          }}>
+          <Image
+            style={{
+              width: '100%',
+              height: 200,
+              aspectRatio: 1.9,
+              marginTop: -25,
+              backgroundColor: colors.primary,
+              zIndex: -1,
+            }}
+            source={
+              products[selectedItem].image === ''
+                ? productImage
+                : {uri: products[selectedItem].image}
+            }
+          />
+          <HeaderText
+            text={products[selectedItem].name}
+            style={{
+              marginTop: 10,
+              marginBottom: 0,
+              paddingTop: 0,
+              paddingLeft: 10,
+              fontSize: 30,
+            }}
+          />
+          <Text text={products[selectedItem].detail} style={{opacity: 0.6}} />
+          <PlusMinusButton
+            count={count}
+            price={products[selectedItem].price}
+            setCount={setCount}
+          />
+          <View
+            style={{
+              flex: 1,
+              width: '100%',
+            }}></View>
+          <Button
+            text={'Add to cart'}
+            style={{marginBottom: '7%'}}
+            onPress={() => {
+              if (
+                products[selectedItem].resturant === resturant ||
+                resturant === ''
+              ) {
+                if (count > 0) {
+                  dispatch(
+                    addProduct({...products[selectedItem], quantity: count}),
+                  );
+                  showToast('Product added to cart');
+                } else {
+                  dispatch(removeProduct(products[selectedItem]));
+                  showToast('Product removed from cart');
+                }
+                refRBSheet.current.close();
+              } else {
+                setShowAlert(true);
+              }
+            }}
+          />
+        </RBSheet>
+      )}
     </View>
   );
 };

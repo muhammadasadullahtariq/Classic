@@ -16,9 +16,10 @@ import * as colors from '../Constants/Colors';
 import PlusMinusButton from '../Components/Global/plusMinusButton';
 import Button from '../Components/Global/button';
 import {useDispatch, useSelector} from 'react-redux';
-import {addProduct, removeProduct} from '../Actions/actions';
+import {addProduct, removeProduct, emptyCart} from '../Actions/actions';
 import showToast from '../Components/Global/toast';
 import productImage from '../assets/Images/burger.png';
+import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
 
 const Screen = ({navigation, route}) => {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -26,6 +27,8 @@ const Screen = ({navigation, route}) => {
   const products = useSelector(state => state.products);
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const resturant = useSelector(state => state.resturant);
 
   useEffect(() => {
     //refRBSheet.current.open();
@@ -33,6 +36,28 @@ const Screen = ({navigation, route}) => {
   if (products.length > 0) {
     return (
       <View style={styles.mainContainer}>
+        <TwoButtonAlert
+          okOnPress={() => {
+            console.log('Ok is pressed');
+            setShowAlert(false);
+            dispatch(emptyCart());
+            if (count > 0) {
+              dispatch(
+                addProduct({...products[selectedItem], quantity: count}),
+              );
+              showToast('Cart updated');
+            } else {
+              dispatch(removeProduct(products[selectedItem]));
+              showToast('Product removed from cart');
+            }
+          }}
+          CancleOnPress={() => {
+            console.log('Cancel is pressed');
+            setShowAlert(false);
+          }}
+          visible={showAlert}
+          text="There is already a product from different resturant in the cart. Do you want empty cart and add this to the cart?"
+        />
         <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
         <FlatList
           ListHeaderComponentStyle={{marginHorizontal: 0, marginTop: -10}}
@@ -114,14 +139,21 @@ const Screen = ({navigation, route}) => {
             onPress={() => {
               setSelectedItem(0);
               refRBSheet.current.close();
-              if (count > 0) {
-                dispatch(
-                  addProduct({...products[selectedItem], quantity: count}),
-                );
-                showToast('Cart updated');
+              if (
+                resturant === products[selectedItem].resturantId ||
+                resturant === ''
+              ) {
+                if (count > 0) {
+                  dispatch(
+                    addProduct({...products[selectedItem], quantity: count}),
+                  );
+                  showToast('Cart updated');
+                } else {
+                  dispatch(removeProduct(products[selectedItem]));
+                  showToast('Product removed from cart');
+                }
               } else {
-                dispatch(removeProduct(products[selectedItem]));
-                showToast('Product removed from cart');
+                setShowAlert(true);
               }
             }}
           />

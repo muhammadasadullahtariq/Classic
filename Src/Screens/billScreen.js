@@ -29,7 +29,6 @@ import {CardField, useStripe} from '@stripe/stripe-react-native';
 
 import {
   ApplePayButton,
-  useGooglePay,
   GooglePayButton,
 } from '@stripe/stripe-react-native';
 

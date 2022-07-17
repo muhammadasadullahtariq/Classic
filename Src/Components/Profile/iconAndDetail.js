@@ -8,8 +8,8 @@ const screen = props => {
   useEffect(() => {}, []);
 
   return (
-    <View style={styles.mainContainer}>
-      <Icon name={props.iconName}  size={18} />
+    <View style={[styles.mainContainer, props.style]}>
+      <Icon name={props.iconName} size={18} />
       <Text text={props.value} style={{opacity: 0.6, paddingTop: 0}} />
     </View>
   );

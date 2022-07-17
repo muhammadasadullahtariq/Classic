@@ -6,7 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
- Platform
+  Platform,
 } from 'react-native';
 import FlatListItem from '../Components/Products/flatListItem';
 import {recentlyAdded} from '../Data/products';
@@ -21,16 +21,17 @@ import getResturantProducts from '../Functions/Resturants/getResturantProducts';
 import image from '../assets/Images/Restaurant.png';
 import productImage from '../assets/Images/burger.png';
 import {useDispatch, useSelector} from 'react-redux';
-import {addProduct, removeProduct} from '../Actions/actions';
+import {addProduct, removeProduct, emptyCart} from '../Actions/actions';
 import showToast from '../Components/Global/toast';
 import StatusBar from '../Components/Global/statusBar';
+import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
 
 const Screen = ({navigation, route}) => {
   const id = route.params.id;
   const [data, setData] = useState({
     products: [
       {
-        image: "",
+        image: '',
         price: '3000',
         name: 'Burger',
         key: '0',
@@ -51,6 +52,8 @@ const Screen = ({navigation, route}) => {
   const refRBSheet = useRef();
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const resturant = useSelector(state => state.resturant);
 
   const productsHandler = async () => {
     const result = await getResturantProducts(id);
@@ -70,6 +73,28 @@ const Screen = ({navigation, route}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <TwoButtonAlert
+        okOnPress={() => {
+          console.log('Ok is pressed');
+          setShowAlert(false);
+          dispatch(emptyCart());
+          if (count > 0) {
+            dispatch(
+              addProduct({...data.products[selectedItem], quantity: count}),
+            );
+            showToast('Product added to cart');
+          } else {
+            dispatch(removeProduct(data.products[selectedItem]));
+            showToast('Product removed from cart');
+          }
+        }}
+        CancleOnPress={() => {
+          console.log('Cancel is pressed');
+          setShowAlert(false);
+        }}
+        visible={showAlert}
+        text="There is already a product from different resturant in the cart. Do you want empty cart and add this to the cart?"
+      />
       <StatusBar barStyle="light-content" />
       <FlatList
         ListHeaderComponent={() => (
@@ -179,16 +204,24 @@ const Screen = ({navigation, route}) => {
           text={'Add to cart'}
           style={{marginBottom: '7%'}}
           onPress={() => {
-            if (count > 0) {
-              dispatch(
-                addProduct({...data.products[selectedItem], quantity: count}),
-              );
-              showToast('Product added to cart');
+            if (
+              data.products[selectedItem].resturant === resturant ||
+              resturant === ''
+            ) {
+              if (count > 0) {
+                dispatch(
+                  addProduct({...data.products[selectedItem], quantity: count}),
+                );
+                showToast('Product added to cart');
+              } else {
+                dispatch(removeProduct(data.products[selectedItem]));
+                showToast('Product removed from cart');
+              }
+              refRBSheet.current.close();
             } else {
-              dispatch(removeProduct(data.products[selectedItem]));
-              showToast('Product removed from cart');
+              console.log('kiun nahi', showAlert);
+              setShowAlert(true);
             }
-            refRBSheet.current.close();
           }}
         />
       </RBSheet>

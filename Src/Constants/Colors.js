@@ -6,3 +6,4 @@ export const primaryTextColor = '#f74fa3';
 export const googleColor = '#4285F4';
 export const screenColor = '#e8e8e8';
 export const defaultBrownColor = '#e8e8e8';
+export const lightPrimaryColor = '#f7d7e7';

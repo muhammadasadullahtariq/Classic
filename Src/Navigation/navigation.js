@@ -145,7 +145,7 @@ function Navigation() {
         <Stack.Screen
           name="ResturantDetail"
           component={ResturantDetail}
-          option={{headerShown: true}}
+          option={{headerShown: true, title: 'Resturant'}}
         />
         <Stack.Screen
           name="CartProducts"

@@ -18,13 +18,16 @@ import Button from '../Components/Global/button';
 import getFavouriteProducts from '../Functions/global/getFavouriteProducts';
 import productImage from '../assets/Images/burger.png';
 import {useDispatch, useSelector} from 'react-redux';
-import {addProduct, removeProduct} from '../Actions/actions';
+import {addProduct, removeProduct, emptyCart} from '../Actions/actions';
 import showToast from '../Components/Global/toast';
+import TwoButtonAlert from '../Components/Global/Alerts/twoButtonAlert';
 
 const Screen = ({route, navigation}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const refRBSheet = useRef();
   const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
+  const resturant = useSelector(state => state.resturant);
   const [products, setProducts] = useState([
     {
       image: productImage,
@@ -52,6 +55,26 @@ const Screen = ({route, navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
+      <TwoButtonAlert
+        okOnPress={() => {
+          console.log('Ok is pressed');
+          setShowAlert(false);
+          dispatch(emptyCart());
+          if (count > 0) {
+            dispatch(addProduct({...products[selectedItem], quantity: count}));
+            showToast('Cart updated');
+          } else {
+            dispatch(removeProduct(products[selectedItem]));
+            showToast('Product removed from cart');
+          }
+        }}
+        CancleOnPress={() => {
+          console.log('Cancel is pressed');
+          setShowAlert(false);
+        }}
+        visible={showAlert}
+        text="There is already a product from different resturant in the cart. Do you want empty cart and add this to the cart?"
+      />
       <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       {products.length > 0 ? (
         <FlatList
@@ -137,16 +160,24 @@ const Screen = ({route, navigation}) => {
             text={'Add to cart'}
             style={{marginBottom: '7%'}}
             onPress={() => {
-              if (count > 0) {
-                dispatch(
-                  addProduct({...products[selectedItem], quantity: count}),
-                );
-                showToast('Product added to cart');
-              } else {
-                dispatch(removeProduct(products[selectedItem]));
-                showToast('Product removed from cart');
+              if (
+                resturant === products[selectedItem].resturantId ||
+                resturant === ''
+              ) {
+                if (count > 0) {
+                  dispatch(
+                    addProduct({...products[selectedItem], quantity: count}),
+                  );
+                  showToast('Product added to cart');
+                } else {
+                  dispatch(removeProduct(products[selectedItem]));
+                  showToast('Product removed from cart');
+                }
+                refRBSheet.current.close();
               }
-              refRBSheet.current.close();
+              {
+                setShowAlert(true);
+              }
             }}
           />
         </RBSheet>

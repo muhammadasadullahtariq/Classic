@@ -19,6 +19,7 @@ import getResturantDetails from '../Functions/Resturants/getResturantDetail';
 import getResturantReviews from '../Functions/Resturants/getResturantReviews';
 import * as Colors from '../Constants/Colors';
 import image from '../assets/Images/Restaurant.png';
+import ProfileDetail from '../Components/Profile/iconAndDetail';
 //import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 const windowWidth = Dimensions.get('window').width;
@@ -96,7 +97,7 @@ const Screen = ({navigation, route}) => {
 
   return (
     <View style={styles.mainContainer}>
-      {isReviewSelected ? (
+      {/* {isReviewSelected ? (
         <View>
           {reviews.length > 0 ? (
             <FlatList
@@ -124,14 +125,38 @@ const Screen = ({navigation, route}) => {
             </View>
           )}
         </View>
-      ) : (
-        <ScrollView
-          style={{height: '100%', width: '100%', paddingBottom: 100}}
-          contentContainerStyle={{marginBottom: 100, flexGrow: 1}}>
-          <ImageFunction />
+      ) : ( */}
+      <ScrollView
+        style={{height: '100%', width: '100%', paddingBottom: 100}}
+        contentContainerStyle={{marginBottom: 100, flexGrow: 1}}>
+        {/* <ImageFunction /> */}
+        <Image source={data.image} style={styles.imageContainer} />
+
+        <View
+          style={{
+            alignSelf: 'center',
+            width: '90%',
+            height: 400,
+            borderRadius: 12,
+            marginTop: -5,
+            backgroundColor: Colors.lightPrimaryColor,
+            padding: 10,
+            marginBottom: 10,
+            shadowOffset: {
+              width: 1,
+              height: 1,
+            },
+            shadowOpacity: 0.25,
+            shadowColor: Colors.primary,
+            elevation: 2,
+          }}>
           <HeaderText
             text={data.name}
             style={{color: primary, marginTop: 10, paddingBottom: 0}}
+          />
+          <Text
+            text={data.CEO}
+            style={{opacity: 0.5, paddingLeft: 15, paddingTop: 0, fontSize: 10}}
           />
           <Text
             text={data.detail}
@@ -142,9 +167,27 @@ const Screen = ({navigation, route}) => {
               paddingBottom: 10,
             }}
           />
+          <ProfileDetail
+            iconName="call-outline"
+            value={data.phone}
+            style={styles.profileContainer}
+          />
+          <ProfileDetail
+            iconName="mail-outline"
+            value={data.email}
+            style={styles.profileContainer}
+          />
+          <ProfileDetail
+            iconName="location-outline"
+            value={data.address}
+            style={styles.profileContainer}
+          />
+
           <MapView
             style={styles.map}
             ref={map}
+            moveOnMarkerPress={false}
+            scrollEnabled={false}
             initialRegion={{
               latitude: 29.394644,
               longitude: 71.663875,
@@ -158,8 +201,9 @@ const Screen = ({navigation, route}) => {
               }}
             />
           </MapView>
-        </ScrollView>
-      )}
+        </View>
+      </ScrollView>
+      {/* )} */}
     </View>
   );
 };
@@ -189,8 +233,9 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: 400,
+    height: 200,
   },
+  profileContainer: {marginLeft: 0},
 });
 
 export default Screen;
