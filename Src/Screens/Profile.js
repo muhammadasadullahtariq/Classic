@@ -40,7 +40,6 @@ const Screen = props => {
   };
 
   const onPressHandler = text => {
-    //console.log(text);
     if (text === 'Share') {
       shareHandler();
     } else navigation.navigate(text);

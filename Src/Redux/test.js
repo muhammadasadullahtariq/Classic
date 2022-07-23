@@ -27,4 +27,3 @@ store.dispatch({
 
 //store.dispatch({type:ActionTypes.REMOVE_PRODUCT, product:{id:1}});
 
-console.log(store.getState());

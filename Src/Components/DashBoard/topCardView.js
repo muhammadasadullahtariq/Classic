@@ -11,7 +11,6 @@ const Screen = props => {
   const Navigator = useNavigation();
 
   useEffect(() => {
-    console.log(props.item, 'asad ullah');
   }, []);
 
   return (

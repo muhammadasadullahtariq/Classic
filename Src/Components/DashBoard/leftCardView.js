@@ -18,7 +18,6 @@ const Screen = props => {
       style={{width: '50%'}}
       onPress={() => {
         Navigator.navigate('ProductList', {product: props.item.name});
-        console.log('i called');
       }}>
       <CardView
         cardElevation={2}

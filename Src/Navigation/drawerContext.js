@@ -24,9 +24,7 @@ export default function DrawerContent(props) {
   const user = useSelector(state => state.user);
   const [profileImage, setProfileImage] = useState(profile);
   useEffect(() => {
-    console.log(user);
     if (user.image != '') {
-      console.log(user.image);
       setProfileImage({uri: user.image});
     }
   }, [user]);

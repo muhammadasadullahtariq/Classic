@@ -22,7 +22,6 @@ const Screen = props => {
   const navgation = useNavigation();
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(props.item._id, 'asad ullah');
   }, []);
   const [count, setCount] = useState(0);
   const [favouriteFalg, setFavouriteFalg] = useState(
@@ -61,7 +60,6 @@ const Screen = props => {
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => {
-                console.log('Liked button pressed');
                 handelFavouriteButton();
               }}>
               {favouriteFalg && (

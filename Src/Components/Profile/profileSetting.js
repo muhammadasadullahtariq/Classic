@@ -18,7 +18,6 @@ const screen = props => {
   return (
     <TouchableHighlight
       onPress={() => {
-        console.log('i pressed');
         props.onPress(props.text);
       }}
       activeOpacity={0.6}

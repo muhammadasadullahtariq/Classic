@@ -13,10 +13,8 @@ async function getNearByResturants() {
       requestOptions,
     );
     const json = await result.json();
-    console.log(json);
     return json;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: error.message};
   }
 }

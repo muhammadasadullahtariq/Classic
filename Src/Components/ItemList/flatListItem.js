@@ -21,7 +21,6 @@ const screen = props => {
   const navgation = useNavigation();
 
   useEffect(() => {
-    console.log(props.item);
   }, []);
 
   return (

@@ -12,10 +12,8 @@ const getFavouriteProducts = async () => {
       requestOptions,
     );
     result = await result.json();
-    console.log(result);
     return result;
   } catch (err) {
-    console.log(err);
     return {status: 'Error', data: 'Error'};
   }
 };

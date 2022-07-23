@@ -15,7 +15,6 @@ async function getResturantProducts(id) {
     const json = await resut.json();
     return json;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: error.message};
   }
 }

@@ -27,7 +27,6 @@ export default async function addProductToFavourite(id, dispatch) {
     }
     return result;
   } catch (err) {
-    console.log(err);
     return {status: 'Error', data: 'Error'};
   }
 }

@@ -12,10 +12,8 @@ export default async function getUSerActiveOrder() {
       requestOptions,
     );
     const data = await result.json();
-    console.log(data);
     return data;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: error};
   }
 }

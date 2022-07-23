@@ -13,30 +13,25 @@ const updateUser = async (
     let imageResult = '';
     if (changedImageFlag) {
       if (oldImage != '') {
-        console.log('delete image is called');
         var requestOptions = {
           method: 'DELETE',
           redirect: 'follow',
         };
 
         const reult = oldImage.split(API_URL);
-        console.log(API_URL + 'removeImage/' + reult[1]);
 
         const res = await fetch(
           API_URL + 'removeImage/' + reult[1],
           requestOptions,
         );
-        console.log(res);
       }
       if (image == undefined) {
         imageResult = '';
-        console.log('hellow');
       } else {
         imageResult = await imageUpload(image.responce);
         if (imageResult.status == 'Fail') {
           imageResult = '';
         } else {
-          console.log('imageResult', imageResult);
           imageResult = API_URL + imageResult.data.filename;
         }
       }
@@ -65,7 +60,6 @@ const updateUser = async (
     const json = await result.json();
     return json;
   } catch (error) {
-    console.log('error', error);
     return {status: 'Fail', message: error};
   }
 };

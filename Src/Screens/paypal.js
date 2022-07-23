@@ -5,7 +5,6 @@ import {WebView} from 'react-native-webview';
 function Screen() {
   function onMessage(e) {
     let data = e.nativeEvent.data;
-    console.log(data);
     let payment = JSON.parse(data);
     if (payment.status === 'COMPLETED') {
       alert('PAYMENT MADE SUCCESSFULLY!');

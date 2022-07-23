@@ -19,7 +19,6 @@ const imagePicker = (responce, setVideoORImageSourceArray, setImageChanged) => {
           });
         });
       } catch (err) {
-        console.log(err);
       }
     } else {
       ImagePicker.openPicker({
@@ -40,7 +39,6 @@ const imagePicker = (responce, setVideoORImageSourceArray, setImageChanged) => {
       });
     }
   } catch (err) {
-    console.log(err);
   }
 };
 

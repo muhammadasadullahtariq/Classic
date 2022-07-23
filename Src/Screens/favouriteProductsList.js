@@ -48,7 +48,6 @@ const Screen = ({route, navigation}) => {
     <View style={styles.mainContainer}>
       <TwoButtonAlert
         okOnPress={() => {
-          console.log('Ok is pressed');
           setShowAlert(false);
           dispatch(emptyCart());
           if (count > 0) {
@@ -60,7 +59,6 @@ const Screen = ({route, navigation}) => {
           }
         }}
         CancleOnPress={() => {
-          console.log('Cancel is pressed');
           setShowAlert(false);
         }}
         visible={showAlert}
@@ -79,7 +77,6 @@ const Screen = ({route, navigation}) => {
                 setSelectedItem(index);
                 refRBSheet.current.open();
                 setCount(0);
-                console.log(index);
               }}
             />
           )}

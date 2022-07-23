@@ -41,7 +41,6 @@ const screen = ({navigation}) => {
   }, [isFocused]);
 
   async function filterArray(title) {
-    console.log(title);
     setOption(title);
     if (title == 'Logout') {
       auth().signOut();
@@ -57,14 +56,12 @@ const screen = ({navigation}) => {
   async function fecthDataWithArgument(title) {
     setWaitingAlertFlag(true);
     const data = await getWasteData(global.id, title + ' Scrap');
-    console.log('data', data);
     setWaitingAlertFlag(false);
     setUserData(data.data.data);
   }
 
   async function getUserWasteData() {
     const data = await getWasteData(global.id);
-    console.log('data array', data);
     setWaitingAlertFlag(false);
     setUserData(data.data.data);
   }

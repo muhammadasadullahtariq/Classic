@@ -10,7 +10,6 @@ const Screen = ({route, navigation}) => {
   const {order} = route.params;
 
   useEffect(() => {
-    console.log(order, 'order stataus');
     global.visited = true;
   }, []);
 

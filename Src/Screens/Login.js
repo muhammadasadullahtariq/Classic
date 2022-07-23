@@ -47,7 +47,6 @@ const Screen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(auth().currentUser, 'current user');
     GoogleSignin.configure({
       scopes: ['email'],
       iosClientId:
@@ -60,8 +59,6 @@ const Screen = () => {
 
   const userHandeler = async googleId => {
     const user = await checkUserExist(googleId);
-    console.log(user);
-    console.log(auth().currentUser.email);
     if (user.status == 'Success') {
       global.user = user.data._id;
       dispatch(addUser(user.data));
@@ -123,7 +120,6 @@ const Screen = () => {
   }
 
   const buttonHandler = () => {
-    console.log('Button Clicked');
     setWaitingAlertFalg(true);
     auth()
       .signInWithEmailAndPassword(emailAddress, pin)
@@ -145,10 +141,8 @@ const Screen = () => {
           setAlertFlag(true);
           setAlertText('User not found');
         }
-        console.log(error);
         setAlertFlag(true);
         setAlertText('Unable to login, Please try Again!');
-        console.log(alertFlag);
       });
   };
 

@@ -15,10 +15,8 @@ const Screen = props => {
 
   const resturantDataHandeler = async () => {
     const result = await getNearByResturants();
-    console.log('resturantDataHandeler', result);
     if (result.status === 'Success') {
       setResturants(result.data);
-      console.log(result.data.length);
     }
   };
 

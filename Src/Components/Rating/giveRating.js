@@ -10,7 +10,7 @@ const screen = props => {
     <View style={styles.mainContainer}>
       <Rating
         type="custom"
-        onFinishRating={r => console.log(r)}
+        
         style={{paddingVertical: 10, alignSelf: 'flex-start', paddingLeft: 10}}
         tintColor="#cfcfcf"
         starContainerStyle={{backgroundColor: 'red'}}
@@ -30,7 +30,7 @@ const screen = props => {
           paddingTop: 10,
           paddingLeft: 10,
         }}
-        textHandler={s => console.log(s)}
+        textHandler={s =>{}}
       />
     </View>
   );

@@ -23,7 +23,6 @@ const postSupport = async (title, message) => {
     const json = await result.json();
     return json;
   } catch (error) {
-    console.log('error', error);
     return {status: 'Fail', message: error};
   }
 };

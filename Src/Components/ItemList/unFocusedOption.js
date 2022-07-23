@@ -11,7 +11,7 @@ const screen = props => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => console.log('i pressed')}>
+      >
       <View style={styles.mainContainer}>
         <View style={styles.childViewContainer}>
           <Icon name={props.iconName} color={primary} size={30} />

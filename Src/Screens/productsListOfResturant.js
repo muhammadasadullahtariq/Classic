@@ -45,8 +45,6 @@ const Screen = ({navigation, route}) => {
 
   const [selectedItem, setSelectedItem] = useState(0);
   useEffect(() => {
-    console.log('Hear am i');
-    console.log('id', id);
     productsHandler();
   }, []);
   const refRBSheet = useRef();
@@ -58,7 +56,6 @@ const Screen = ({navigation, route}) => {
   const productsHandler = async () => {
     const result = await getResturantProducts(id);
 
-    console.log('result of product', result);
     if (result.status === 'Success') {
       var data = result.data;
       if (data.image != '') {
@@ -75,7 +72,6 @@ const Screen = ({navigation, route}) => {
     <View style={styles.mainContainer}>
       <TwoButtonAlert
         okOnPress={() => {
-          console.log('Ok is pressed');
           setShowAlert(false);
           dispatch(emptyCart());
           if (count > 0) {
@@ -89,7 +85,6 @@ const Screen = ({navigation, route}) => {
           }
         }}
         CancleOnPress={() => {
-          console.log('Cancel is pressed');
           setShowAlert(false);
         }}
         visible={showAlert}
@@ -135,7 +130,6 @@ const Screen = ({navigation, route}) => {
               setSelectedItem(index);
               refRBSheet.current.open();
               setCount(0);
-              console.log(index);
             }}
           />
         )}
@@ -219,7 +213,6 @@ const Screen = ({navigation, route}) => {
               }
               refRBSheet.current.close();
             } else {
-              console.log('kiun nahi', showAlert);
               setShowAlert(true);
             }
           }}

@@ -14,7 +14,6 @@ const Screen = props => {
   const ordersHandler = async () => {
     const result = await getUserOrders();
     if (result.status === 'Success') {
-      console.log(result.data);
       setOrders(result.data);
     } else {
       Toast.show('some error occure try again', {

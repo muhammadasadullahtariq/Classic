@@ -47,7 +47,6 @@ const screen = props => {
                 <Pressable
                   onPress={() => {
                     props.itemPressed(item, props.array.indexOf(item));
-                    console.log(item);
                   }}>
                   <InfoText
                     text={item}

@@ -10,7 +10,6 @@ async function postOrder(
   billStatus,
 ) {
   try {
-    console.log(location);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -26,7 +25,6 @@ async function postOrder(
       billMethod: 'cash',
       billPaid: billStatus,
     });
-    console.log(raw);
 
     var requestOptions = {
       method: 'POST',
@@ -39,7 +37,6 @@ async function postOrder(
     const json = await result.json();
     return json;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: error.message};
   }
 }

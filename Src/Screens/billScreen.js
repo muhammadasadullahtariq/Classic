@@ -51,12 +51,10 @@ export default function PaymentScreen({route, navigation}) {
   const dispatch = useDispatch();
 
   const orderHandler = async () => {
-    console.log(restaurant, 'restaurant');
     var billStatus = false;
     if (selectedItem === 1) {
       billStatus = true;
     }
-    console.log(billStatus, 'billStatus');
     const result = await postOrder(
       location,
       products,
@@ -66,7 +64,6 @@ export default function PaymentScreen({route, navigation}) {
       totalPrice,
       arrray[selectedItem].status,
     );
-    console.log(result);
     if (result.status === 'Success') {
       global.visited = false;
       showToast('Order Placed Successfully');
@@ -76,11 +73,6 @@ export default function PaymentScreen({route, navigation}) {
   };
 
   useEffect(() => {
-    console.log(products);
-    console.log(totalPrice);
-    console.log(restaurant);
-    console.log(user);
-    console.log('user Location\t', user.location);
     setLocation(user.location);
     map.current.animateToRegion(user.location, 1000);
   }, []);
@@ -112,8 +104,6 @@ export default function PaymentScreen({route, navigation}) {
           ref={map}
           onDragEnd={e => {
             setLocation(e.nativeEvent.coordinate);
-            console.log(e.nativeEvent.coordinate);
-            console.log(location);
           }}
         />
       </MapView>
@@ -155,10 +145,8 @@ export default function PaymentScreen({route, navigation}) {
               marginVertical: 30,
             }}
             onCardChange={cardDetails => {
-              console.log('cardDetails', cardDetails);
             }}
             onFocus={focusedField => {
-              console.log('focusField', focusedField);
             }}
           />
           {Platform.OS != 'android' ? (

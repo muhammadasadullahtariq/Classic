@@ -18,7 +18,6 @@ async function getResturantReviews(id, page, limit) {
     const json = await result.json();
     return json;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: error.message};
   }
 }

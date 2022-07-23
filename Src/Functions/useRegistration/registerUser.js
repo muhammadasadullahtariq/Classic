@@ -15,37 +15,21 @@ const registerUser = async (
   try {
     var imageIssue;
     var imageResult;
-    console.log("image", image);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     if (image == undefined) {
       imageResult = '';
-      console.log('hellow');
     } else {
       //imageResult = await imageUpload(image);
-      console.log('hellow image');
       imageResult = await imageUpload(image.responce);
-      console.log('imageResult', imageResult);
       if (imageResult.status == 'Fail') {
         imageResult = '';
       } else {
-        console.log('imageResult', imageResult);
         imageResult = API_URL + imageResult.data.filename;
       }
     }
-    console.log(
-      'registerUser',
-      name,
-      email,
-      phone,
-      longitude,
-      latitude,
-      address,
-      deviceId,
-      image,
-      googleId,
-    );
+    
     var raw = JSON.stringify({
       name: name,
       email: email,
@@ -73,10 +57,8 @@ const registerUser = async (
 
     const result = await fetch(API_URL + 'addUser', requestOptions);
     const res = await result.json();
-    console.log('res', res);
     return res;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: 'Internal error occured'};
   }
 };

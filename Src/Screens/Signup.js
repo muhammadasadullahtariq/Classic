@@ -74,7 +74,6 @@ const Screen = ({navigation, route}) => {
   const userHandeler = async googleId => {
     setWaitingAlertFalg(true);
     setGoogleButtonFlag(false);
-    console.log('profile image : ', profileImage);
     const res = await registerUser(
       userName,
       emailAddress,
@@ -86,7 +85,6 @@ const Screen = ({navigation, route}) => {
       profileImage,
       googleId,
     );
-    console.log(res);
     setWaitingAlertFalg(false);
     if (res.status == 'Success') {
       global.user = res.data._id;

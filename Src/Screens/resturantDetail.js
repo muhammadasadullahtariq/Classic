@@ -63,7 +63,6 @@ const Screen = ({navigation, route}) => {
   };
 
   const mapMarkerHandler = () => {
-    console.log('i called');
     map.current.animateToRegion(
       {
         latitude: data.location.latitude,

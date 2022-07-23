@@ -45,7 +45,6 @@ const Screen = ({navigation, route}) => {
 
   useEffect(() => {
     if (user.image != '') {
-      console.log('asad', user.image);
       setProfileImage({uri: user.image});
     }
     setImageChanged(false);
@@ -61,7 +60,6 @@ const Screen = ({navigation, route}) => {
       imageChanged,
       oldImage,
     );
-    console.log(res);
     setWaitingAlertFalg(false);
     if (res.status === 'Success') {
       Toast.show('Profile Updated Successfully', {
@@ -73,7 +71,6 @@ const Screen = ({navigation, route}) => {
         delay: 0,
       });
       const user = await getUserById();
-      console.log(user, 'is user');
       if (user.status === 'Success') {
         dispatch(addUser(user.data));
       }

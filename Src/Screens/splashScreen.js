@@ -34,10 +34,7 @@ const Screen = () => {
         useNativeDriver: true,
       }),
     ]).start(() => {
-      console.log('user Status', userStatus);
-      console.log('done', userStatus);
       if (userStatus === 'Success') {
-        console.log('Calling my love', userStatus);
         Navigator.reset({
           index: 0, //the stack index
           routes: [
@@ -74,10 +71,8 @@ const Screen = () => {
       global.user = user.data._id;
       dispatch(addUser(user.data));
       userStatus = 'Success';
-      console.log('user Status', userStatus);
     } else {
       userStatus = 'Fail';
-      console.log('user Status', userStatus);
     }
   };
 

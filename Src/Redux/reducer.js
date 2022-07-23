@@ -7,15 +7,11 @@ function reducer(
   var list, indexOfProduct;
   switch (action.type) {
     case ActionTypes.ADD_PRODUCT:
-      console.log(state, 'state');
       list = state.products;
-      console.log(list, 'list');
-      console.log(action.product, 'Product here ');
       indexOfProduct = list.findIndex(
         product => product._id === action.product._id,
       );
       if (indexOfProduct === -1) {
-        console.log('Product not found');
         list.push({
           _id: action.product._id,
           name: action.product.name,
@@ -32,7 +28,6 @@ function reducer(
             state.totalPrice + action.product.price * action.product.quantity,
         }; // add new todo
       } else {
-        console.log('Product found');
         var totalPrice =
           state.totalPrice -
           list[indexOfProduct].price * list[indexOfProduct].quantity;
@@ -113,7 +108,6 @@ function reducer(
 
     case ActionTypes.ADD_PRODUCT_TO_FAVORITE:
       var list = state.user.favourties;
-      console.log(list, 'list');
       var indexOfProduct = list.indexOf(action.product);
       if (indexOfProduct === -1) {
         list.push(action.product);

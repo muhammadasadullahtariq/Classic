@@ -10,9 +10,8 @@ import messaging from '@react-native-firebase/messaging';
 export default function App() {
   useEffect(() => {
     requestUserPermission();
-    messaging().getToken().then(console.log);
      messaging().onMessage(message => {
-       console.log('Message recieved', message);
+       
      });
   }, []);
  
@@ -23,7 +22,6 @@ export default function App() {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
     if (enabled) {
-      console.log('Authorization status:', authStatus);
     }
   }
 

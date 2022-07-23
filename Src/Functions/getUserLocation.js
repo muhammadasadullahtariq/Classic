@@ -16,7 +16,6 @@ async function getLocation(setLocation) {
         },
       },
     });
-    console.log('permission', permission);
     if (!permission) {
       permission = await RNLocation.requestPermission({
         ios: 'whenInUse',
@@ -30,39 +29,30 @@ async function getLocation(setLocation) {
           },
         },
       });
-      console.log(permission);
       Geolocation.getCurrentPosition(
         position => {
-          console.log(position);
           setLocation(position.coords);
           updateUserLocation(position.coords);
         },
         error => {
           // See error code charts below.
-          console.log(error.code, error.message);
         },
         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     } else {
-      console.log('Here 7');
       Geolocation.getCurrentPosition(
         position => {
-          // console.log(
-          //   getWeaterData(position.coords.longitude, position.coords.latitude),
-          // );
+         
           setLocation(position.coords);
-          console.log(position);
           updateUserLocation(position.coords);
         },
         error => {
           // See error code charts below.
-          console.log(error.code, error.message);
         },
         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     }
   } catch (err) {
-    console.log(err);
   }
 }
 

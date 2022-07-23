@@ -3,8 +3,6 @@ import {API_URL} from '@env';
 import {API_CONFIG} from '@env';
 
 const registerUser = async googleId => {
-  console.log('i called with', googleId);
-  console.log('API_URL', API_URL);
   try {
     const response = await fetch(API_URL + 'checkUserExist/' + googleId, {
       method: 'GET',
@@ -15,12 +13,8 @@ const registerUser = async googleId => {
       },
     });
     const j = await response.json();
-    console.log('g g ', j);
-    console.log('now returning');
     return j;
   } catch (error) {
-    console.log('asad', error);
-    console.log('now returning');
     return 'User not found';
   }
 };

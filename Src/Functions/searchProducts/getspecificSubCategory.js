@@ -14,7 +14,6 @@ async function getSpecificSubCategory(category) {
     const json = await result.json();
     return json;
   } catch (error) {
-    console.log(error);
     return {status: 'Fail', message: error.message};
   }
 }

@@ -45,7 +45,6 @@ const Screen = ({navigation, route}) => {
   });
 
   useEffect(() => {
-    console.log(route);
     if (!global.visited) {
       activeOrderHandler();
     }
@@ -73,7 +72,6 @@ const Screen = ({navigation, route}) => {
     } else {
       result = await getRecentAddedProducts();
     }
-    console.log(result, 'result');
     if (result.status === 'Success') {
       setProducts(result.data);
     } else {
@@ -116,7 +114,7 @@ const Screen = ({navigation, route}) => {
           }}>
           <SearchBar
             placeHolder="Find Food"
-            onPress={() => console.log('i called')}
+            onPress={() => {}}
             mainContainer={{width: '85%'}}
           />
           <TouchableOpacity

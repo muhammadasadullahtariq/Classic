@@ -29,7 +29,6 @@ const Screen = props => {
   );
 
   useEffect(() => {
-    console.log(props.index, 'asad ullah');
   }, []);
 
   const handelFavouriteButton = async () => {
@@ -60,7 +59,6 @@ const Screen = props => {
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => {
-                console.log('Liked button pressed');
                 handelFavouriteButton();
               }}>
               {favouriteFalg && (

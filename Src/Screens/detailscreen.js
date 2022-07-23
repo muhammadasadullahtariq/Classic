@@ -30,14 +30,12 @@ const Screen = ({route, navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(item);
   }, []);
 
   return (
     <SafeAreaProvider style={styles.mainContainer}>
       <TwoButtonComponent
         okOnPress={() => {
-          console.log('Ok is pressed');
           setShowAlert(false);
           dispatch(emptyCart());
           if (count > 0) {
@@ -49,7 +47,6 @@ const Screen = ({route, navigation}) => {
           }
         }}
         CancleOnPress={() => {
-          console.log('Cancel is pressed');
           setShowAlert(false);
         }}
         visible={showAlert}
@@ -155,13 +152,9 @@ const Screen = ({route, navigation}) => {
                 showToast('Product removed from cart');
               }
             } else {
-              console.log('resturant is not same', showAlert);
               setShowAlert(true);
             }
-            // console.log('Add to cart');
-            // //console.log(product);
-            // dispatch(addProduct({...item, quantity: count}));
-            //console.log(product);
+           
           }}
         />
       </ScrollView>

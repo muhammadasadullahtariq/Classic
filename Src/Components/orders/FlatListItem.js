@@ -2,42 +2,22 @@ import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
 import HeaderText from '../Global/headerText';
 import Text from '../Global/normalText';
 import primary from '../../Constants/Colors';
-import Icon from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
-import handelFavourite from '../../Functions/global/handelFavourite';
-import checkProductExistInFavourite from '../../Functions/global/checkProductExistInFavourite';
-import {useDispatch} from 'react-redux';
-
 const PrimaryColor = primary;
 const windowWidth = Dimensions.get('window').width;
 
 const Screen = props => {
-  const navgation = useNavigation();
-  const dispatch = useDispatch();
+ 
   useEffect(() => {
-    //console.log(props.item.products, 'asad ullah');
-    //console.log(props.index, 'asad ullah');
+    
   }, []);
-  const [count, setCount] = useState(0);
-  // const [favouriteFalg, setFavouriteFalg] = useState(
-  //   checkProductExistInFavourite(props.item._id),
-  // );
 
-  // const handelFavouriteButton = async () => {
-  //   await handelFavourite(
-  //     favouriteFalg,
-  //     setFavouriteFalg,
-  //     props.item._id,
-  //     dispatch,
-  //   );
-  // };
+  
 
   return (
     <TouchableOpacity

@@ -2,8 +2,6 @@ import {API_URL} from '@env';
 import {Platform} from 'react-native';
 
 const imageUpload = async imageSur => {
-  //var bearer = 'Bearer ' + localStorage.getItem('accessToken');
-  //console.log('i called with', imageSur);
   var uri = Platform.OS == 'ios' ? imageSur.sourceURL : imageSur.path;
   var image = {};
   image.uri = uri;
