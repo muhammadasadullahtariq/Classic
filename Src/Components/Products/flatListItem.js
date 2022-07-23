@@ -126,7 +126,7 @@ const Screen = props => {
           </View>
         </View>
         <Image
-          source={props.item.image == '' ? image : {url: props.item.image}}
+          source={props.item.image == '' ? image : {uri: props.item.image}}
           style={styles.imageContainer}
         />
       </View>

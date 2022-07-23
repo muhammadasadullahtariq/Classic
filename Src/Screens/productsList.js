@@ -30,7 +30,7 @@ const windowHeight = Dimensions.get('window').height;
 const Screen = ({route, navigation}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const refRBSheet = useRef();
-  const [products, setProducts] = useState(recentlyAdded);
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
@@ -88,7 +88,7 @@ const Screen = ({route, navigation}) => {
               }}
             />
           )}
-          keyExtractor={(item, index) => +item.key}
+          keyExtractor={(item, index) => item._id}
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

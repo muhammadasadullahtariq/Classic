@@ -139,7 +139,7 @@ const Screen = ({navigation, route}) => {
             }}
           />
         )}
-        keyExtractor={(item, index) => +item.key}
+        keyExtractor={(item, index) => item._id}
       />
       <RBSheet
         ref={refRBSheet}

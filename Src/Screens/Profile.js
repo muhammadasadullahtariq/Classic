@@ -52,8 +52,10 @@ const Screen = props => {
       <View style={styles.profileContainer}>
         <Image source={profileImage} style={styles.imageContainer} />
         <View style={{justifyContent: 'center', marginLeft: 10}}>
-          <HeaderText text={user.name} />
-          <Text text={'@AUT008'} />
+          <HeaderText
+            text={'@' + user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+          />
+          {/* <Text text={'@AUT008'} /> */}
         </View>
       </View>
       <View style={{height: 10, width: '100%'}} />
@@ -103,6 +105,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     resizeMode: 'contain',
+    backgroundColor: COLORS.primary,
   },
   profileContainer: {marginTop: 20, marginLeft: 0, flexDirection: 'row'},
 });

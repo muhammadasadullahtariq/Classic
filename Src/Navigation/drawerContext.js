@@ -16,6 +16,9 @@ import profile from '../assets/Images/defaulProfileImage.png';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
+import * as COLORS from '../Constants/Colors';
+import HeaderText from '../Components/Global/headerText';
+import {Header} from 'react-native/Libraries/NewAppScreen';
 
 export default function DrawerContent(props) {
   const user = useSelector(state => state.user);
@@ -30,13 +33,32 @@ export default function DrawerContent(props) {
 
   return (
     <View style={{flex: 1}}>
-      <DrawerContentScrollView {...props}>
-        <View style={styles.drawerContent}>
+      <DrawerContentScrollView
+        {...props}
+        contentContainerStyle={{flex: 1}}
+        style={{backgroundColor: COLORS.primary, flex: 1}}>
+        <View style={[styles.drawerContent]}>
           <View style={styles.userInfoSection}>
-            <View style={{flexDirection: 'row'}}>
+            <View
+              style={{
+                backgroundColor: COLORS.primary,
+                paddingLeft: 20,
+              }}>
               <Image
                 source={profileImage}
-                style={{width: '100%', height: 400, marginTop: -50,resizeMode: 'contain'}}
+                style={{
+                  width: 100,
+                  height: 100,
+                  resizeMode: 'contain',
+                  borderRadius: 50,
+                  backgroundColor: COLORS.white,
+                }}
+              />
+              <HeaderText
+                text={
+                  '@' + user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                }
+                style={{paddingLeft: 20}}
               />
             </View>
           </View>
@@ -71,6 +93,8 @@ export default function DrawerContent(props) {
             />
           </Drawer.Section>
         </View>
+        <View style={{flex: 1, backgroundColor: COLORS.white}} />
+        <View />
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
@@ -90,9 +114,11 @@ export default function DrawerContent(props) {
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1,
+    backgroundColor: COLORS.white,
   },
-  userInfoSection: {},
+  userInfoSection: {
+    //backgroundColor: 'red',
+  },
   title: {
     fontSize: 16,
     marginTop: 3,

@@ -32,7 +32,7 @@ const Screen = props => {
           renderItem={items => <FlatListItem item={items.item} />}
           //numColumns={columnNum}
           // key={columnNum}
-          keyExtractor={(item, index) => +item.key}
+          keyExtractor={(item, index) => item._id}
           style={{marginTop: 10, marginHorizontal: 10}}
         />
       ) : (

@@ -114,7 +114,7 @@ function Navigation() {
         <Stack.Screen
           name="ResturantList"
           component={Resturant}
-          options={{headerShown: true}}
+          options={{headerShown: true, headerTitle:"Restaurants"}}
         />
         <Stack.Screen
           name="ProductListOfResturant"
@@ -124,7 +124,7 @@ function Navigation() {
         <Stack.Screen
           name="ProductList"
           component={ProductsList}
-          options={{headerShown: true}}
+          options={{headerShown: true, headerTitle: 'Products'}}
         />
 
         <Stack.Screen

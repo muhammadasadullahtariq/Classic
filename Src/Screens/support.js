@@ -57,7 +57,7 @@ const Screen = props => {
           }
         }}
         viewStyle={{width: '95%', marginTop: 20}}
-        style={{textAlign: 'left'}}
+        style={{textAlign: 'left',  paddingLeft: 10}}
       />
       <TextInput
         placeHolder={'Enter message'}
@@ -73,7 +73,7 @@ const Screen = props => {
           }
         }}
         viewStyle={{height: 200, width: '95%', marginTop: 20}}
-        style={{textAlign: 'left'}}
+        style={{textAlign: 'left', paddingTop: 10, paddingLeft: 10}}
       />
       <Button
         text={'Send'}

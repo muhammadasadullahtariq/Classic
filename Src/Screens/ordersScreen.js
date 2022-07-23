@@ -35,7 +35,7 @@ const Screen = props => {
           renderItem={({item, index}) => (
             <FlatListItem item={item} index={index} />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

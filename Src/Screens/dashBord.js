@@ -4,7 +4,6 @@ import {
   View,
   FlatList,
   Dimensions,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -18,7 +17,6 @@ import HeaderText from '../Components/Global/headerText';
 import TopCardView from '../Components/DashBoard/topCardView';
 import LeftCardView from '../Components/DashBoard/leftCardView';
 import RightCardView from '../Components/DashBoard/rightCardView';
-import {recentlyAdded} from '../Data/products.js';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useIsFocused} from '@react-navigation/native';
 import getUserLocation from '../Functions/getUserLocation';

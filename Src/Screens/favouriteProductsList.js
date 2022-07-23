@@ -29,16 +29,7 @@ const Screen = ({route, navigation}) => {
   const [showAlert, setShowAlert] = useState(false);
   const resturant = useSelector(state => state.resturant);
   const [products, setProducts] = useState([
-    {
-      image: productImage,
-      price: '3000',
-      name: 'Burger',
-      key: '0',
-      rating: 4.5,
-      price: 45,
-      detail: 'Delight pizza with souce and onion',
-      about: 'Short detail',
-    },
+   
   ]);
   const [count, setCount] = useState(0);
 
@@ -92,7 +83,7 @@ const Screen = ({route, navigation}) => {
               }}
             />
           )}
-          keyExtractor={(item, index) => +item.key}
+          keyExtractor={(item, index) => item._id}
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
