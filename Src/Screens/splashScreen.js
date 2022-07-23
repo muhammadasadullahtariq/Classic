@@ -41,23 +41,13 @@ const Screen = () => {
             {name: 'Home', params: {userRegistered: false}}, //to go to initial stack screen
           ],
         });
-        // Navigator.reset({
-        //   routes: [
-        //     {name: 'Home', params: {user: user.data, userRegistered: false}},
-        //   ],
-        // });
+       
       } else {
         Navigator.reset({
           routes: [
             {
               name: 'SignIn',
-              // params: {
-              //   user: false,
-              //   email:
-              //     auth().currentUser != null ? auth().currentUser.email : null,
-              //   googleId:
-              //     auth().currentUser != null ? auth().currentUser.uid : null,
-              // },
+             
             },
           ],
         });
